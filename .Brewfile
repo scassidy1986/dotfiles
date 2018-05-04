@@ -13,6 +13,7 @@ cask "iterm2"
 
 # Shell
 brew "zsh"
+brew "zplug"
 brew "zsh-completions"
 
 # Tools

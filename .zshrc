@@ -16,7 +16,17 @@ ENABLE_CORRECTION="true"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git github gradle jira brew osx zsh-syntax-highlighting docker docker-compose)
+plugins=(
+    git 
+    github 
+    gradle 
+    jira 
+    brew 
+    osx 
+    zsh-syntax-highlighting 
+    docker 
+    docker-compose
+)
 
 source $ZSH/oh-my-zsh.sh
 
