@@ -1,42 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 system_type=$(uname -s)
 
 if [ "${system_type}" = "Darwin" ]; then
-    # install homebrew if it's missing
-    if ! command -v brew >/dev/null 2>&1; then
-        echo "Installing homebrew"
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-
-    if [ -f "${HOME}/.Brewfile" ]; then
-        echo "Updating homebrew bundle"
-        brew bundle --global
-    fi
-
-    if command -v vim >/dev/null 2>&1; then
-        echo "Bootstraping Vim"
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null 2>&1
-        vim '+PlugClean!' '+PlugUpdate' '+qall'
-    fi
-
-    if [ -f "${HOME}/.iterm2/com.googlecode.iterm2.plist" ]; then
-        echo "Setting iTerm2 preferences"
-        defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.iterm2/"
-        defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-    fi
-    
-    if command -v zsh >/dev/null 2>&1; then
-        echo "Installing oh-my-zsh"
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" >/dev/null 2>&1
-    fi
-
-    if [ -d "${HOME}/.customfonts" ]; then
-        echo "Installing additional fonts"
-        fonts_dir="${HOME}/.customfonts/*.ttf"
-        for font_filename in ${fonts_dir}; do
-            echo "> Installing ${font_filename}"
-            cp ${font_filename} ~/Library/Fonts/
-        done
-    fi
+  setup/install-homebrew.sh
+  setup/install-vim.sh
+  setup/install-zsh.sh
+  setup/install-fonts.sh
+  setup/install-iterm2.sh
 fi
