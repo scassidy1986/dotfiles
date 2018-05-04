@@ -1,3 +1,5 @@
+cask_args appdir: "/Applications"
+
 tap "homebrew/core"
 tap "homebrew/bundle"
 tap "homebrew/services"
@@ -7,6 +9,7 @@ tap "caskroom/cask"
 cask "alfred"
 cask "caffeine"
 cask "spectacle"
+cask "iterm2"
 
 # Shell
 brew "zsh"
