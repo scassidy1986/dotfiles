@@ -1,9 +1,14 @@
 #!/usr/bin/env sh
 
-is_linux () {
+function is_linux () {
   [[ $('uname') == 'Linux' ]];
 }
 
-is_osx () {
+function is_osx () {
   [[ $('uname') == 'Darwin' ]]
 }
+
+function cd() {
+    builtin cd "$@" && ll
+}
+

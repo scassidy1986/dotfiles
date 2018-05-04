@@ -1,3 +1,13 @@
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "caskroom/versions"
+tap "caskroom/cask"
+
+cask "alfred"
+cask "caffeine"
+cask "spectacle"
+
 # Shell
 brew "zsh"
 brew "zsh-completions"
@@ -14,4 +24,5 @@ brew "rbenv"
 brew "nodenv"
 
 # Misc
+brew "yadm"
 brew "openssl"
