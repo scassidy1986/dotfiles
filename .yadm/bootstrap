@@ -30,4 +30,13 @@ if [ "${system_type}" = "Darwin" ]; then
         echo "Installing oh-my-zsh"
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" >/dev/null 2>&1
     fi
+
+    if [ -d "${HOME}/.customfonts" ]; then
+        echo "Installing additional fonts"
+        fonts_dir="${HOME}/.customfonts/*.ttf"
+        for font_filename in ${fonts_dir}; do
+            echo "> Installing ${font_filename}"
+            cp ${font_filename} ~/Library/Fonts/
+        done
+    fi
 fi
