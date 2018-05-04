@@ -20,9 +20,9 @@ if [ "${system_type}" = "Darwin" ]; then
         vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
     fi
 
-    if [ -f "${HOME}/.yadm/iterm2/com.googlecode.iterm2.plist" ]; then
+    if [ -f "${HOME}/.iterm2/com.googlecode.iterm2.plist" ]; then
         echo "Setting iTerm2 preferences"
-        defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.yadm/iterm2/"
+        defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.iterm2/"
         defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
     fi
 fi
