@@ -20,6 +20,8 @@ brew "zsh-completions"
 brew "watch"
 brew "tree"
 brew "jq"
+brew "curl"
+brew "wget"
 
 # Environment managers
 brew "pyenv"
