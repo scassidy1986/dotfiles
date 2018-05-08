@@ -8,4 +8,5 @@ if [ "${system_type}" = "Darwin" ]; then
   setup/install-zsh.sh
   setup/install-fonts.sh
   setup/install-iterm2.sh
+  setup/install-openjdk.sh
 fi
