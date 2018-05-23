@@ -1,7 +1,7 @@
 # Source common utils etc
-test -f .env.sh && source .env.sh
-test -f .shell-aliases.sh && source .shell-aliases.sh
-test -f .shell-functions.sh && source .shell-functions.sh
+test -f ~/.env.sh && source ~/.env.sh
+test -f ~/.shell-aliases.sh && source ~/.shell-aliases.sh
+test -f ~/.shell-functions.sh && source ~/.shell-functions.sh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
