@@ -1,5 +1,6 @@
-# History
-HIST_STAMPS="dd/mm/yyyy"
+X#!/usr/bin/env sh
+
+HIST_STAMPS="%d/%m/%Y %T"
 HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 HISTSIZE=100000                   # big big history
 HISTFILESIZE=100000               # big big history
