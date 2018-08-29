@@ -1,4 +1,4 @@
-X#!/usr/bin/env sh
+#!/usr/bin/env sh
 
 HIST_STAMPS="%d/%m/%Y %T"
 HISTCONTROL=ignoredups:erasedups  # no duplicate entries
