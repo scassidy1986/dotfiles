@@ -26,6 +26,7 @@ plugins=(
     zsh-syntax-highlighting 
     docker 
     docker-compose
+    kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
