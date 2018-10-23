@@ -1,24 +1,20 @@
 #!/usr/bin/env sh
 
 system_type=$(uname -s)
+brewfile_suffix=""
 
 # install homebrew if it's missing
 if [[ ${system_type} == "Darwin" ]]; then
+  brewfile_suffix="mac"
 
-  # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
     echo "> Installing homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   else
     echo "> Homebrew installed"
   fi
-
-  echo "> brew bundle"
-  brew tap homebrew/bundle
-  brew bundle --file="${HOME}/.Brewfile.mac"
-fi
-
-if [[ ${system_type} == "Linux" ]]; then
+elif [[ ${system_type} == "Linux" ]]; then
+  brewfile_suffix="linux"
 
   if ! command -v brew >/dev/null 2>&1; then
     echo "> Installing homebrew"
@@ -28,9 +24,8 @@ if [[ ${system_type} == "Linux" ]]; then
   fi
   test -d ~/.linuxbrew && PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
   test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
-
-  echo "> brew bundle"
-  brew tap homebrew/bundle
-  brew bundle --file="${HOME}/.Brewfile.linux"
 fi
 
+echo "> brew bundle"
+brew tap homebrew/bundle
+brew bundle --file="${HOME}/.Brewfile.${brewfile_suffix}"

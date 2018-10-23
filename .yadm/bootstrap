@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
 system_type=$(uname -s)
-cwd=${PWD}
+cwd="${HOME}/.yadm"
 
 if [ "${system_type}" = "Darwin" ]; then
-    setup_scripts=$(ls setup/ | sort -n -t _ -k 2)
+    setup_scripts=$(ls ${cwd}/setup/ | sort -n -t _ -k 2)
     echo "Found ${#setup_scripts[*]} setup scripts"
     for file in ${setup_scripts}
     do
       echo "> Executing ${file} ..."
       . ${cwd}/setup/${file}
-      echo "> Done!"
+      echo "> Finishing executing ${file}: Exit ${?}"
     done
 fi
