@@ -22,6 +22,7 @@ brew "tree"
 brew "jq"
 brew "curl"
 brew "wget"
+brew "htop"
 
 # Environment managers
 brew "pyenv"
