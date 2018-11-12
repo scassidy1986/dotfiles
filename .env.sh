@@ -7,7 +7,6 @@ HISTFILESIZE=100000               # big big history
 
 if which jenv >/dev/null 2>&1; then
   export PATH="$HOME/.jenv/bin:$PATH"
-  echo "Setting PATH to ${PATH}"
   eval "$(jenv init -)"
 fi
 if which pyenv >/dev/null 2>&1; then
