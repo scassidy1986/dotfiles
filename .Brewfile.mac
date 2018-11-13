@@ -10,6 +10,8 @@ cask "alfred"
 cask "caffeine"
 cask "spectacle"
 cask "iterm2"
+cask "atom"
+cask "visual-studio-code"
 
 # Shell
 brew "zsh"
