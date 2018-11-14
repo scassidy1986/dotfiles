@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Updates the branch.
+#
+# Updates to the specified branch, or if no branch given,
+# the current working branch.
+#
+
+current_branch=${1}
+if [ -z "${current_branch}" ]; then
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+fi
+echo "Updating to branch [${current_branch}]"
+git fetch -p && git checkout ${current_branch} && git pull && git-clean-branches ${current_branch} && git-up
+
