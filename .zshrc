@@ -27,6 +27,9 @@ plugins=(
     docker 
     docker-compose
     kubectl
+    jenv
+    pyenv
+    rbenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -51,3 +54,6 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

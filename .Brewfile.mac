@@ -13,6 +13,9 @@ cask "iterm2"
 cask "atom"
 cask "visual-studio-code"
 
+cask "vagrant"
+cask "virtualbox"
+
 # Shell
 brew "zsh"
 brew "zplug"
