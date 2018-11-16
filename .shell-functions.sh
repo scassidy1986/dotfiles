@@ -9,6 +9,6 @@ function is_osx () {
 }
 
 function cd() {
-    builtin cd "$@" && ll
+    builtin cd "$@" && ll 
 }
 

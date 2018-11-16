@@ -1,10 +1,5 @@
 #!/usr/bin/env sh
 
-HIST_STAMPS="%d/%m/%Y %T"
-HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-HISTSIZE=100000                   # big big history
-HISTFILESIZE=100000               # big big history
-
 if which jenv >/dev/null 2>&1; then
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"

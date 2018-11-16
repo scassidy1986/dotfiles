@@ -6,22 +6,13 @@ tap "homebrew/services"
 tap "caskroom/versions"
 tap "caskroom/cask"
 
-cask "alfred"
-cask "caffeine"
-cask "spectacle"
-cask "iterm2"
-cask "atom"
-cask "visual-studio-code"
-
-cask "vagrant"
-cask "virtualbox"
-
 # Shell
 brew "zsh"
 brew "zplug"
 brew "zsh-completions"
 
 # Tools
+brew "coreutils"
 brew "watch"
 brew "tree"
 brew "jq"
@@ -38,3 +29,12 @@ brew "nodenv"
 # Misc
 brew "yadm"
 brew "openssl"
+
+cask "alfred"
+cask "caffeine"
+cask "spectacle"
+cask "iterm2"
+cask "atom"
+cask "visual-studio-code"
+cask "vagrant"
+cask "virtualbox"
