@@ -11,5 +11,5 @@ if [ -z "${current_branch}" ]; then
     current_branch=$(git rev-parse --abbrev-ref HEAD)
 fi
 echo "Updating to branch [${current_branch}]"
-git fetch -p && git checkout ${current_branch} && git pull && git-clean-branches ${current_branch} && git-up
+git fetch -p && git checkout ${current_branch} && git pull && git-clean-branches ${current_branch} && git up
 
