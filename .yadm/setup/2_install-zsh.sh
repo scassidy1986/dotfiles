@@ -3,8 +3,8 @@
 if command -v zsh >/dev/null 2>&1; then
   echo "Installing oh-my-zsh"
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" >/dev/null 2>&1
-  ln -s ../.oh-my-zsh/ ~/.oh-my-zsh/
-  ln -s ../.zshrc ~/.zshrc
+  ln -nfs ../.oh-my-zsh/ ~/.oh-my-zsh/
+  ln -nfs ../.zshrc ~/.zshrc
   source ~/.zshrc
 else
   echo "zsh not found"
