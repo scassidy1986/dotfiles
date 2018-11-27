@@ -73,6 +73,7 @@ setopt hist_ignore_all_dups
 #  + Aliases
 #  +----------------------------------------+
 alias zshconfig="vim ~/.zshrc"
+alias zshconfig_reload=". ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
 alias ll="ls -lthrG"
