@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 
+source .helpers
+
 if which rbenv >/dev/null 2>&1; then
   system_type=$(uname -s)
   cwd="${HOME}/.yadm"
 
-  versions=("2.2.6" "2.3.3" "2.4.0" "2.4.1")
+  versions=($(read_file_to_array ".rbenv_versions"))
   for version in ${versions[@]}; do
     echo "Installing ruby ${version}"
 

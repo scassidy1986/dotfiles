@@ -341,11 +341,11 @@
 				<real>0.027450980392156862</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
-			<string>No</string>
+			<string>Recycle</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>

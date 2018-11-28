@@ -4,7 +4,7 @@ system_type=$(uname -s)
 cwd="${HOME}/.yadm"
 
 if [ "${system_type}" = "Darwin" ]; then
-    setup_scripts=$(ls ${cwd}/setup/ | sort -n -t _ -k 2)
+    setup_scripts=$(ls ${cwd}/setup/*.sh | sort -n -t _ -k 2)
     echo "Found ${#setup_scripts[*]} setup scripts"
     for file in ${setup_scripts}
     do

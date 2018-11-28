@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+function read_file_to_array() {
+    local file=${1}
+    declare -a v
+    let i=0
+    while IFS=$'\n' read -r line; do
+      v[i]="${line}"
+      ((++i))
+    done < ${file}
+    echo "${v[@]}"
+}
