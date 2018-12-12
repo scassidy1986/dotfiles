@@ -56,6 +56,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+test -f ~/.powerline && source ~/.powerline
 #    +----------------------------------------+
 #    + Options
 #    +----------------------------------------+
