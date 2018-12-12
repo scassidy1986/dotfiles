@@ -70,7 +70,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>224 297 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 675 570 352 0 0 1680 1027 </string>
+	<string>0 0 1680 1027 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-1150 1749 585 352 -1150 1050 1920 1057 </string>
 	<key>New Bookmarks</key>
@@ -687,11 +687,11 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>SpaceMonoForPowerline-Regular 12</string>
+			<string>SourceCodeProForPowerline-Regular 12</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SourceCodeProForPowerline-Regular 11</string>
+			<string>RobotoMonoForPowerline-Regular 11</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>

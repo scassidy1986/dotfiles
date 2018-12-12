@@ -19,6 +19,6 @@ git clone https://github.com/powerline/fonts.git ${fonts_tmp} > /dev/null 2>&1
 /bin/bash ${fonts_tmp}/install.sh
 rm -rf ${fonts_tmp}
 
-ln -nfs ~/.yadm/setup/.powerline ~/.powerline
+ln -nfs "${HOME}/.yadm/.powerline" "${HOME}/.powerline"
 
 echo "Done!"
