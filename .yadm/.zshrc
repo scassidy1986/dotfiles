@@ -14,7 +14,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 export ZSH_CUSTOM="/Users/$(whoami)/.yadm/.oh-my-zsh/custom/"
 
-ZSH_THEME="scassidy"
+#ZSH_THEME="scassidy"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"

@@ -5,6 +5,7 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "caskroom/versions"
 tap "caskroom/cask"
+tap "sambadevi/powerlevel9k"
 
 # Shell
 brew "zsh"
@@ -29,6 +30,7 @@ brew "nodenv"
 # Misc
 brew "yadm"
 brew "openssl"
+brew "powerlevel9k"
 
 cask "alfred"
 cask "caffeine"
