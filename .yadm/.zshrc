@@ -48,12 +48,14 @@ plugins=(
     jenv
     pyenv
     rbenv
+    tfenv
     terraform
     vagrant
     virtualbox
 )
 
 source $ZSH/oh-my-zsh.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # User configuration
 test -f ~/.powerline && source ~/.powerline
