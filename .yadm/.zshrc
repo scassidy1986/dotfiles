@@ -36,22 +36,16 @@ setopt promptsubst
 
 plugins=(
     git 
-    github 
-    gradle 
-    jira 
     brew 
     osx 
     zsh-syntax-highlighting 
     docker 
-    docker-compose
     kubectl
     jenv
     pyenv
     rbenv
     tfenv
     terraform
-    vagrant
-    virtualbox
 )
 
 source $ZSH/oh-my-zsh.sh
