@@ -10,6 +10,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export GOPATH="${HOME}/go:${HOME}/go/bin"
+export PATH="${PATH}:${GOPATH}"
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 export ZSH_CUSTOM="/Users/$(whoami)/.yadm/.oh-my-zsh/custom/"
@@ -94,3 +97,7 @@ alias ls="ls -G"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+autoload -U +X bashcompinit && bashcompinit
+
+fpath=(/usr/local/share/zsh-completions $fpath)
