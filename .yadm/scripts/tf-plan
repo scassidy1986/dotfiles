@@ -20,5 +20,5 @@ echo " plan file  [${out_file}]"
 echo " arguments  [${@}]"
 echo " terraform plan -out=${out_file} ${@}"
 
-#terraform plan -out ${out_file} ${@}
+terraform plan -out ${out_file} ${@}
 echo "Done!"
