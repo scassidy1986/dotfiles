@@ -28,3 +28,22 @@ function clean_path () {
   fi
 }
 
+function _export_kubeconfig () {
+  PS3="Select a kube config: "
+  files=($(ls -1 ${HOME}/.kube/*.kubeconfig | xargs -n 1 basename))
+  select konfig in "${files[@]}" "Quit";
+  do
+    if [ "${konfig}" = "Quit" ]; then
+      return 0
+    fi
+    konfig_file="${HOME}/.kube/${konfig}"
+    if [ ! -e "${konfig_file}" ]; then
+      echo "Kube config for ${konfig} not found (${konfig_file})"
+      return 1
+    fi
+    echo "Setting Kubectl config to '${konfig}'"
+    export KUBECONFIG=${konfig_file}
+    echo " > KUBECONFIG ${KUBECONFIG}"
+    return 0
+  done
+}
