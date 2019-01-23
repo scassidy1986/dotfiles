@@ -1,0 +1,10 @@
+#!/bin/bash
+
+branches=$(git branch -r | grep -v '\~>' | grep -v 'master')
+branches=$(echo "${branches}" | xargs -n1 echo)
+echo "${branches}" | while read branch; do
+    echo "Updating branch [${branch}]"
+    git branch --track "${branch#origin/}" "${branch}"
+done
+git fetch --all --prune
+git pull --all

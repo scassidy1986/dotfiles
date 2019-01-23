@@ -34,6 +34,7 @@ plugins=(
     brew 
     osx 
     kubectl
+    helm
     jenv
     pyenv
     rbenv
@@ -89,5 +90,4 @@ fpath=(
     "${fpath[@]}"
 )
 
-
-export
+clean_path
