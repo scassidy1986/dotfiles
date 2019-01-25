@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
 
 # aliases
-alias ll="ls -lthr"
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# brew
+alias brew-update="brew update && brew outdated"
+alias brew-bundle="brew bundle --file=~/.Brewfile -v"
 
 alias netstat-listen="netstat -atunlp"
 

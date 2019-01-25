@@ -72,13 +72,14 @@ setopt hist_ignore_all_dups
 #  +----------------------------------------+
 #  + Aliases
 #  +----------------------------------------+
+alias ll="ls -lthrG"
+alias ls="ls -G"
+
 alias zshconfig="vim ~/.zshrc"
 alias zshconfig_reload=". ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
-alias ll="ls -lthrG"
-alias ls="ls -G"
-
+# To try and make auto-complete a bit faster...
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit

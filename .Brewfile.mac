@@ -21,6 +21,7 @@ brew "jq"
 brew "curl"
 brew "wget"
 brew "htop"
+brew "gnu-getopt"
 
 # Environment managers
 brew "pyenv"
