@@ -90,4 +90,6 @@ fpath=(
     "${fpath[@]}"
 )
 
+export PATH="/usr/local/opt/gnu-getopt/bin:${PATH}"
+
 clean_path
