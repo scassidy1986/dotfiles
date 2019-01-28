@@ -1,11 +1,20 @@
 ZSH_DISABLE_COMPFIX="true"
 
+function _source () {
+  if [ -e ${1} ]; then
+    echo "Sourcing file [${1}]..."
+    source ${1}
+  else
+    echo "File ${1} does not exist, nothing to source"
+  fi
+}
+
 # Source common utils etc
-test -f ~/.env.sh && source ~/.env.sh
-test -f ~/.shell-aliases.sh && source ~/.shell-aliases.sh
-test -f ~/.shell-functions.sh && source ~/.shell-functions.sh
-test -f ~/.more-shell-aliases.sh && source ~/.more-shell-aliases.sh
-test -f ~/.more-shell-functions.sh && source ~/.more-shell-functions.sh
+_source ~/.env.sh
+_source ~/.shell-aliases.sh
+_source ~/.shell-functions.sh
+_source ~/.more-shell-aliases.sh 
+_source ~/.more-shell-functions.sh 
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -68,16 +77,6 @@ export HISTSIZE=2000
 export HISTFILE="${HOME}/.history"
 export SAVEHIST=${HISTSIZE}
 setopt hist_ignore_all_dups
-
-#  +----------------------------------------+
-#  + Aliases
-#  +----------------------------------------+
-alias ll="ls -lthrG"
-alias ls="ls -G"
-
-alias zshconfig="vim ~/.zshrc"
-alias zshconfig_reload=". ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
 
 # To try and make auto-complete a bit faster...
 autoload -Uz compinit
