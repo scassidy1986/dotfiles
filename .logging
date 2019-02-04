@@ -16,19 +16,22 @@ CYAN="\033[0;36m"
 WHITE="\033[1;37m"
 NONE="\033[0m"
 
+PADDING="      "
+
 function _log () {
-  timestamp=$(date +"%d-%m-%Y %H:%M:%S")
+  time=$(date +"%d-%m-%Y %H:%M:%S")
+  timestamp="${BLUE}${time}${NONE}"
   case "${1}" in 
     INFO)
-      level="${GREEN}${1}${NONE}"
+      level="${GREEN}${PADDING:${#1}}${1}${NONE}"
       message="${2}"
       ;;
     WARN)
-      level="${YELLOW}${1}${NONE}"
+      level="${YELLOW}${PADDING:${#1}}${1}${NONE}"
       message="${2}"
       ;;
     ERROR)
-      level="${RED}${1}${NONE}"
+      level="${RED}${PADDING:${#1}}${1}${NONE}"
       message="${LIGHTRED}${2}${NONE}"
       ;;
   esac
