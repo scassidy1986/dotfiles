@@ -15,4 +15,4 @@ alias netstat-listen="netstat -atunlp"
 
 # friendly names
 alias export-kubeconfig="_export_kubeconfig"
-
+alias tf-workspace="_tf_workspace"
