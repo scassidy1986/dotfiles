@@ -1,7 +1,7 @@
 ZSH_DISABLE_COMPFIX="true"
 
 function _source () {
-  if [ -e ${1} ]; then
+  if [[ -f ${1} && -r ${1} ]]; then
     echo "Sourcing file [${1}]..."
     source ${1}
   else
@@ -40,8 +40,6 @@ plugins=(
     brew 
     osx 
     docker
-    kubectl
-    helm
     jenv
     pyenv
     rbenv
@@ -51,43 +49,22 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-#    +----------------------------------------+
-#    + Options
-#    +----------------------------------------+
-setopt autocd
-setopt appendhistory
-setopt autocd
-setopt correct_all
-setopt extendedglob
-setopt hist_expire_dups_first
-setopt hist_find_no_dups
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt interactive_comments
-setopt pushd_ignore_dups
-setopt promptsubst
-
-#    +----------------------------------------+
-#    + Command History
-#    +----------------------------------------+
-export HIST_STAMPS="%d/%m/%Y %T"
-export HISTSIZE=2000
-export HISTFILE="${HOME}/.history"
-export SAVEHIST=${HISTSIZE}
-setopt hist_ignore_all_dups
-
 # To try and make auto-complete a bit faster...
 autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
+if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
   compinit
-done
+else
+  compinit -C
+fi
+#for dump in ~/.zcompdump(N.mh+24); do
+#  compinit
+#done
+
 compinit -C
 
 fpath=(
     /usr/local/share/zsh-completions 
     "${fpath[@]}"
 )
-
-export PATH="/usr/local/opt/gnu-getopt/bin:${PATH}"
 
 clean_path

@@ -33,10 +33,10 @@ function _tf_workspace () {
     fi
 
     workspace=${opt}
-    echo "Setting terraform workspace to ${workspace} ..."
+    log_info "Setting terraform workspace to ${workspace} ..."
     terraform workspace select ${workspace}
     _exit=$?
-    echo "Set terraform workspace to $(terraform workspace show)"
+    log_info "Set terraform workspace to $(terraform workspace show)"
     return ${_exit}
   done
 }
@@ -83,3 +83,11 @@ function _export_kubeconfig () {
   done
 }
 
+function _kubectl_proxy () {
+  if [[ -z "${KUBECONFIG}" ]]; then
+    log_error "KUBECONFIG is not set"
+    return 1
+  fi
+
+  return 0  
+}
