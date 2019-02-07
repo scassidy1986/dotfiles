@@ -16,12 +16,7 @@ _source ~/.shell-functions.sh
 _source ~/.more-shell-aliases.sh 
 _source ~/.more-shell-functions.sh 
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export GOPATH="${HOME}/go:${HOME}/go/bin"
-export PATH="${PATH}:${GOPATH}"
+_source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
@@ -33,7 +28,7 @@ export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugins/"
 #ZSH_THEME="scassidy"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 # User configuration
-test -f ~/.powerlevel && source ~/.powerlevel
+_source ~/.powerlevel
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -44,6 +39,7 @@ plugins=(
     git 
     brew 
     osx 
+    docker
     kubectl
     helm
     jenv

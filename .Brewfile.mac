@@ -5,6 +5,7 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "caskroom/versions"
 tap "caskroom/cask"
+tap "caskroom/fonts"
 tap "sambadevi/powerlevel9k"
 
 # Shell
@@ -29,6 +30,10 @@ brew "jenv"
 brew "rbenv"
 brew "nodenv"
 brew "tfenv"
+brew "goenv"
+
+# Fonts
+cask "font-hack-nerd-font"
 
 # Misc
 brew "yadm"
