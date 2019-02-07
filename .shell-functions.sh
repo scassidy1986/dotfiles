@@ -1,20 +1,6 @@
 #!/usr/bin/env sh
 
-RED="\033[0;31m"
-WHITE="\033[0m"
-
-function _log () {
-  timestamp=$(date +"%Y-%m-%d %H-%M-%S")
-  echo "[${timestamp}] [${1}] ${2}"
-}
-
-function log_info () {
-  _log "INFO" "${1}"
-}
-
-function log_error () {
-  _log "ERROR" "${RED}${1}${WHITE}"
-}
+_source ${HOME}/.logging
 
 function is_linux () {
   [[ $('uname') == 'Linux' ]];
@@ -72,21 +58,27 @@ function clean_path () {
 }
 
 function _export_kubeconfig () {
-  PS3="Select a kube config: "
-  files=($(ls -1 ${HOME}/.kube/config/* | xargs -n 1 basename))
+  local conf_dir="${KUBECONFIG_HOME:-${HOME}/.kube/conf}"
+  if [[ ! -d ${conf_dir} ]]; then
+    log_error "Kube config directory does not exist @ [${conf_dir}]"
+    return 1
+  fi
+
+  PS3="Select a kube config (${conf_dir}): "
+  files=($(ls -1 ${conf_dir}/* | xargs -n 1 basename))
   select opt in "${files[@]}" "Quit";
   do
     if [ "${opt}" = "Quit" ]; then
       return 0
     fi
-    konfig_file="${HOME}/.kube/config/${opt}"
+    konfig_file="${conf_dir}/${opt}"
     if [ ! -e "${konfig_file}" ]; then
-      echo "Kube config for ${opt} not found (${konfig_file})"
+      log_error "Kube config for ${opt} not found (${konfig_file})"
       return 1
     fi
-    echo "Setting Kubectl config to '${konfig_file}'"
+    log_info "Setting Kubectl config to '${konfig_file}'"
     export KUBECONFIG=${konfig_file}
-    echo " > KUBECONFIG ${KUBECONFIG}"
+    log_info " > KUBECONFIG ${KUBECONFIG}"
     return 0
   done
 }
