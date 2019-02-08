@@ -1,4 +1,6 @@
-../../../.zshenvZSH_DISABLE_COMPFIX="true"
+ZSH_DISABLE_COMPFIX="true"
+
+test -f ~/.zshenv && source ~/.zshenv
 
 function _source () {
   if [[ -f ${1} && -r ${1} ]]; then

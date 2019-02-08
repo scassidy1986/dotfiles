@@ -78,9 +78,8 @@ function _export_kubeconfig () {
     fi
     log_info "Setting Kubectl config to '${konfig_file}'"
     export KUBECONFIG=${konfig_file}
-    log_info " > KUBECONFIG ${KUBECONFIG}"
-    dashboard_token=$(get-kubernetes-secret --secret dashboard-kubernetes-dashboard-token --quiet)
-    log_info " > Dashboard Token ${dashboard_token}"
+    log_info " > KUBECONFIG      ${KUBECONFIG}"
+    log_info " > Dashboard Token $(get-kubernetes-secret --secret dashboard-kubernetes-dashboard-token --quiet)"
     return 0
   done
 }
