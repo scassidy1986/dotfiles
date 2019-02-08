@@ -21,5 +21,8 @@ export HISTSIZE=2000
 export HISTFILE="${HOME}/.history"
 export SAVEHIST=${HISTSIZE}
 
-export PATH="/usr/local/opt/gnu-getopt/bin:${PATH}"
+export KUBECONFIG_HOME="${HOME}/.kube/conf"
+
+export GOPATH="/Users/scassidy/go:/Users/scassidy/go/bin"
+export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${PATH}"
 

@@ -1,4 +1,4 @@
-ZSH_DISABLE_COMPFIX="true"
+../../../.zshenvZSH_DISABLE_COMPFIX="true"
 
 function _source () {
   if [[ -f ${1} && -r ${1} ]]; then
@@ -45,6 +45,7 @@ plugins=(
     rbenv
     tfenv
     terraform
+    kubectl
 )
 
 source $ZSH/oh-my-zsh.sh

@@ -65,7 +65,7 @@ function _export_kubeconfig () {
   fi
 
   PS3="Select a kube config (${conf_dir}): "
-  files=($(ls -1 ${conf_dir}/* | xargs -n 1 basename))
+  files=($(ls -1 ${conf_dir}/kubeconfig-* | xargs -n 1 basename))
   select opt in "${files[@]}" "Quit";
   do
     if [ "${opt}" = "Quit" ]; then
@@ -79,6 +79,8 @@ function _export_kubeconfig () {
     log_info "Setting Kubectl config to '${konfig_file}'"
     export KUBECONFIG=${konfig_file}
     log_info " > KUBECONFIG ${KUBECONFIG}"
+    dashboard_token=$(get-kubernetes-secret --secret dashboard-kubernetes-dashboard-token --quiet)
+    log_info " > Dashboard Token ${dashboard_token}"
     return 0
   done
 }
