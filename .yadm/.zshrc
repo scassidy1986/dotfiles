@@ -17,6 +17,9 @@ _source ~/.shell-aliases.sh
 _source ~/.shell-functions.sh
 _source ~/.more-shell-aliases.sh 
 _source ~/.more-shell-functions.sh 
+for helper in $(ls -1 ~/.helpers); do
+  _source ~/.helpers/${helper}
+done
 
 _source "${HOME}/.iterm2_shell_integration.zsh"
 
