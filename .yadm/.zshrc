@@ -1,13 +1,13 @@
 ZSH_DISABLE_COMPFIX="true"
 
 test -f ~/.zshenv && source ~/.zshenv
+test -f ~/.logging && source ~/.logging
 
 function _source () {
   if [[ -f ${1} && -r ${1} ]]; then
-    echo "Sourcing file [${1}]..."
     source ${1}
   else
-    echo "File ${1} does not exist, nothing to source"
+    log_warn "File ${1} does not exist, nothing to source"
   fi
 }
 
@@ -15,10 +15,12 @@ function _source () {
 _source ~/.env.sh
 _source ~/.shell-aliases.sh
 _source ~/.shell-functions.sh
-_source ~/.more-shell-aliases.sh 
-_source ~/.more-shell-functions.sh 
-for helper in $(ls -1 ~/.helpers); do
+_source ~/.terraform-functions.sh
+for helper in $(ls -1 ~/.helpers | sort -V); do
   _source ~/.helpers/${helper}
+done
+for helper in $(ls -1 ~/.work-helpers | sort -V); do
+  _source ~/.work-helpers/${helper}
 done
 
 _source "${HOME}/.iterm2_shell_integration.zsh"

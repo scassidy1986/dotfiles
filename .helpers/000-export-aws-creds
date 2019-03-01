@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+
+FILE="${HOME}/.aws_accounts"
+
+function _export_aws_creds () {
+  if [ ! -e ${FILE} ]; then
+    log_info "AWS accounts file '${FILE}' not found"
+    return 0
+  fi
+
+  accounts=()
+  while IFS='\n' read -r account || [[ -n "${account}" ]]; do
+    [[ "${account}" =~ ^#.*$ ]] && continue
+    accounts+=(${account})
+  done < "${FILE}"
+  
+  IFS=$'\n' accounts=($(sort <<<"${accounts[*]}"))
+  unset IFS
+  PS3="Select account: "
+  log_info "Setting AWS creds:"
+
+  select account in "${accounts[@]}" "Exit";
+  do
+      case "${account}" in
+        "Exit")
+          return 0
+          ;;
+        *)
+          name=$(echo ${account} | cut -f1 -d:)
+          id=$(echo ${account} | cut -f2 -d:)
+          awsaml_account="awsaml-${id}"
+          log_info "Setting AWS Profile to ${name} = ${id}"
+          export AWS_PROFILE="${awsaml_account}"
+          export AWS_DEFAULT_PROFILE="${awsaml_account}"
+          log_info " > AWS_PROFILE ${AWS_PROFILE}"
+          log_info " > AWS_DEFAULT_PROFILE ${AWS_DEFAULT_PROFILE}"
+          return 0
+          ;;
+      esac
+  done
+}
+
+alias export-aws-creds="_export_aws_creds"
+

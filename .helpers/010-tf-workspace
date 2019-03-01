@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+_source ${HOME}/.logging
+
+function _tf_workspace () {
+  PS3="Select a workspace: "
+  workspaces=($(ls -1 *.tfvars | sed -e 's/\..*$//'))
+
+  select opt in "default" "${workspaces[@]}" "Quit";
+  do
+    if [ "${opt}" = "Quit" ]; then
+      return 0
+    fi
+
+    workspace=${opt}
+    log_info "Setting terraform workspace to ${workspace} ..."
+    terraform workspace select ${workspace}
+    _exit=$?
+    log_info "Set terraform workspace to $(terraform workspace show)"
+    return ${_exit}
+  done
+}
+
+alias tf-workspace="_tf_workspace"
