@@ -15,6 +15,7 @@ brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 
 # Tools
+brew "awscli"
 brew "coreutils"
 brew "watch"
 brew "tree"
@@ -23,6 +24,7 @@ brew "curl"
 brew "wget"
 brew "htop"
 brew "gnu-getopt"
+brew "pre-commit"
 
 # Environment managers
 brew "pyenv"

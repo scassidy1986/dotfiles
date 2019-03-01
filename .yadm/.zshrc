@@ -23,14 +23,13 @@ done
 
 _source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Terraform...
+export TF_LOG="INFO"
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 export ZSH_CUSTOM="/Users/$(whoami)/.yadm/.oh-my-zsh/custom/"
 
-# Terraform...
-export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugins/"
-
-#ZSH_THEME="scassidy"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 # User configuration
 _source ~/.powerlevel
