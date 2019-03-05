@@ -5,9 +5,20 @@ test -f ~/.logging && source ~/.logging
 
 function _source () {
   if [[ -f ${1} && -r ${1} ]]; then
+    log_debug "Sourcing file ${1} ..."
     source ${1}
   else
     log_warn "File ${1} does not exist, nothing to source"
+  fi
+}
+
+function _source_folder () {
+  if [[ -d ${1} ]]; then
+    for file in $(ls -1 ${1} | sort -V); do
+      _source ${1}/${file}
+    done
+  else
+    log_warn "Folder ${1} does not exist, nothing to source"
   fi
 }
 
@@ -16,17 +27,13 @@ _source ~/.env.sh
 _source ~/.shell-aliases.sh
 _source ~/.shell-functions.sh
 _source ~/.terraform-functions.sh
-for helper in $(ls -1 ~/.helpers | sort -V); do
-  _source ~/.helpers/${helper}
-done
-for helper in $(ls -1 ~/.work-helpers | sort -V); do
-  _source ~/.work-helpers/${helper}
-done
+_source_folder ${HOME}/.helpers
+_source_folder ${HOME}/.work-helpers
 
 _source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Terraform...
-export TF_LOG="INFO"
+#export TF_LOG="INFO"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$(whoami)/.oh-my-zsh"

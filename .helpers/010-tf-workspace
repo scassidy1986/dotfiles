@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-_source ${HOME}/.logging
-
 function _tf_workspace () {
   PS3="Select a workspace: "
   workspaces=($(ls -1 *.tfvars | sed -e 's/\..*$//'))

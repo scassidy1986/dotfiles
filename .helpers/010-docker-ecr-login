@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 function _docker_ecr_login () {
-    region="${1:-us-east-1}"
-    $(aws ecr get-login --no-include-email --region ${region})
-    return 0
+  region="${1:-us-east-1}"
+  $(aws ecr get-login --no-include-email --region ${region})
+  return 0
 }
 
 alias docker-ecr-login="_docker_ecr_login"
