@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source ${HOME}/.logging
+source .helpers-linux
+
+add_repository "ppa:gnome-terminator"
+
+sudo apt update
+
+install_dependency "terminator"

@@ -1,5 +1,8 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
+set -e
+
+source ${HOME}/.logging
 source .helpers
 
 if which rbenv >/dev/null 2>&1; then
@@ -8,11 +11,11 @@ if which rbenv >/dev/null 2>&1; then
 
   versions=($(read_file_to_array ".rbenv_versions"))
   for version in ${versions[@]}; do
-    echo "Installing ruby ${version}"
+    log_info "Installing ruby ${version}"
 
     echo y | rbenv install ${version}
   done
 else
-  echo "rbenv not installed; nothing to do"
+  log_info "rbenv not installed; nothing to do"
 fi
 

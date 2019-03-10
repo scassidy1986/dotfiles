@@ -1,10 +1,23 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
-setup_scripts=$(ls ${cwd}/setup/*.sh | sort -n -t _ -k 2)
-echo "Found ${#setup_scripts[*]} setup scripts"
+source ${HOME}/.logging
+
+dry_run=false
+
+while getopts ":d" opt; do
+  case ${opt} in
+    d) dry_run=true
+      ;;
+  esac
+done
+
+setup_scripts=$(ls ${HOME}/.yadm/setup/*.sh | sort -n -t _ -k 2)
+log_info "Found ${#setup_scripts[*]} setup scripts"
 for file in ${setup_scripts}
 do
-  echo "> Executing ${file} ..."
-  . ${file}
-  echo "> Finishing executing ${file}: Exit ${?}"
+  log_info "> Executing ${file} ..."
+  if [ "${dry_run}" = false ]; then
+    . ${file}
+  fi
+  log_info "> Finishing executing ${file}: Exit ${?}"
 done

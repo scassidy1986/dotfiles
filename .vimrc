@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/.vimrc
+/home/stephen/.yadm/.vimrc
