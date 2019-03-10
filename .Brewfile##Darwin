@@ -1,0 +1,53 @@
+cask_args appdir: "/Applications"
+
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "caskroom/versions"
+tap "caskroom/cask"
+tap "caskroom/fonts"
+tap "sambadevi/powerlevel9k"
+
+# Shell
+brew "zsh"
+brew "zplug"
+brew "zsh-completions"
+brew "zsh-syntax-highlighting"
+
+# Tools
+brew "awscli"
+brew "coreutils"
+brew "watch"
+brew "tree"
+brew "jq"
+brew "curl"
+brew "wget"
+brew "htop"
+brew "gnu-getopt"
+brew "pre-commit"
+
+# Environment managers
+brew "pyenv"
+brew "jenv"
+brew "jabba"
+brew "rbenv"
+brew "nodenv"
+brew "tfenv"
+brew "goenv"
+
+# Fonts
+cask "font-hack-nerd-font"
+
+# Misc
+brew "yadm"
+brew "openssl"
+brew "powerlevel9k"
+
+cask "alfred"
+cask "caffeine"
+cask "spectacle"
+cask "iterm2"
+cask "atom"
+cask "visual-studio-code"
+cask "vagrant"
+cask "virtualbox"
