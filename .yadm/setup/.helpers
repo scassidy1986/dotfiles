@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ${HOME}/.logging
+
 function temp_folder() {
   case "$(uname -s)" in
     "Darwin")
@@ -22,3 +24,28 @@ function read_file_to_array() {
     done < ${file}
     echo "${v[@]}"
 }
+
+function install_versions() {
+  local exe=${1}
+  local file=${2}
+  local cmd=${3}
+
+  if ! command -v ${exe} >/dev/null 2>&1; then
+    log_info "${exe} not installed; nothing to do"
+    return
+  fi
+
+  if [ ! -f ${file} ]; then
+    log_warn "No versions found at ${file}"
+    return
+  fi
+
+  log_info "Installing java version(s)"
+  versions=($(read_file_to_array ${file}))
+  for version in ${versions[@]}; do
+    log_info "Installing ${version}"
+
+    echo y | $(eval "${cmd} ${version}")
+  done
+}
+

@@ -10,3 +10,4 @@ sudo apt update
 install_dependency "zsh"
 install_dependency "tree"
 install_dependency "atom"
+install_dependency "build-essential"

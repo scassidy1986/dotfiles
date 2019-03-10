@@ -1,13 +1,19 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 _source ${HOME}/.logging
 
 function is_linux () {
-  [[ $('uname') == 'Linux' ]];
+  if [[ $(uname -s) =~ "Linux" ]]; then
+    return
+  fi
+  false
 }
 
 function is_osx () {
-  [[ $('uname') == 'Darwin' ]]
+  if [[ $(uname -s) =~ "Darwin" ]]; then
+    return
+  fi
+  false
 }
 
 function cd () {
