@@ -1,4 +1,16 @@
-#!/usr/bin/env sh
+#!/bin/bash
+
+function temp_folder() {
+  case "$(uname -s)" in
+    "Darwin")
+      tmp_template="${1}"
+      ;;
+    "Linux")
+      tmp_template="${1}-XXXXXX"
+      ;;
+  esac
+  echo "${tmp_template}"
+}
 
 function read_file_to_array() {
     local file=${1}

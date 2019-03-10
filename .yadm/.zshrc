@@ -36,8 +36,8 @@ _source "${HOME}/.iterm2_shell_integration.zsh"
 #export TF_LOG="INFO"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/$(whoami)/.oh-my-zsh"
-export ZSH_CUSTOM="/Users/$(whoami)/.yadm/.oh-my-zsh/custom/"
+export ZSH="${HOME}/.oh-my-zsh"
+export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom/"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 # User configuration
@@ -80,5 +80,8 @@ fpath=(
     /usr/local/share/zsh-completions 
     "${fpath[@]}"
 )
+
+test -d ~/.linuxbrew && export PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
+test -d /home/linuxbrew/.linuxbrew && export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
 clean_path
