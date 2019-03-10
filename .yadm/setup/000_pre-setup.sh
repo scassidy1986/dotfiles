@@ -1,1 +1,0 @@
-/home/stephen/.yadm/setup/000_pre-setup.sh##Linux
