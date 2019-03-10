@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source ${HOME}/.logging
+
+if command -v zsh >/dev/null 2>&1; then
+  log_info "Installing oh-my-zsh"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  if [ -d "${HOME}/.yadm/.oh-my-zsh/" ]; then
+    ln -nfs "${HOME}/.yadm/.oh-my-zsh/" "${HOME}/.oh-my-zsh"
+  fi
+  ln -nfs "${HOME}/.yadm/.zshrc" "${HOME}/.zshrc"
+else
+  log_info "zsh not found"
+fi
+
+source "${HOME}/.zshrc"

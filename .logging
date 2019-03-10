@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 LEVEL_INFO="INFO"
 LEVEL_WARN="WARN"
@@ -22,7 +22,7 @@ NONE="\033[0m"
 PADDING="      "
 
 function _log () {
-  time=$(date +"%d-%m-%Y %H:%M:%S.%s")
+  time=$(date +"%d-%m-%Y %H:%M:%S")
   timestamp="${time}"
   case "${1}" in 
     INFO)

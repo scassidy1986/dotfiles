@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 if [ -f "${HOME}/.iterm2/com.googlecode.iterm2.plist" ]; then
   echo "Setting iTerm2 preferences"

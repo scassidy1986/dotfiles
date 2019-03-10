@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/.zshrc
+/home/stephen/.yadm/.zshrc
