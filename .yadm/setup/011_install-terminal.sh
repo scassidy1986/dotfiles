@@ -1,1 +1,0 @@
-/home/stephen/.yadm/setup/011_install-terminal.sh##Linux

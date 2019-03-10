@@ -1,1 +1,0 @@
-/home/stephen/.yadm/setup/010_install-zsh.sh##Linux
