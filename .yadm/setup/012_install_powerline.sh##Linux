@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source ${HOME}/.logging
+source .helpers-linux
+source .helpers
+
+log_info " - Installing Powerline fonts..."
+
+install_dependency "fonts-powerline"
+
+log_info "Done!"

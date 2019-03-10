@@ -10,7 +10,7 @@ function is_osx () {
   [[ $('uname') == 'Darwin' ]]
 }
 
-function cd() {
+function cd () {
   builtin cd "$@" && ll 
 }
 

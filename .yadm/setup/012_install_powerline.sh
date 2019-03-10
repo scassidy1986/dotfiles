@@ -1,0 +1,1 @@
+/home/stephen/.yadm/setup/012_install_powerline.sh##Linux
