@@ -23,6 +23,7 @@ export SAVEHIST=${HISTSIZE}
 
 export KUBECONFIG_HOME="${HOME}/.kube/conf"
 
+export GOHOME="/Users/scassidy/go"
 export GOPATH="/Users/scassidy/go:/Users/scassidy/go/bin"
 export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${PATH}"
 

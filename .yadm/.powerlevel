@@ -4,7 +4,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context aws dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv custom_goenv custom_tfenv custom_tf_workspace kubecontext)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv custom_goenv custom_tfenv custom_terraform_workspace kubecontext)
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
@@ -68,11 +68,11 @@ _tfenv_prompt () {
   fi
 }
 
-POWERLEVEL9K_CUSTOM_TF_WORKSPACE="_tf_workspace"
+POWERLEVEL9K_CUSTOM_TF_WORKSPACE="_terraform_workspace"
 POWERLEVEL9K_CUSTOM_TF_WORKSPACE_FOREGROUND="white"
 POWERLEVEL9K_CUSTOM_TF_WORKSPACE_BACKGROUND="purple3"
 
-_tf_workspace() {
+_terraform_workspace() {
   if [[ -d .terraform ]]; then  
     workspace=$(terraform workspace show 2> /dev/null) || return
     echo -n "${workspace}"
