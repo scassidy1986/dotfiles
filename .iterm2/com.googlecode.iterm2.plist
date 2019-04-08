@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AboutToPasteTabsWithCancel</key>
+	<true/>
+	<key>AboutToPasteTabsWithCancel_selection</key>
+	<integer>2</integer>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -71,11 +77,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1171 1249 936 151 856 1050 1920 1057 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>-439 1548 620 392 -1089 1050 1920 1057 </string>
+	<string>1481 1548 620 392 831 1050 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>1141 1398 796 486 856 1050 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 1 1680 1025 0 0 1680 1027 </string>
+	<string>831 1050 1920 1057 831 1050 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 610 585 402 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -924,10 +930,12 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-02-28T22:55:25Z</date>
+	<date>2019-04-05T14:21:57Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
+	<false/>
+	<key>ShowFullScreenTabBar</key>
 	<false/>
 	<key>StretchTabsToFillBar</key>
 	<true/>
