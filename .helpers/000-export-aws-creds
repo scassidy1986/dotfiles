@@ -13,9 +13,8 @@ function _export_aws_creds () {
     [[ "${account}" =~ ^#.*$ ]] && continue
     accounts+=(${account})
   done < "${FILE}"
-  
+
   IFS=$'\n' accounts=($(sort <<<"${accounts[*]}"))
-  unset IFS
   PS3="Select account: "
   log_info "Setting AWS creds:"
 
@@ -41,4 +40,3 @@ function _export_aws_creds () {
 }
 
 alias export-aws-creds="_export_aws_creds"
-

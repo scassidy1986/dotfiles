@@ -32,12 +32,12 @@ _source_folder ${HOME}/.work-helpers
 
 _source "${HOME}/.iterm2_shell_integration.zsh"
 
-# Terraform...
-#export TF_LOG="INFO"
-
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom/"
+
+# Terraform...
+#export TF_LOG="INFO"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 # User configuration
@@ -53,10 +53,6 @@ plugins=(
     brew 
     osx 
     docker
-    jenv
-    pyenv
-    rbenv
-    tfenv
     terraform
     kubectl
 )

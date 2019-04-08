@@ -1,16 +1,5 @@
 #!/usr/bin/env sh
 
-#if which jenv >/dev/null 2>&1; then
-#  export PATH="$HOME/.jenv/bin:$PATH"
-#  eval "$(jenv init -)"
-#fi
-#if which renv >/dev/null 2>&1; then
-#  eval "$(renv init -)"
-#fi
-#if which nodenv >/dev/null 2>&1; then
-#  eval "$(nodenv init -)"
-#fi
-
 export _RBENV_LOADED=1
 export _PYENV_LOADED=1
 export _GOENV_LOADED=1
@@ -20,8 +9,9 @@ _version_file_readable () {
 }
 
 _load_rbenv () {
+  [[ ${_RBENV_LOADED} -eq 0 ]] && return 0
   version_file=".ruby-version"
-  if _version_file_readable "${version_file}" && [[ ${_RBENV_LOADED} -eq 1 ]]; then
+  if _version_file_readable "${version_file}"; then
     echo "> Found ${version_file}, loading ..." 
     eval "$(rbenv init -)"
     export _RBENV_LOADED=0
@@ -29,8 +19,9 @@ _load_rbenv () {
 }
 
 _load_pyenv () {
+  [[ ${_PYENV_LOADED} -eq 0 ]] && return 0
   version_file=".python-version"
-  if _version_file_readable "${version_file}" && [[ ${_PYENV_LOADED} -eq 1 ]]; then
+  if _version_file_readable "${version_file}"; then
     echo "> Found ${version_file}, loading ..." 
     eval "$(pyenv init -)"
     export _PYENV_LOADED=0
@@ -38,8 +29,9 @@ _load_pyenv () {
 }
 
 _load_goenv () {
+  [[ ${_GOENV_LOADED} -eq 0 ]] && return 0
   version_file=".go-version"
-  if _version_file_readable ${version_file} && [[ ${_GOENV_LOADED} -eq 1 ]]; then
+  if _version_file_readable ${version_file}; then
     echo "> Found ${version_file}, loading ..." 
     eval "$(goenv init -)"
     export _GOENV_LOADED=0
