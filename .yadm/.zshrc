@@ -63,7 +63,8 @@ source $ZSH/oh-my-zsh.sh
 autoload -Uz compinit
 
 if is_osx; then
-  if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+  zcompdump_file="${ZDOTDIR:-${HOME}}/.zcompdump"
+  if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${zcompdump_file}) ]; then
     compinit
   else
     compinit -C

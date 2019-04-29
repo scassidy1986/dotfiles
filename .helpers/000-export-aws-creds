@@ -16,7 +16,6 @@ function _export_aws_creds () {
 
   IFS=$'\n' accounts=($(sort <<<"${accounts[*]}"))
   PS3="Select account: "
-  log_info "Setting AWS creds:"
 
   select account in "${accounts[@]}" "Exit";
   do

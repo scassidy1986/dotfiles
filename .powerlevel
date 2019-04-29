@@ -74,7 +74,7 @@ POWERLEVEL9K_CUSTOM_TERRAFORM_WORKSPACE_BACKGROUND="purple3"
 
 _terraform_workspace() {
   if [[ -d .terraform ]]; then  
-    workspace=$(cat .terraform/environment) 2>/dev/null 2>/dev/null || return
+    workspace=$(cat .terraform/environment 2>/dev/null || return)
     echo -n "${workspace}"
   fi
 }

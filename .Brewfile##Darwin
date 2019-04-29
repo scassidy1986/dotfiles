@@ -9,10 +9,17 @@ tap "caskroom/fonts"
 tap "sambadevi/powerlevel9k"
 
 # Shell
+brew "bash"
 brew "zsh"
 brew "zplug"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
+
+# CI/CD
+brew "packer"
+
+# Coding
+brew "go"
 
 # Tools
 brew "awscli"
@@ -25,11 +32,11 @@ brew "wget"
 brew "htop"
 brew "gnu-getopt"
 brew "pre-commit"
+brew "jsonnet"
 
 # Environment managers
 brew "pyenv"
 brew "jenv"
-brew "jabba"
 brew "rbenv"
 brew "nodenv"
 brew "tfenv"

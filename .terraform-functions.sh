@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
 
 function _tf_plan_file () {
-  workspace=$(terraform workspace show)
+  workspace=$(cat .terraform/environment 2>/dev/null || echo 'default')
   mktemp -t "tf-plan_${workspace}"
 }
 
 # aliases
-alias tf-plan-file="_tf_plan_file"
+alias tf-init="terraform init"
+alias tf-plan="terraform plan -out=$(_tf_plan_file)"

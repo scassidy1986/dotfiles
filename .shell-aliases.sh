@@ -13,4 +13,11 @@ alias brew-bundle="brew bundle --file=~/.Brewfile -v"
 
 alias netstat-listen="netstat -atunlp"
 
+# Terraform
+
+# auto-correct...
+alias kapitan="nocorrect kapitan"
+alias pip="nocorrect pip"
+alias pip3="nocorrect pip3"
+
 # friendly names
