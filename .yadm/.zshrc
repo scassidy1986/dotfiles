@@ -62,8 +62,9 @@ source $ZSH/oh-my-zsh.sh
 # To try and make auto-complete a bit faster...
 autoload -Uz compinit
 
-if is_osx; then
-  zcompdump_file="${ZDOTDIR:-${HOME}}/.zcompdump"
+zcompdump_file="${ZDOTDIR:-${HOME}}/.zcompdump"
+if [[ -e "${zcompdump_file}" && is_osx ]]; then
+  log_info "Found zcompdump file at ${zcompdump_file}"
   if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${zcompdump_file}) ]; then
     compinit
   else
