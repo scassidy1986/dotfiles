@@ -13,6 +13,9 @@ alias brew-bundle="brew bundle --file=~/.Brewfile -v"
 
 alias netstat-listen="netstat -atunlp"
 
+# k8s
+alias minikube="minikube"
+
 # Terraform
 
 # auto-correct...

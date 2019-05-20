@@ -73,6 +73,7 @@ set writebackup
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 Plug 'scrooloose/syntastic'
+Plug 'stephpy/vim-yaml'
 call plug#end()
 " }}}
 " airline {{{

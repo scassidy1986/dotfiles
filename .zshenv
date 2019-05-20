@@ -35,3 +35,6 @@ export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugins_cache"
 
 export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${PATH}"
 
+if command -v minikube >/dev/null 2>&1; then
+  source <(minikube completion zsh) 
+fi
