@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 source ${HOME}/.logging
 
@@ -8,9 +8,13 @@ if command -v zsh >/dev/null 2>&1; then
   if [ -d "${HOME}/.yadm/.oh-my-zsh/" ]; then
     ln -nfs "${HOME}/.yadm/.oh-my-zsh/" "${HOME}/.oh-my-zsh"
   fi
-  ln -nfs "${HOME}/.yadm/.zshrc" "${HOME}/.zshrc"
+  for f in ".zshrc" ".zshenv" ".zlogin"; do
+    file="${HOME}/.yadm/${f}" 
+    target="${HOME}/${f}"
+    log_info "Linking '${file}' to '${target}'"
+    ln -nfs ${file} ${target}
+  done
 else
   log_info "zsh not found"
 fi
 
-source "${HOME}/.zshrc"

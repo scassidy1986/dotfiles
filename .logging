@@ -43,7 +43,7 @@ function _log () {
       ;;
   esac
 
-  echo -e "[${timestamp}] [${level}] ${message}"
+  echo "[${timestamp}] [${level}] ${message}"
 }
 
 function log_info () {

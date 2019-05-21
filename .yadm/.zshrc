@@ -39,8 +39,8 @@ export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom/"
 # Terraform...
 #export TF_LOG="INFO"
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
 # User configuration
+ZSH_THEME="powerlevel9k/powerlevel9k"
 _source ~/.powerlevel
 
 # Uncomment the following line to enable command auto-correction.
@@ -49,32 +49,15 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-    git 
-    brew 
-    osx 
-    docker
+  git 
+  brew 
+  osx 
+  docker
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # To try and make auto-complete a bit faster...
-setopt extendedglob local_options
-autoload -Uz compinit
-local zcd=${ZDOTDIR:-$HOME}/.zcompdump
-local zcdc="$zcd.zwc"
-# Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
-# in the background as this is doesn't affect the current session
-if [[ -f "$zcd"(#qN.m+1) ]]; then
-  compinit -i -d "$zcd"
-  { 
-    rm -f "$zcdc" && zcompile "$zcd" 
-  } &!
-else
-  compinit -C -d "$zcd"
-  { 
-    [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" 
-  } &!
-fi
 
 fpath=(
     /usr/local/share/zsh-completions 
