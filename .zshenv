@@ -13,6 +13,8 @@ setopt interactive_comments
 setopt pushd_ignore_dups
 setopt promptsubst
 
+skip_global_compinit=1
+
 # +----------------------------------------+
 # + Command History
 # +----------------------------------------+

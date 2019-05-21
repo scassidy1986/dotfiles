@@ -53,23 +53,27 @@ plugins=(
     brew 
     osx 
     docker
-    terraform
-    kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # To try and make auto-complete a bit faster...
+setopt extendedglob local_options
 autoload -Uz compinit
-
-zcompdump_file="${ZDOTDIR:-${HOME}}/.zcompdump"
-if [[ -e "${zcompdump_file}" && is_osx ]]; then
-  log_info "Found zcompdump file at ${zcompdump_file}"
-  if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${zcompdump_file}) ]; then
-    compinit
-  else
-    compinit -C
-  fi
+local zcd=${ZDOTDIR:-$HOME}/.zcompdump
+local zcdc="$zcd.zwc"
+# Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
+# in the background as this is doesn't affect the current session
+if [[ -f "$zcd"(#qN.m+1) ]]; then
+  compinit -i -d "$zcd"
+  { 
+    rm -f "$zcdc" && zcompile "$zcd" 
+  } &!
+else
+  compinit -C -d "$zcd"
+  { 
+    [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" 
+  } &!
 fi
 
 fpath=(
@@ -88,4 +92,3 @@ clean_path
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
-[ -s "/Users/scassidy/.jabba/jabba.sh" ] && source "/Users/scassidy/.jabba/jabba.sh"
