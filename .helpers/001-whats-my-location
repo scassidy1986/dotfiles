@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+function _get_location () {
+  location=$(curl -s http://ip-api.com/json)
+  city=$(echo ${location} | jq -r .city)
+  country=$(echo ${location} | jq -r .country)
+  region=$(echo ${location} | jq -r .regionName)
+  zip=$(echo ${location} | jq -r .zip)
+
+  ip=$(echo ${location} | jq -r .query)
+
+  echo "${ip}"
+  echo "${city} ${zip}, ${region}"
+}
+
+alias what-is-my-location="_get_location"
