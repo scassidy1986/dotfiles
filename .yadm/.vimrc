@@ -71,21 +71,33 @@ set writebackup
 " }}}
 " Vim Plug {{{
 call plug#begin('~/.vim/plugged')
-Plug 'vimwiki/vimwiki'
+Plug 'google/vim-jsonnet'
+Plug 'hashivim/vim-terraform'
 Plug 'scrooloose/syntastic'
 Plug 'stephpy/vim-yaml'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vimwiki/vimwiki'
 call plug#end()
+" }}}
+" terraform {{{
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_remap_spacebar=1
+let g:terraform_fmt_on_save=1
 " }}}
 " airline {{{
 set laststatus=2
-let g:airline_theme = 'zenburn'
+let g:airline_theme='base16_default'
 let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline#extensions#tabline#formatter='unique_tail_improved'
 let g:airline_powerline_fonts=1
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
+let g:airline_highlighting_cache=1
+let g:airline_left_sep=' '
+let g:airline_left_alt_sep='|'
+let g:airline_right_sep=' '
+let g:airline_right_alt_sep='|'
 " }}}
 " Syntastic {{{
 set statusline+=%#warningmsg#
@@ -97,4 +109,3 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " }}}
-
