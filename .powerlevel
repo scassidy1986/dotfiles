@@ -4,7 +4,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context aws dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv custom_goenv custom_tfenv custom_terraform_workspace) # kubecontext)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv custom_goenv java_version custom_tfenv custom_terraform_workspace custom_kube_context)
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
@@ -12,7 +12,6 @@ POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 
 POWERLEVEL9K_BATTERY_CHARGING='yellow'
@@ -38,7 +37,7 @@ _goenv_prompt () {
     if [[ -f "${goenv_root}/version" ]]; then
       goenv_global="$(goenv version-file-read ${goenv_root}/version)"
     fi
-    if [[ "${goenv_version_name}" != "${goenv_global}" || "${POWERLEVEL9K_GOENV_PROMPT_ALWAYS_SHOW:-false}" == "true" ]]; then
+    if [[ "${goenv_version_name}" != "${goenv_global}" || "${POWERLEVEL9K_GOENV_PROMPT_ALWAYS_SHOW:-true}" == "true" ]]; then
       echo -n "$goenv_version_name \uE626"
     fi
   fi
@@ -75,7 +74,6 @@ _terraform_workspace() {
   fi
 }
 
-
 POWERLEVEL9K_CUSTOM_KUBE_CONTEXT="_kube_context"
 POWERLEVEL9K_CUSTOM_KUBE_CONTEXT_FOREGROUND="white"
 POWERLEVEL9K_CUSTOM_KUBE_CONTEXT_BACKGROUND="magenta"
@@ -83,8 +81,9 @@ POWERLEVEL9K_CUSTOM_KUBE_CONTEXT_BACKGROUND="magenta"
 _kube_context() {
   if command -v kubectl >/dev/null 2>&1; then
     # Get the current Kuberenetes context
-    local cur_ctx=$(kubectl config view -o=jsonpath='{.current-context}')
-    cur_namespace="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${cur_ctx}\")].context.namespace}")"
+    local config=$(kubectl config view -o=json)
+    local cur_ctx=$(jq -r '.["current-context"]' <<< "${config}")
+    local cur_namespace=$(jq -r --arg CTX "${cur_ctx}" '.contexts[] | select(.name == "$CTX") | .context.namespace' <<< "${config}")
     # If the namespace comes back empty set it default.
     if [[ -z "${cur_namespace}" ]]; then
       cur_namespace="default"

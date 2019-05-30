@@ -14,7 +14,6 @@ alias brew-bundle="brew bundle --file=~/.Brewfile -v"
 alias netstat-listen="netstat -atunlp"
 
 # k8s
-alias minikube="minikube"
 
 # Terraform
 
@@ -22,5 +21,7 @@ alias minikube="minikube"
 alias kapitan="nocorrect kapitan"
 alias pip="nocorrect pip"
 alias pip3="nocorrect pip3"
+alias helm="nocorrect helm"
+alias minikube="nocorrect minikube"
 
 # friendly names

@@ -28,28 +28,19 @@ function kubectl() {
   command kubectl "$@"
 }
 
-function trim_whitespace () {
-  local var="$*"
-  # remove leading whitespace characters
-  var="${var#"${var%%[![:space:]]*}"}"
-  # remove trailing whitespace characters
-  var="${var%"${var##*[![:space:]]}"}"
-  echo -n "$var"
-}
-
 function clean_path () {
   if [ -n "${PATH}" ]; then
-    old_PATH=${PATH}:; PATH=
-    while [ -n "${old_PATH}" ]; do
-      x=${old_PATH%%:*}       # the first remaining entry
+    OLD_PATH=${PATH}:; PATH=
+    while [ -n "${OLD_PATH}" ]; do
+      x=${OLD_PATH%%:*}       # the first remaining entry
       case ${PATH}: in
         *:"${x}":*) ;;          # already there
         *) PATH=${PATH}:${x};;    # not there yet
       esac
-      old_PATH=${old_PATH#*:}
+      OLD_PATH=${OLD_PATH#*:}
     done
     PATH=${PATH#:}
-    unset old_PATH x
+    unset OLD_PATH x
   fi
 }
 

@@ -15,9 +15,10 @@ setopt interactive_comments
 setopt pushd_ignore_dups
 setopt promptsubst
 
-skip_global_compinit=1
-
 export DISABLE_UPDATE_PROMPT="true"
+
+# Stop brew automatically cleaning up old packages....
+export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # +----------------------------------------+
 # + Command History
