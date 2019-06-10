@@ -54,11 +54,11 @@ _tfenv_prompt () {
     local tfenv_version_name="$(tfenv version-name)"
     local tfenv_global="system"
     local tfenv_root="/usr/local/opt/tfenv"
-    if [[ -f "${tfenv_root}/version" ]]; then
+    if [[ -e "${tfenv_root}/version" ]]; then
       tfenv_global="$(cat ${tfenv_root}/version)"
     fi
     if [[ "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TFENV_PROMPT_ALWAYS_SHOW:-false}" == "true" ]]; then
-      echo "$tfenv_version_name"
+      echo "$tfenv_version_name \uf0ad"
     fi
   fi
 }
