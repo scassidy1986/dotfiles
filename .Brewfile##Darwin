@@ -1,19 +1,19 @@
 cask_args appdir: "/Applications"
 
-tap "homebrew/core"
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "caskroom/versions"
 tap "caskroom/cask"
 tap "caskroom/fonts"
-tap "sambadevi/powerlevel9k"
+tap "caskroom/versions"
 tap "derailed/k9s"
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/services"
 tap "johanhaleby/kubetail"
+tap "sambadevi/powerlevel9k"
 
 # Shell
 brew "bash"
-brew "zsh"
 brew "zplug"
+brew "zsh"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 
@@ -26,40 +26,48 @@ brew "go"
 # Tools
 brew "awscli"
 brew "coreutils"
-brew "watch"
-brew "tree"
-brew "jq"
 brew "curl"
-brew "wget"
-brew "htop"
 brew "gnu-getopt"
-brew "pre-commit"
+brew "htop"
+brew "jq"
 brew "jsonnet"
+brew "pre-commit"
+brew "trash"
+brew "tree"
+brew "watch"
+brew "wget"
+
+# K8s
 brew "k9s"
 brew "kubetail"
 
+# Terraform
+brew "terraform-docs"
+brew "terraform_landscape"
+
 # Environment managers
-brew "pyenv"
-brew "jenv"
-brew "rbenv"
-brew "nodenv"
-brew "tfenv"
 brew "goenv"
+brew "jenv"
+brew "nodenv"
+brew "pyenv"
+brew "rbenv"
+brew "tfenv"
 
 # Fonts
 cask "font-hack-nerd-font"
 
 # Misc
-brew "yadm"
 brew "openssl"
 brew "powerlevel9k"
+brew "yadm"
 
+# Mac OS X
 cask "alfred"
-cask "caffeine"
-cask "spectacle"
-cask "iterm2"
 cask "atom"
+cask "caffeine"
+cask "iterm2"
 cask "minikube"
-cask "visual-studio-code"
+cask "spectacle"
 cask "vagrant"
 cask "virtualbox"
+cask "visual-studio-code"

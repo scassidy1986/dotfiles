@@ -8,12 +8,21 @@ if command -v zsh >/dev/null 2>&1; then
   if [ -d "${HOME}/.yadm/.oh-my-zsh/" ]; then
     ln -nfs "${HOME}/.yadm/.oh-my-zsh/" "${HOME}/.oh-my-zsh"
   fi
+
   for f in ".zshrc" ".zshenv" ".zlogin"; do
     file="${HOME}/.yadm/${f}" 
     target="${HOME}/${f}"
     log_info "Linking '${file}' to '${target}'"
     ln -nfs ${file} ${target}
   done
+
+  if [[ ! -a ~/.zsh-async ]]; then
+    zsh_async_home="${HOME}/.zsh-async"
+    git clone -b 'v1.7.1' git@github.com:mafredri/zsh-async ${zsh_async_home} 
+    ln -nfs ${zsh_async_home}/async.zsh /usr/local/share/zsh/site-functions/async
+  fi
+
+  exec zsh
 else
   log_info "zsh not found"
 fi

@@ -18,10 +18,14 @@ alias netstat-listen="netstat -atunlp"
 # Terraform
 
 # auto-correct...
+alias brew="nocorrect brew"
 alias kapitan="nocorrect kapitan"
 alias pip="nocorrect pip"
 alias pip3="nocorrect pip3"
 alias helm="nocorrect helm"
 alias minikube="nocorrect minikube"
+
+# brew
+alias brew-update="brew bundle --file=~/.Brewfile"
 
 # friendly names

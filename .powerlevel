@@ -4,7 +4,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context aws dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv custom_goenv java_version custom_tfenv custom_terraform_workspace custom_kube_context)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv custom_goenv java_version custom_tfenv custom_terraform_workspace kubecontext)
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
@@ -71,33 +71,6 @@ _terraform_workspace() {
   if [[ -d .terraform ]]; then  
     workspace=$(cat .terraform/environment 2>/dev/null || return)
     echo -n "${workspace}"
-  fi
-}
-
-POWERLEVEL9K_CUSTOM_KUBE_CONTEXT="_kube_context"
-POWERLEVEL9K_CUSTOM_KUBE_CONTEXT_FOREGROUND="white"
-POWERLEVEL9K_CUSTOM_KUBE_CONTEXT_BACKGROUND="magenta"
-
-_kube_context() {
-  if command -v kubectl >/dev/null 2>&1; then
-    # Get the current Kuberenetes context
-    local config=$(kubectl config view -o=json)
-    local cur_ctx=$(jq -r '.["current-context"]' <<< "${config}")
-    local cur_namespace=$(jq -r --arg CTX "${cur_ctx}" '.contexts[] | select(.name == "$CTX") | .context.namespace' <<< "${config}")
-    # If the namespace comes back empty set it default.
-    if [[ -z "${cur_namespace}" ]]; then
-      cur_namespace="default"
-    fi
-
-    local k8s_final_text=""
-
-    if [[ "$cur_ctx" == "$cur_namespace" ]]; then
-      # No reason to print out the same identificator twice
-      k8s_final_text="$cur_ctx"
-    else
-      k8s_final_text="$cur_ctx/$cur_namespace"
-    fi
-    echo -n "${k8s_final_text} \U2388"
   fi
 }
 

@@ -1,6 +1,5 @@
 ZSH_DISABLE_COMPFIX="true"
 
-test -f ~/.zshenv && source ~/.zshenv
 test -f ~/.logging && source ~/.logging
 
 function _source () {
@@ -48,7 +47,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 _source ~/.powerlevel
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
@@ -76,17 +75,19 @@ if is_linux; then
   test -d /home/linuxbrew/.linuxbrew && export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 fi
 
-# Execute code in the background to not affect the current session
-autoload -Uz compinit
-compinit
-{
-  # Compile zcompdump, if modified, to increase startup speed.
-  zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-  if [[ -s "${zcompdump}" && (! -s "${zcompdump}.zwc" || "${zcompdump}" -nt "${zcompdump}.zwc") ]]; then
-    log_debug "Compiling ${zcompdump}"
-    zcompile "${zcompdump}"
-  fi
-} &! 
+if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
+  # Execute code in the background to not affect the current session
+  autoload -Uz compinit
+  compinit
+  {
+    # Compile zcompdump, if modified, to increase startup speed.
+    zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+    if [[ -s "${zcompdump}" && (! -s "${zcompdump}.zwc" || "${zcompdump}" -nt "${zcompdump}.zwc") ]]; then
+      log_debug "Compiling ${zcompdump}"
+      zcompile "${zcompdump}"
+    fi
+  } &! 
+fi
 
 clean_path
 
