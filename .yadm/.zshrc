@@ -89,6 +89,10 @@ if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
   } &! 
 fi
 
+if command -v minikube >/dev/null 2>&1; then
+  source <(minikube completion zsh)
+fi
+
 clean_path
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
