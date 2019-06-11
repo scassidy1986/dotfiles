@@ -16,6 +16,8 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>CGFontRenderingFontSmoothingDisabled</key>
+	<false/>
 	<key>Default Bookmark Guid</key>
 	<string>8EAADAA0-7DD3-47E3-823E-F362814D142D</string>
 	<key>DimBackgroundWindows</key>
@@ -77,11 +79,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1171 1249 936 151 856 1050 1920 1057 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>1481 1548 620 392 831 1050 1920 1057 </string>
+	<string>530 476 620 392 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1141 1398 796 486 856 1050 1920 1057 </string>
+	<string>-779 1370 918 514 -1064 1050 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>831 1050 1920 1057 831 1050 1920 1057 </string>
+	<string>-1064 1073 1920 1034 -1064 1050 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 610 585 402 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -847,7 +849,7 @@
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
-			<false/>
+			<true/>
 			<key>Use Bright Bold</key>
 			<false/>
 			<key>Use Cursor Guide</key>
@@ -866,8 +868,18 @@
 			<string>/Users/stecas02</string>
 		</dict>
 	</array>
+	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
+	<true/>
+	<key>NoSyncConfirmShellIntegrationCommand</key>
+	<true/>
+	<key>NoSyncConfirmShellIntegrationCommand_selection</key>
+	<integer>0</integer>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
+	<key>NoSyncInstallUtilitiesPackage</key>
+	<true/>
+	<key>NoSyncInstallUtilitiesPackage_selection</key>
+	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
 	<string>B0A8D375-959B-4283-BD1D-A840D8730E45</string>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -930,7 +942,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-04-05T14:21:57Z</date>
+	<date>2019-06-11T11:28:17Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -958,7 +970,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.2.7</string>
+	<string>3.2.9</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
