@@ -31,14 +31,6 @@ export SAVEHIST=${HISTSIZE}
 # Kubernetes
 export KUBECONFIG_HOME="${HOME}/.kube/conf"
 
-# Golang
-export GOHOME="${HOME}/go"
-export GOPATH="${GOHOME}:${GOHOME}/bin"
-
-# Python
-
 # Terraform
 export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugins_cache"
-
-export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${PATH}"
 

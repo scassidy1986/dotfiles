@@ -93,6 +93,12 @@ if command -v minikube >/dev/null 2>&1; then
   source <(minikube completion zsh)
 fi
 
+# Golang
+export GOHOME="${HOME}/go"
+export GOPATH="${GOHOME}:${GOHOME}/bin"
+
+export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${PATH}"
+
 clean_path
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
