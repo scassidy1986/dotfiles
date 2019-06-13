@@ -8,7 +8,7 @@ export _JABBA_LOADED=1
 autoload -Uz add-zsh-hook
 
 _version_file_readable () {
-  [[ -f "${1}" && -r "${1}" ]]
+  [[ -f "${1}" ]]
 }
 
 _load_rbenv () {

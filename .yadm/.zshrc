@@ -68,6 +68,7 @@ plugins=(
   osx 
   docker
   terraform
+  zsh-prompt-benchmark
 )
 
 if is_linux; then
@@ -95,9 +96,9 @@ fi
 
 # Golang
 export GOHOME="${HOME}/go"
-export GOPATH="${GOHOME}:${GOHOME}/bin"
+export GOPATH="${GOHOME}"
 
-export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${PATH}"
+export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${GOPATH}/bin:${PATH}"
 
 clean_path
 
