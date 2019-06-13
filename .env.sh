@@ -35,19 +35,20 @@ _load_goenv () {
   [[ ${_GOENV_LOADED} -eq 0 ]] && return 0
   version_file=".go-version"
   if _version_file_readable ${version_file}; then
-    echo "===> Found ${version_file}, loading ..." 
     eval "$(goenv init -)"
     export _GOENV_LOADED=0
   fi
 }
 
 _load_jabba () {
-  [[ ${_JABBA_LOADED} -eq 0 ]] && return 0
   version_file=".jabbarc"
   if _version_file_readable ${version_file}; then
-    echo "===> Found ${version_file}, loading ..."
-    [ -s "/Users/scassidy/.jabba/jabba.sh" ] && source "/Users/scassidy/.jabba/jabba.sh"
-    export _JABBA_LOADED=0
+    if [[ ${_JABBA_LOADED} -eq 1 ]]; then
+      echo "===> Found ${version_file}, loading ..."
+      [ -s "/Users/scassidy/.jabba/jabba.sh" ] && source "/Users/scassidy/.jabba/jabba.sh"
+      export _JABBA_LOADED=0
+    fi
+    jabba use
   fi
 }
 
