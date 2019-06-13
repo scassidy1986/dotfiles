@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -e ~/.logging ]; then
+  source ~/.logging
+else
+  function log_info () {
+    echo -e "[INFO] \033[0;32m${1}\033[0m"
+  }
+  function log_error () {
+    echo -e "[ERROR] \033[0;31m${1}\033[0m"
+  }
+fi
+
+SCRIPT_NAME=${0##*/}
+
+function usage () {
+  echo "Usage: ${SCRIPT_NAME} -d <directory> -t <test_run>"
+}
+
+SHORTOPTS="d:th"
+LONGOPTS="directory:,test-run,help"
+REQUIREDOPTS=("directory")
+ARGS=$(getopt -s bash --options "${SHORTOPTS}" --longoptions "${LONGOPTS}" --name "${SCRIPT_NAME}" -- "$@" )
+
+test_run=0
+directory=""
+
+eval set -- "${ARGS}"
+while true; do
+  case $1 in
+    -d|--directory)
+      shift
+      directory="${1}"
+      ;;
+    -t|--test-run)
+      test_run=1
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      shift
+      break
+      ;;
+  esac
+  shift
+done
+
+for required in ${REQUIREDOPTS}; do
+  if [[ -z "${!required}" ]]; then
+    log_error "Required parameter missing [${required}]"
+    usage
+    exit 1
+  fi
+done
+
+for dir in $(find ${directory} -type d -iname ".terraform" -ls | awk '{print $12}');
+do
+  if [ -d "${dir}" ] ; then
+    log_info "Found directory: ${dir}"
+    environment=""
+    if [ -e "${dir}/environment" ]; then
+      environment=$(cat ${dir}/environment)
+      log_info "> Found environment file: ${environment}"
+    fi
+
+    if [[ ${test_run} -eq 0 ]]; then
+      log_warn "> Removing directory - ${dir}!"
+      rm -rf ${dir}
+    else
+      log_info "> rm -rf ${dir} (test-run)"
+    fi
+
+    if [ ! -z "${environment}" ]; then
+      if [[ ${test_run} -eq 0 ]]; then
+        log_info "> Creating environment file at ${dir}/environment for [${environment}]"
+        mkdir -p ${dir}
+        echo ${environment} > ${dir}/environment
+      else
+        log_info "> mkdir -p ${dir} (test-run)"
+        log_info "> ${environment} > ${dir}/environment (test-run)"
+      fi
+    fi
+  fi
+done
+
+exit 0
