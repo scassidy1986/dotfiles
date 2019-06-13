@@ -17,7 +17,7 @@ function is_osx () {
 }
 
 function cd () {
-  builtin cd "$@" && ll 
+  builtin cd "$@" && ls -lhG
 }
 
 function kubectl() {

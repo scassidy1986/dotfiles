@@ -2,7 +2,7 @@
 
 # aliases
 alias ls="ls -G"
-alias ll="ls -lthrG"
+alias ll="ls -lhG"
 
 alias zshconfig="vim ~/.zshrc"
 alias zshconfig_reload=". ~/.zshrc"
