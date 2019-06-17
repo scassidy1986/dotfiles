@@ -1,23 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 LEVEL_INFO="INFO"
 LEVEL_WARN="WARN"
 LEVEL_ERROR="ERROR"
 LEVEL_DEBUG="DEBUG"
 
-DARKGRAY="\033[1;30m"
-RED="\033[0;31m"
-LIGHTRED="\033[1;31m"
-GREEN="\033[0;32m"
-LIGHTGREEN="\033[0;92m"
-YELLOW="\033[1;33m"
-BLUE="\033[0;34m"
-LIGHTBLUE="\033[0;94m"
-PURPLE="\033[0;35m"
-LIGHTPURPLE="\033[1;35m"
-CYAN="\033[0;36m"
-WHITE="\033[1;37m"
-NONE="\033[0m"
+BLACK="\e[30m"
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+PURPLE="\e[35m"
+CYAN="\e[36m"
+WHITE="\e[37m"
+NONE="\e[39m"
+LIGHTRED="\e[91m"
+LIGHTGREEN="\e[92m"
+LIGHTBLUE="\e[94m"
+LIGHTPURPLE="\e[95m"
+LIGHTCYAN="\e[96m"
 
 PADDING="      "
 
@@ -43,7 +44,7 @@ function _log () {
       ;;
   esac
 
-  echo "[${timestamp}] [${level}] ${message}"
+  printf "[${timestamp}] [${level}] ${message}\n"
 }
 
 function log_info () {
