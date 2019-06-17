@@ -40,8 +40,8 @@ _tfenv_prompt () {
       if [[ -e "${tfenv_root}/version" ]]; then
         tfenv_global="$(cat ${tfenv_root}/version)"
       fi
-      if [[ "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TFENV_PROMPT_ALWAYS_SHOW:-false}" == "true" ]]; then
-        echo "$tfenv_version_name \uf0ad"
+      if [[ "${tfenv_version_name}" != "" && "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TFENV_PROMPT_ALWAYS_SHOW:-false}" == "true" ]]; then
+        echo "${tfenv_version_name} \uf0ad"
       fi
     fi
   fi
@@ -53,7 +53,7 @@ POWERLEVEL9K_CUSTOM_TERRAFORM_WORKSPACE_BACKGROUND="purple3"
 
 _terraform_workspace() {
   if [[ -d .terraform ]]; then  
-    workspace=$(cat .terraform/environment 2>/dev/null || return)
+    workspace=$(cat .terraform/environment 2>/dev/null || echo "default")
     echo -n "${workspace}"
   fi
 }
