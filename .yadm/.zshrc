@@ -68,6 +68,10 @@ plugins=(
   osx 
   docker
   terraform
+  rbenv
+  pyenv
+  goenv
+  tfenv
   zsh-prompt-benchmark
 )
 

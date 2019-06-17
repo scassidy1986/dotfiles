@@ -9,6 +9,7 @@ alias zshconfig_reload=". ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
 # brew
+alias brew-outdated="brew update && brew outdated"
 alias brew-bundle="brew bundle --file=~/.Brewfile --verbose"
 alias brew-bundle-check="brew-bundle check"
 alias brew-bundle-list="brew-bundle list"

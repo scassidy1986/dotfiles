@@ -35,6 +35,7 @@ _load_goenv () {
   [[ ${_GOENV_LOADED} -eq 0 ]] && return 0
   version_file=".go-version"
   if _version_file_readable ${version_file}; then
+    echo "===> Found ${version_file}, loading ..." 
     eval "$(goenv init -)"
     export _GOENV_LOADED=0
   fi
