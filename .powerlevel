@@ -3,8 +3,8 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time aws rbenv pyenv go_version java_version custom_tfenv custom_terraform_workspace kubecontext)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context aws dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time rbenv pyenv go_version java_version custom_tfenv custom_terraform_workspace kubecontext)
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
