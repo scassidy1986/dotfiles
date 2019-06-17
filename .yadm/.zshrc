@@ -52,13 +52,6 @@ ENABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
 HOMEBREW_PREFIX=$(brew --prefix)
-fpath=(
-  ${HOMEBREW_PREFIX}/share/zsh/site-functions
-  ${HOMEBREW_PREFIX}/etc/bash_completion.d
-  /usr/local/share/zsh-completions 
-  ${HOME}/.autoload
-  ${fpath}
-)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,11 +61,21 @@ plugins=(
   osx 
   docker
   terraform
+  sdk
   rbenv
   pyenv
   goenv
   tfenv
   zsh-prompt-benchmark
+)
+
+fpath=(
+  ${HOMEBREW_PREFIX}/share/zsh/site-functions
+  ${HOMEBREW_PREFIX}/etc/bash_completion.d
+  /usr/local/share/zsh-completions 
+  ${HOME}/.autoload
+  ${HOME}/.zsh/completions
+  ${fpath}
 )
 
 if is_linux; then
