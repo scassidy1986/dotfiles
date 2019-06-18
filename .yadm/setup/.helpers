@@ -43,7 +43,7 @@ function install_versions() {
   log_info "Installing java version(s)"
   versions=($(read_file_to_array ${file}))
   for version in ${versions[@]}; do
-    log_info "Installing ${version}"
+    log_info "==> Installing ${version}"
 
     echo y | $(eval "${cmd} ${version}")
   done

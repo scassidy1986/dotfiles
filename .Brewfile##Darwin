@@ -20,9 +20,6 @@ brew "zsh-syntax-highlighting"
 # CI/CD
 brew "packer"
 
-# Coding
-brew "go"
-
 # Tools
 brew "awscli"
 brew "coreutils"
