@@ -3,7 +3,8 @@
 source ${HOME}/.logging
 source .helpers
 
-source_folder="${HOME}/.yadm/scripts"
-target_folder="/usr/local/bin"
+source_folder="${HOME}/.yadm/zsh-completions"
+target_folder="/usr/local/share/zsh-completions"
 
 symlink_directory "${source_folder}" "${target_folder}"
+

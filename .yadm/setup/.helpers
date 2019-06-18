@@ -49,3 +49,27 @@ function install_versions() {
   done
 }
 
+function symlink_directory() {
+  source_folder="${1}"
+  target_folder="${2}"
+
+  log_info "Symlinking files from ${source_folder} to ${target_folder}"
+
+  for file in $(ls -1 ${source_folder}/); 
+  do
+    filename=$(basename ${file})
+    source="${source_folder}/${filename}"
+    target="${target_folder}/${filename}"
+
+    log_info "=> ${source} -> ${target}"
+
+    if [ -L ${target} ]; then
+      log_warn "==> ${target} exists, removing..."
+      rm ${target}
+    fi
+    if [ ! -L ${target} ]; then
+      log_info "==> Linking file '${source}' to '${target}'"
+      ln -nfs ${source} ${target}
+    fi
+  done
+}

@@ -61,7 +61,6 @@ plugins=(
   osx 
   docker
   terraform
-  sdk
   rbenv
   pyenv
   goenv
@@ -74,7 +73,6 @@ fpath=(
   ${HOMEBREW_PREFIX}/etc/bash_completion.d
   /usr/local/share/zsh-completions 
   ${HOME}/.autoload
-  ${HOME}/.zsh/completions
   ${fpath}
 )
 
