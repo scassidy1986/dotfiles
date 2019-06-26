@@ -20,14 +20,6 @@ function cd () {
   builtin cd "$@" && ls -lhG
 }
 
-function kubectl() {
-  if ! type __start_kubectl >/dev/null 2>&1; then
-    source <(command kubectl completion zsh)
-  fi
-
-  command kubectl "$@"
-}
-
 function clean_path () {
   if [ -n "${PATH}" ]; then
     OLD_PATH=${PATH}:; PATH=

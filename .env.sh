@@ -37,6 +37,7 @@ _load_goenv () {
   if _version_file_readable ${version_file}; then
     echo "===> Found ${version_file}, loading ..." 
     eval "$(goenv init -)"
+    export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
     export _GOENV_LOADED=0
   fi
 }

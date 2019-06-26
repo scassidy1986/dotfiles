@@ -52,22 +52,6 @@ ENABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
 HOMEBREW_PREFIX=$(brew --prefix)
-
-source $ZSH/oh-my-zsh.sh
-
-plugins=(
-  git 
-  brew 
-  osx 
-  docker
-  terraform
-  rbenv
-  pyenv
-  goenv
-  tfenv
-  zsh-prompt-benchmark
-)
-
 fpath=(
   ${HOMEBREW_PREFIX}/share/zsh/site-functions
   ${HOMEBREW_PREFIX}/etc/bash_completion.d
@@ -75,6 +59,16 @@ fpath=(
   ${HOME}/.autoload
   ${fpath}
 )
+
+plugins=(
+  git 
+  brew 
+  osx 
+  docker
+  terraform
+)
+
+source $ZSH/oh-my-zsh.sh
 
 if is_linux; then
   test -d ~/.linuxbrew && export PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
@@ -102,8 +96,9 @@ fi
 # Golang
 export GOHOME="${HOME}/go"
 export GOPATH="${GOHOME}"
+export GOENV_ROOT="${HOME}/.goenv"
 
-export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${GOPATH}/bin:${PATH}"
+export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${GOPATH}/bin:${GOENV_ROOT}/bin:${PATH}"
 
 clean_path
 

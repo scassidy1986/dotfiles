@@ -6,7 +6,7 @@ function _tf_plan_file () {
 }
 
 # aliases
-alias tf-init="terraform init"
+alias tf-init="terraform init -upgrade"
 alias tf-plan="terraform plan -out=$(_tf_plan_file)"
 alias tf-apply="terraform apply"
 alias tf-refresh="terraform refresh"

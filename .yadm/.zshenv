@@ -34,3 +34,5 @@ export KUBECONFIG_HOME="${HOME}/.kube/conf"
 # Terraform
 export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugins_cache"
 
+# goenv
+export GOENV_ROOT="${HOME}/.goenv"
