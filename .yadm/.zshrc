@@ -1,5 +1,10 @@
 ZSH_DISABLE_COMPFIX="true"
 
+# Path to your oh-my-zsh installation.
+export ZSH="${HOME}/.oh-my-zsh"
+export ZSH_CUSTOM="${ZSH}/custom/"
+export ZSH_PLUGINS="${ZSH}/plugins"
+
 test -f ~/.logging && source ~/.logging
 
 function _source () {
@@ -35,9 +40,6 @@ for file in $(ls -1 ${HOME}/.autoload/); do
   autoload ${file}
 done
 
-# Path to your oh-my-zsh installation.
-export ZSH="${HOME}/.oh-my-zsh"
-export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom/"
 
 # Terraform...
 #export TF_LOG="INFO"
