@@ -59,7 +59,6 @@ brew "powerlevel9k"
 brew "yadm"
 
 # Mac OS X
-cask "alfred"
 cask "atom"
 cask "caffeine"
 cask "iterm2"
