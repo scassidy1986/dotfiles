@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -e
-
+source ${HOME}/.logging
 source .helpers
 
-install_versions "rbenv" ".ruby_versions" "rbenv install"
+log_info "$0 $@"
 
+install_versions "rbenv" ".ruby_versions" "rbenv install"

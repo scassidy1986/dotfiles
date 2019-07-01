@@ -2,12 +2,13 @@
 
 source ${HOME}/.logging
 
+log_info "$0 $@"
+
 if [ -d "${HOME}/.customfonts" ]; then
-  log_info "Installing additional fonts"
+  log_info "=> Installing additional fonts"
   fonts_dir="${HOME}/.customfonts/*.ttf"
   for font_filename in ${fonts_dir}; do
     log_info "==> Installing ${font_filename}"
     cp ${font_filename} ~/Library/Fonts/
   done
 fi
-

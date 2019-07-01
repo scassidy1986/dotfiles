@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -e
-
+source ${HOME}/.logging
 source .helpers
 
-install_versions "pyenv" ".python_versions" "pyenv install"
+log_info "$0 $@"
 
+install_versions "pyenv" ".python_versions" "pyenv install"

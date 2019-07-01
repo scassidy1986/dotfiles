@@ -31,16 +31,16 @@ function install_versions() {
   local cmd=${3}
 
   if ! command -v ${exe} >/dev/null 2>&1; then
-    log_info "${exe} not installed; nothing to do"
+    log_info "=> ${exe} not installed; nothing to do"
     return
   fi
 
   if [ ! -f ${file} ]; then
-    log_warn "No versions found at ${file}"
+    log_warn "=> No versions found at ${file}"
     return
   fi
 
-  log_info "Installing java version(s)"
+  log_info "=> Installing version(s)"
   versions=($(read_file_to_array ${file}))
   for version in ${versions[@]}; do
     log_info "==> Installing ${version}"
@@ -55,7 +55,7 @@ function symlink_directory() {
 
   log_info "Symlinking files from ${source_folder} to ${target_folder}"
 
-  for file in $(ls -1 ${source_folder}/); 
+  for file in $(ls -1 ${source_folder}/);
   do
     filename=$(basename ${file})
     source="${source_folder}/${filename}"

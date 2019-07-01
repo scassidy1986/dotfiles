@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -e
-
+source ${HOME}/.logging
 source .helpers
 
-install_versions "jabba" ".java_versions" "jabba install"
+log_info "$0 $@"
 
+install_versions "jabba" ".java_versions" "jabba install"

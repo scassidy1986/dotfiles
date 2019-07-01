@@ -2,14 +2,20 @@
 
 source ${HOME}/.logging
 
+log_info "$0 $@"
+
 if ! command -v brew >/dev/null 2>&1; then
-  log_info "> Installing homebrew"
+  log_info "=> Installing homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
-  log_info "> Homebrew installed"
+  log_info "=> Homebrew installed"
 fi
 
-brew_file=$(readlink -f ${HOME}/.Brewfile)
-log_info "> brew bundle --file=\"${brew_file}\""
+log_info "==> Updating brew..."
+brew update 2>&1 > /dev/null
+
+brew_file="${HOME}/.Brewfile"
+brew_args="--global --verbose"
+log_info "==> brew bundle ${brew_args}"
 brew tap homebrew/bundle
-brew bundle --file="${HOME}/.Brewfile"
+brew bundle ${brew_args}

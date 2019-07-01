@@ -2,5 +2,6 @@
 
 source ${HOME}/.logging
 
-sudo echo ""
+log_info "$0 $@"
 
+sudo echo ""

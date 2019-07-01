@@ -3,7 +3,9 @@
 source ${HOME}/.logging
 source .helpers
 
-log_info "Installing Powerline fonts..."
+log_info "$0 $@"
+
+log_info "=> Installing Powerline fonts..."
 tmp_template=$(temp_folder "powerline_fonts")
 fonts_tmp=$(mktemp -d -t ${tmp_template})
 git clone https://github.com/powerline/fonts.git ${fonts_tmp} > /dev/null 2>&1

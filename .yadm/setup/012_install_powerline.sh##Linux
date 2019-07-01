@@ -4,7 +4,9 @@ source ${HOME}/.logging
 source .helpers-linux
 source .helpers
 
-log_info " - Installing Powerline fonts..."
+log_info "$0 $@"
+
+log_info "=> Installing Powerline fonts..."
 
 install_dependency "fonts-powerline"
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -e
-
+source ${HOME}/.logging
 source .helpers
 
-install_versions "goenv" ".go_versions" "goenv install"
+log_info "$0 $@"
 
+install_versions "goenv" ".go_versions" "goenv install"

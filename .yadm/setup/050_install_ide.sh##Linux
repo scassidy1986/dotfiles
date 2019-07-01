@@ -3,6 +3,8 @@
 source ${HOME}/.logging
 source .helpers
 
+log_info "$0 $@"
+
 [ $(id -u) != "0" ] && exec sudo "$0" "$@"
 
 log_info "Installing Jetbrains Toolbox"
@@ -43,8 +45,7 @@ echo "${dir}/jetbrains-toolbox" >> ${dir}/jetbrains-toolbox.sh
 
 log_info "> Creating executable at ${usr_exe}"
 
-ln -nfs ${dir}/jetbrains-toolbox.sh ${usr_exe} 
+ln -nfs ${dir}/jetbrains-toolbox.sh ${usr_exe}
 chmod -R +rwx ${usr_exe}
 
 log_info "Done!"
-

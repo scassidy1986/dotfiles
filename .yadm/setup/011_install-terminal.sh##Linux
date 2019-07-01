@@ -3,6 +3,8 @@
 source ${HOME}/.logging
 source .helpers-linux
 
+log_info "$0 $@"
+
 add_repository "ppa:gnome-terminator"
 
 sudo apt update
