@@ -108,3 +108,5 @@ clean_path
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
+
+autoload -U +X bashcompinit && bashcompinit

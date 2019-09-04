@@ -3,6 +3,7 @@ atom-clock
 atom-material-syntax
 atom-material-ui
 busy-signal
+compare-files
 docker
 intentions
 language-docker
