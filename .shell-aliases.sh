@@ -4,10 +4,6 @@
 alias ls="ls -G"
 alias ll="ls -lhG"
 
-alias zshconfig="vim ~/.zshrc"
-alias zshconfig_reload=". ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-
 # brew
 alias brew-outdated="brew update && brew outdated"
 alias brew-bundle="brew bundle --file=~/.Brewfile --verbose"

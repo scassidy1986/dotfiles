@@ -2,39 +2,38 @@
 
 autoload -Uz add-zsh-hook
 
-readonly RBENV_VERSION_FILE=".ruby-version"
+declare -rx RBENV_VERSION_FILE=".ruby-version"
+declare -rx PYENV_VERSION_FILE=".python-version"
+declare -rx GOENV_VERSION_FILE=".go-version"
+declare -rx JABBA_VERSION_FILE=".jabbarc"
 
 _version_file_readable () {
   [[ -f "${1}" ]]
 }
 
 _check_for_rbenv () {
-  local version_file=".ruby-version"
-  if _version_file_readable "${version_file}"; then
-    echo "===> Found ${version_file}, loading ..." 
+  if _version_file_readable "${RBENV_VERSION_FILE}"; then
+    echo "===> Found ${RBENV_VERSION_FILE}, loading ..." 
     _load_rbenv
   fi
 }
 
 _check_for_pyenv () {
-  local version_file=".python-version"
-  if _version_file_readable "${version_file}"; then
-    echo "===> Found ${version_file}, loading ..." 
+  if _version_file_readable "${PYENV_VERSION_FILE}"; then
+    echo "===> Found ${PYENV_VERSION_FILE}, loading ..." 
     _load_pyenv
   fi
 }
 
 _check_for_goenv () {
-  local version_file=".go-version"
-  if _version_file_readable ${version_file}; then
-    echo "===> Found ${version_file}, loading ..." 
+  if _version_file_readable ${GOENV_VERSION_FILE}; then
+    echo "===> Found ${GOENV_VERSION_FILE}, loading ..." 
     _load_goenv
   fi
 }
 
 _check_for_jabba () {
-  local version_file=".jabbarc"
-  if _version_file_readable ${version_file}; then
+  if _version_file_readable ${JABBA_VERSION_FILE}; then
     _load_jabba
     jabba use
   fi
@@ -42,17 +41,20 @@ _check_for_jabba () {
 
 _load_rbenv () {
   source "${ZSH_PLUGINS}/rbenv/rbenv.plugin.zsh"
+  source "${HOME}/.powerlevel"
   add-zsh-hook -d precmd _check_for_rbenv 
 }
 
 _load_pyenv () {
   source "${ZSH_PLUGINS}/pyenv/pyenv.plugin.zsh"
+  source "${HOME}/.powerlevel"
   add-zsh-hook -d precmd _check_for_pyenv 
 }
 
 _load_goenv () {
   eval "$(goenv init -)"
   source "${ZSH_PLUGINS}/go/go.plugin.zsh"
+  source "${HOME}/.powerlevel"
   export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
 }
 

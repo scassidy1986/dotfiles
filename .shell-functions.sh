@@ -45,11 +45,3 @@ function clean_path () {
   fi
 }
 
-function _kubectl_proxy () {
-  if [[ -z "${KUBECONFIG}" ]]; then
-    log_error "KUBECONFIG is not set"
-    return 1
-  fi
-
-  return 0  
-}

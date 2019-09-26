@@ -31,22 +31,17 @@ _source ~/.env.sh
 _source ~/.shell-aliases.sh
 _source ~/.shell-functions.sh
 _source ~/.terraform-functions.sh
-_source_folder ${HOME}/.helpers
-_source_folder ${HOME}/.work-helpers
+_source_folder ~/.helpers
+_source_folder ~/.work-helpers
 
-_source "${HOME}/.iterm2_shell_integration.zsh"
+_source ~/.iterm2_shell_integration.zsh
 
 for file in $(ls -1 ${HOME}/.autoload/); do
   autoload ${file}
 done
 
-
-# Terraform...
-#export TF_LOG="INFO"
-
 # User configuration
 ZSH_THEME="powerlevel10k/powerlevel10k"
-_source ~/.powerlevel
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="false"
@@ -70,7 +65,7 @@ plugins=(
   terraform
 )
 
-source $ZSH/oh-my-zsh.sh
+_source ${ZSH}/oh-my-zsh.sh
 
 if is_linux; then
   test -d ~/.linuxbrew && export PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
@@ -91,22 +86,21 @@ if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
   } &! 
 fi
 
-if command -v minikube >/dev/null 2>&1; then
-  source <(minikube completion zsh)
-fi
-
+export JETBRAINS_BIN="${HOME}/.jetbrains"
 # Golang
 export GOHOME="${HOME}/go"
 export GOPATH="${GOHOME}"
 export GOENV_ROOT="${HOME}/.goenv"
-
-export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${GOPATH}/bin:${GOENV_ROOT}/bin:${PATH}"
+export PATH="/usr/local/opt/gnu-getopt/bin:${GOPATH}:${GOPATH}/bin:${GOENV_ROOT}/bin:${JETBRAINS_BIN}:${PATH}"
 
 clean_path
+
+autoload -U +X bashcompinit && bashcompinit
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 
-autoload -U +X bashcompinit && bashcompinit
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
