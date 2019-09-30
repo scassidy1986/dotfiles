@@ -61,6 +61,7 @@
       time                    # current time
       user                    # current user
       host                    # current host
+      public_ip               # public IP address
       dir                     # current directory
       vcs                     # git status
       # =========================[ Line #2 ]=========================
@@ -102,7 +103,6 @@
       kubecontext             # current kubernetes context (https://kubernetes.io/)
       # =========================[ Line #2 ]=========================
       newline
-      public_ip               # public IP address
       # proxy                 # system-wide http/https/ftp proxy
       # battery               # internal battery
       # example               # example user-defined segment (see prompt_example function below)
