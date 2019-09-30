@@ -33,9 +33,10 @@
 
   # Custom prompts
   function prompt_terraform_version () {
-    if [[ -n "$TERRAFORM_VERSION" ]]; then
-      p10k segment -t "$TERRAFORM_VERSION"
-    elif [ $commands[tfenv] ]; then
+    local version=""
+    if [[ -n "${TERRAFORM_VERSION}" ]]; then
+      version="${TERRAFORM_VERSION}"
+    elif [ ${commands[tfenv]} ]; then
       local tfenv_version_name="$(tfenv version-name 2>/dev/null)"
       local tfenv_global="system"
       local tfenv_root="/usr/local/opt/tfenv"
@@ -43,11 +44,12 @@
         tfenv_global="$(cat ${tfenv_root}/version)"
       fi
       if [[ "${tfenv_version_name}" != "" && "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TERRAFORM_VERSION_ALWAYS_SHOW:-true}" == "true" ]]; then
-        p10k segment -t "${tfenv_version_name}"
+        version="${tfenv_version_name}"
       fi
     fi
+    p10k segment -t "${version}" -r -i 'TERRAFORM_ICON'
   }
-  
+
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_FOREGROUND="white"
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_BACKGROUND="purple3"
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_ICON="\uf0ad"
@@ -57,7 +59,8 @@
   typeset -ga POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
       time                    # current time
-      context                 # user@hostname
+      user                    # current user
+      host                    # current host
       dir                     # current directory
       vcs                     # git status
       # =========================[ Line #2 ]=========================
@@ -280,7 +283,7 @@
   )
   typeset -g POWERLEVEL9K_SHORTEN_FOLDER_MARKER="(${(j:|:)anchor_files})"
   # Don't shorten this many last directory segments. They are anchors.
-  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
   # Shorten directory if it's longer than this even if there is space for it. The value can
   # be either absolute (e.g., '80') or a percentage of terminal width (e.g, '50%'). If empty,
   # directory will be shortened only when prompt doesn't fit.
