@@ -64,9 +64,10 @@ log_info "Found pods ${pods[@]}"
 pids=()
 counter=${port}
 for pod in "${pods[@]}"; do
-  log_info "> ${pod} ${port} -> ${counter}"
   kubectl --namespace ${namespace} port-forward ${pod} ${counter}:${port} &
-  pids+=($!)
+  pid=$!
+  pids+=(${pid})
+  log_info "> ${pod} ${port} -> ${counter} (pid ${pid})"
   counter=$((counter+1))
 done
 
@@ -74,7 +75,13 @@ log_info "Watching pid(s) ${pids[@]}"
 log_info "Ctrl+C to quit"
 log_info "Output below:"
 
-for pid in "${pids[*]}"; do
+trap clean_up INT
+
+function clean_up() {
+  log_info "Closing"
+}
+
+for pid in "${pids[@]}"; do
   wait ${pid}
 done
 
