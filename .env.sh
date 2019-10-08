@@ -41,20 +41,17 @@ _check_for_jabba () {
 
 _load_rbenv () {
   source "${ZSH_PLUGINS}/rbenv/rbenv.plugin.zsh"
-  source "${HOME}/.powerlevel"
   add-zsh-hook -d precmd _check_for_rbenv 
 }
 
 _load_pyenv () {
   source "${ZSH_PLUGINS}/pyenv/pyenv.plugin.zsh"
-  source "${HOME}/.powerlevel"
   add-zsh-hook -d precmd _check_for_pyenv 
 }
 
 _load_goenv () {
   eval "$(goenv init -)"
   source "${ZSH_PLUGINS}/go/go.plugin.zsh"
-  source "${HOME}/.powerlevel"
   export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
 }
 

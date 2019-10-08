@@ -1,0 +1,80 @@
+#!/usr/bin/env sh
+
+if [ -e ${HOME}/.logging ]; then
+  source ${HOME}/.logging
+else
+  function log_info () {
+    echo "[INFO] \033[0;32m${1}\033[0m"
+  }
+  function log_error () {
+    echo "[ERROR] \033[0;31m${1}\033[0m"
+  }
+fi
+
+SCRIPT_NAME=${0##*/}
+
+function usage () {
+  echo "Usage: ${SCRIPT_NAME} -q <query> -p <port> -n <namespace>"
+  echo "   -q --query       The pattern to match pods with."
+  echo "   -p --port        The port to forward."
+  echo "   -n --namespace   The namespace to search for pods."
+}
+
+query=""
+port=
+namespace="default"
+
+SHORTOPTS="q:p:n:"
+LONGOPTS="query:,port:,namespace:"
+REQUIREDOPTS=("query port")
+if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "$@"); then
+  log_error "Unable to set cli options"
+  exit 1
+fi
+
+eval set -- "${options}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -q|--query) shift; query="${1}" ;;
+    -p|--port) shift; port="${1}" ;;
+    -n|--namespace) shift; namespace="${1}" ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    *) break ;;
+  esac
+  shift
+done
+
+for required in ${REQUIREDOPTS}; do
+  if [[ -z "${!required}" ]]; then
+    log_error "Required parameter missing [${required}]"
+    usage
+    exit 1
+  fi
+done
+
+pods=($(kubectl --namespace "${namespace}" get pods -o wide --no-headers=true | grep "${query}" | awk '{print $1}'))
+if [[ -z ${pods} ]]; then
+  log_info "No pods found matching [${query}] in namespace [${namespace}]"
+  exit 0
+fi
+
+log_info "Found pods ${pods[@]}"
+
+pids=()
+counter=${port}
+for pod in "${pods[@]}"; do
+  log_info "> ${pod} ${port} -> ${counter}"
+  kubectl --namespace ${namespace} port-forward ${pod} ${counter}:${port} &
+  pids+=($!)
+  counter=$((counter+1))
+done
+
+log_info "Watching pid(s) ${pids[@]}"
+log_info "Ctrl+C to quit"
+log_info "Output below:"
+
+for pid in "${pids[*]}"; do
+  wait ${pid}
+done
+

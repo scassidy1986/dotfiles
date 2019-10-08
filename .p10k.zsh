@@ -43,25 +43,26 @@
       if [[ -e "${tfenv_root}/version" ]]; then
         tfenv_global="$(cat ${tfenv_root}/version)"
       fi
-      if [[ "${tfenv_version_name}" != "" && "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TERRAFORM_VERSION_ALWAYS_SHOW:-true}" == "true" ]]; then
+      if [[ "${tfenv_version_name}" != "" && "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TERRAFORM_VERSION_ALWAYS_SHOW:-false}" == "true" ]]; then
         version="${tfenv_version_name}"
       fi
     fi
-    p10k segment -t "${version}" -r -i 'TERRAFORM_ICON'
+    p10k segment -t "${version}" -r -i 'TERRAFORM_ICON' -f 'white'
   }
 
-  typeset -g POWERLEVEL9K_TERRAFORM_VERSION_FOREGROUND="white"
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_BACKGROUND="purple3"
-  typeset -g POWERLEVEL9K_TERRAFORM_VERSION_ICON="\uf0ad"
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_ALWAYS_SHOW="true"
+  
+  # Overrides
+  ## Terraform
+  typeset -g POWERLEVEL9K_TERRAFORM_BACKGROUND="purple3"
+  ## Kubernetes
+  typeset -g _POWERLEVEL9K_KUBECONTEXT_SHOW_DEFAULT_NAMESPACE=1
 
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -ga POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
       time                    # current time
-      user                    # current user
-      host                    # current host
-      public_ip               # public IP address
       dir                     # current directory
       vcs                     # git status
       # =========================[ Line #2 ]=========================
@@ -87,22 +88,25 @@
       nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
       # node_version          # node.js version
       go_version              # go version (https://golang.org)
-      java_version
+      java_version            # java version from jabba
       # rust_version          # rustc version (https://www.rust-lang.org)
       # dotnet_version        # .NET version (https://dotnet.microsoft.com)
       rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
       rvm                     # ruby version from rvm (https://rvm.io)
+      aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
       terraform_version       # displays the current terraform version, set by tfenv
       terraform               # terraform workspace (https://www.terraform.io)
-      aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-      nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
-      ranger                  # ranger shell (https://github.com/ranger/ranger)
+      # nordvpn               # nordvpn connection status, linux only (https://nordvpn.com/)
+      # ranger                # ranger shell (https://github.com/ranger/ranger)
       vpn_ip                  # virtual private network indicator
       # ram                   # free RAM
       # load                  # CPU load
       kubecontext             # current kubernetes context (https://kubernetes.io/)
       # =========================[ Line #2 ]=========================
       newline
+      user                    # current user
+      host                    # current host
+      public_ip               # public IP address
       # proxy                 # system-wide http/https/ftp proxy
       # battery               # internal battery
       # example               # example user-defined segment (see prompt_example function below)
@@ -362,10 +366,10 @@
   local vcs=''
   # If on a branch...
   vcs+='${${VCS_STATUS_LOCAL_BRANCH:+%76F'${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}
-  # If local branch name is at most 32 characters long, show it in full.
+  # If local branch name is at most 64 characters long, show it in full.
   # This is the equivalent of POWERLEVEL9K_VCS_SHORTEN_MIN_LENGTH=32.
-  vcs+='${${${$(( ${#VCS_STATUS_LOCAL_BRANCH}<=32 )):#0}:+${VCS_STATUS_LOCAL_BRANCH//\%/%%}}'
-  # If local branch name is over 32 characters long, show the first 12 … the last 12. The same as
+  vcs+='${${${$(( ${#VCS_STATUS_LOCAL_BRANCH}<=64 )):#0}:+${VCS_STATUS_LOCAL_BRANCH//\%/%%}}'
+  # If local branch name is over 64 characters long, show the first 12 … the last 12. The same as
   # POWERLEVEL9K_VCS_SHORTEN_LENGTH=12 with POWERLEVEL9K_VCS_SHORTEN_STRATEGY=truncate_middle.
   vcs+=':-${${VCS_STATUS_LOCAL_BRANCH:0:12}//\%/%%}%28F…%76F${${VCS_STATUS_LOCAL_BRANCH: -12}//\%/%%}}}'
   # '@72f5c8a' if not on a branch.
