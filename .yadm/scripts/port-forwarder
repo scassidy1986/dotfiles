@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+SCRIPT_NAME=${0##*/}
+
 if [ -e ${HOME}/.logging ]; then
   source ${HOME}/.logging
 else
@@ -11,21 +13,33 @@ else
   }
 fi
 
-SCRIPT_NAME=${0##*/}
-
 function usage () {
   echo "Usage: ${SCRIPT_NAME} -q <query> -p <port> -n <namespace>"
   echo "   -q --query       The pattern to match pods with."
   echo "   -p --port        The port to forward."
   echo "   -n --namespace   The namespace to search for pods."
+  echo "   -r --random-port Whether to use random ports."
+}
+
+function random_port () {
+  while true
+  do
+    random_port=$(( ((RANDOM<<15)|RANDOM) % 49152 + 10000 ))
+    status="$(nc -z 127.0.0.1 ${random_port} < /dev/null &>/dev/null; echo $?)"
+    if [ "${status}" != "0" ]; then
+      echo ${random_port}
+      return
+    fi
+  done
 }
 
 query=""
 port=
 namespace="default"
+use_random_port=false
 
-SHORTOPTS="q:p:n:"
-LONGOPTS="query:,port:,namespace:"
+SHORTOPTS="q:p:n:r"
+LONGOPTS="query:,port:,namespace:,random-port"
 REQUIREDOPTS=("query port")
 if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "$@"); then
   log_error "Unable to set cli options"
@@ -38,6 +52,7 @@ while [ $# -gt 0 ]; do
     -q|--query) shift; query="${1}" ;;
     -p|--port) shift; port="${1}" ;;
     -n|--namespace) shift; namespace="${1}" ;;
+    -r|--random-port) use_random_port=true ;;
     -h|--help) usage; exit 0 ;;
     --) shift; break ;;
     *) break ;;
@@ -59,29 +74,23 @@ if [[ -z ${pods} ]]; then
   exit 0
 fi
 
-log_info "Found pods ${pods[@]}"
+log_info "Found pods ${pods[*]}"
 
-pids=()
 counter=${port}
 for pod in "${pods[@]}"; do
-  kubectl --namespace ${namespace} port-forward ${pod} ${counter}:${port} &
-  pid=$!
-  pids+=(${pid})
-  log_info "> ${pod} ${port} -> ${counter} (pid ${pid})"
+  port_to_use=${counter}
+  if [ "${use_random_port}" = true ]; then
+    port_to_use=$(random_port)
+  fi
+  kubectl --namespace ${namespace} port-forward ${pod} ${port_to_use}:${port} &
+  log_info "> ${pod} ${port} -> ${port_to_use}"
   counter=$((counter+1))
 done
 
-log_info "Watching pid(s) ${pids[@]}"
 log_info "Ctrl+C to quit"
 log_info "Output below:"
 
-trap clean_up INT
-
-function clean_up() {
-  log_info "Closing"
-}
-
-for pid in "${pids[@]}"; do
+for pid in $(jobs -p); do
   wait ${pid}
 done
 
