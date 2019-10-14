@@ -14,19 +14,24 @@ else
 fi
 
 function usage () {
-  echo "Usage: ${SCRIPT_NAME} -q <query> -p <port> -n <namespace> -k <kube_config>"
+  echo "Usage: ${SCRIPT_NAME} -q <query> -p <port> -n <namespace> [-k <kube_config>] [-r]"
   echo "   -q --query       The pattern to match pods with."
   echo "   -p --port        The port to forward."
   echo "   -n --namespace   The namespace to search for pods."
   echo "                    Defaults to 'default'."
   echo " Optional:"
-  echo "   -k --kube-config The kubeconfig to use."
+  echo "   -k --kube-config The kubeconfig to use, if different than the current one."
   echo "                    Defaults to the value of 'KUBECONFIG'."
   echo "   -r --random-port Whether to use random ports. If false, will attempt to use"
   echo "                    the port to forward + 1 e.g."
   echo "                    pod-1 -> 8080:8080"
   echo "                    pod-2 -> 8080:8081"
   echo "                    pod-3 -> 8080:8082"
+  echo ""
+  echo " Examples:"
+  echo "  ${SCRIPT_NAME} -q apiservice -p 8080"
+  echo "  ${SCRIPT_NAME} -q fluentd -n logging -p 24231 -k ~/.kube/pd-test-1.kubeconfig -r"
+  echo "  KUBECONFIG=\"~/.kube/pd-test-1.kubeconfig\" ${SCRIPT_NAME} -q fluentd -n logging -p 24231"
 }
 
 query=""
@@ -35,8 +40,8 @@ kube_config=${KUBECONFIG}
 namespace="default"
 use_random_port=false
 
-SHORTOPTS="q:p:n:r"
-LONGOPTS="query:,port:,namespace:,random-port"
+SHORTOPTS="q:p:n:k:rh"
+LONGOPTS="query:,port:,namespace:,kube-config:,random-port,help"
 REQUIREDOPTS=("query port kube_config")
 if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "$@"); then
   log_error "Unable to set cli options"
