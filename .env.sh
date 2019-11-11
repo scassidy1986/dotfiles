@@ -57,6 +57,7 @@ _load_goenv () {
 
 _load_jabba () {
   [ -s "/Users/scassidy/.jabba/jabba.sh" ] && source "/Users/scassidy/.jabba/jabba.sh"
+  add-zsh-hook -d precmd _check_for_jabba
 }
 
 add-zsh-hook precmd _check_for_rbenv 

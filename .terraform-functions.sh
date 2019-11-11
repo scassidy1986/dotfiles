@@ -16,7 +16,7 @@ function tf-workspace () {
 
 # aliases
 alias tf-init="terraform init"
-alias tf-plan="terraform plan -out=$(_tf_plan_file)"
+alias tf-plan="terraform plan -detailed-exitcode -out=$(_tf_plan_file)"
 alias tf-apply="terraform apply"
 alias tf-refresh="terraform refresh"
 alias tf-fmt="terraform fmt"
