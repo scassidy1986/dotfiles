@@ -14,10 +14,14 @@ setup_scripts=$(ls ${HOME}/.yadm/setup/*.sh | sort -n -t _ -k 2)
 log_info "Found ${#setup_scripts[*]} setup scripts"
 for file in ${setup_scripts}
 do
-  log_info "=> Executing ${file}"
-  test -h ${file} && log_info "==> Target: $(readlink ${file})"
+  if test -h "${file}"; then
+    original_file="(target: $(readlink ${file}))"
+  fi
+  
+  log_info "=> Executing ${file} ${original_file}"
   if [ "${dry_run}" = false ]; then
     /bin/bash ${file}
   fi
-  log_info "==> Finishing executing ${file}: Exit ${?}"
+  log_info "==> Finished executing ${file}: Exit ${?}"
 done
+

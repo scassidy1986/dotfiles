@@ -48,19 +48,25 @@ function _log () {
 }
 
 function log_info () {
-  _log ${LEVEL_INFO} "${1}"
+  if [ "${LOGGING_INFO_ENABLED:-true}" = true ]; then
+    _log ${LEVEL_INFO} "${1}"
+  fi
 }
 
 function log_warn () {
-  _log ${LEVEL_WARN} "${1}"
+  if [ "${LOGGING_WARN_ENABLED:-true}" = true ]; then
+    _log ${LEVEL_WARN} "${1}"
+  fi
 }
 
 function log_error () {
-  _log ${LEVEL_ERROR} "${1}"
+  if [ "${LOGGING_ERROR_ENABLED:-true}" = true ]; then
+    _log ${LEVEL_ERROR} "${1}"
+  fi
 }
 
 function log_debug () {
-  if [ "${DEBUG_LOGGING_ENABLED:-false}" = true ]; then
+  if [ "${LOGGING_DEBUG_ENABLED:-false}" = true ]; then
     _log ${LEVEL_DEBUG} "${1}"
   fi
 }
