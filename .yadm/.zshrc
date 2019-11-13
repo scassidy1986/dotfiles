@@ -62,6 +62,7 @@ plugins=(
   brew 
   osx 
   docker
+  kubectl
   terraform
 )
 
