@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-source .env
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+source ${DIR}/.env
 source ${HOME}/.logging
 
 log_info "$0 $@"
