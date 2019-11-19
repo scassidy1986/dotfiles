@@ -1,0 +1,102 @@
+#!/usr/bin/env sh
+
+SCRIPT_NAME=${0##*/}
+
+if [ -e ${HOME}/.logging ]; then
+  source ${HOME}/.logging
+else
+  function log_info () {
+    echo "[INFO] \033[0;32m${1}\033[0m"
+  }
+  function log_error () {
+    echo "[ERROR] \033[0;31m${1}\033[0m"
+  }
+fi
+
+function usage () {
+  echo "Usage: ${SCRIPT_NAME} -q <query> -p <port> -n <namespace> [-k <kube_config>] [-r]"
+  echo "   -q --query       The pattern to match pods with."
+  echo "   -p --port        The port to forward."
+  echo "   -n --namespace   The namespace to search for pods."
+  echo "                    Defaults to 'default'."
+  echo " Optional:"
+  echo "   -k --kube-config The kubeconfig to use, if different than the current one."
+  echo "                    Defaults to the value of 'KUBECONFIG'."
+  echo "   -r --random-port Whether to use random ports. If false, will attempt to use"
+  echo "                    the port to forward + 1 e.g."
+  echo "                    pod-1 -> 8080:8080"
+  echo "                    pod-2 -> 8080:8081"
+  echo "                    pod-3 -> 8080:8082"
+  echo ""
+  echo " Examples:"
+  echo "  ${SCRIPT_NAME} -q apiservice -p 8080"
+  echo "  ${SCRIPT_NAME} -q fluentd -n logging -p 24231 -k ~/.kube/pd-test-1.kubeconfig -r"
+  echo "  KUBECONFIG=\"~/.kube/pd-test-1.kubeconfig\" ${SCRIPT_NAME} -q fluentd -n logging -p 24231"
+}
+
+query=""
+port=
+kube_config=${KUBECONFIG}
+namespace="default"
+use_random_port=false
+
+SHORTOPTS="q:p:n:k:rh"
+LONGOPTS="query:,port:,namespace:,kube-config:,random-port,help"
+REQUIREDOPTS=("query port kube_config")
+if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "$@"); then
+  log_error "Unable to set cli options"
+  exit 1
+fi
+
+eval set -- "${options}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -q|--query) shift; query="${1}" ;;
+    -p|--port) shift; port="${1}" ;;
+    -n|--namespace) shift; namespace="${1}" ;;
+    -k|--kube-config) shift; kube_config="${1}" ;;
+    -r|--random-port) use_random_port=true ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    *) break ;;
+  esac
+  shift
+done
+
+for required in ${REQUIREDOPTS}; do
+  if [[ -z "${!required}" ]]; then
+    log_error "Required parameter missing [${required}]"
+    usage
+    exit 1
+  fi
+done
+
+pods=($(KUBECONFIG=${kube_config} kubectl --namespace "${namespace}" get pods -o wide --no-headers=true | grep "${query}" | awk '{print $1}'))
+if [[ -z ${pods} ]]; then
+  log_info "No pods found matching [${query}] in namespace [${namespace}]"
+  exit 0
+fi
+
+log_info "Found pods ${pods[*]}"
+
+counter=${port}
+for pod in "${pods[@]}"; do
+  port_to_use=${counter}
+  if [ "${use_random_port}" = true ]; then
+    port_to_use=""
+    log_info "> ${pod} ${port} -> <random>"
+  else
+    log_info "> ${pod} ${port} -> ${port_to_use}"
+  fi
+  KUBECONFIG=${kube_config} kubectl --namespace ${namespace} port-forward ${pod} ${port_to_use}:${port} --pod-running-timeout=60s | sed "s/^/[${pod}:${namespace}] /" & 
+  counter=$((counter+1))
+done
+
+log_info "Ctrl+C to quit"
+log_info "Output below:"
+
+for pid in $(jobs -p); do
+  wait ${pid}
+done
+
+exit 0

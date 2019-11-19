@@ -1,0 +1,52 @@
+#!/bin/bash
+
+source .env
+source ${HOME}/.logging
+source .helpers
+
+log_info "$0 $@"
+
+[ $(id -u) != "0" ] && exec sudo "$0" "$@"
+
+log_info "Installing Jetbrains Toolbox"
+
+dir="/opt/jetbrains-toolbox"
+usr_exe="/usr/local/bin/jetbrains-toolbox"
+
+if [ -d "${dir}" ]; then
+  log_info "> Toolbox exists at ${dir}, removing...."
+  rm -rf ${dir}
+  rm -rf ${usr_exe}
+fi
+
+function get_latest_version() {
+  user_agent=('User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36')
+
+  url=$(curl 'https://data.services.jetbrains.com//products/releases?code=TBA&latest=true&type=release' -H 'Origin: https://www.jetbrains.com' -H 'Accept-Encoding: gzip, deflate, br' -H 'Accept-Language: en-US,en;q=0.8' -H "${user_agent[@]}" -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: https://www.jetbrains.com/toolbox/download/' -H 'Connection: keep-alive' -H 'DNT: 1' --compressed | grep -Po '"linux":.*?[^\\]",' | awk -F ':' '{print $3,":"$4}'| sed 's/[", ]//g')
+  echo ${url}
+}
+
+url=$(get_latest_version)
+
+tmp_template=$(temp_folder "jetbrains-toolbox")
+toolbox_tmp="$(mktemp -d -t ${tmp_template})/jetbrains-toolbox.tar.gz"
+
+log_info "Downloading Toolbox files from ${url}"
+wget -cO ${toolbox_tmp} ${url} --read-timeout=5 --tries=0
+
+log_info "> Installing to ${dir}"
+if mkdir ${dir}; then
+  tar -xzf ${toolbox_tmp} -C ${dir} --strip-components=1
+fi
+chmod -R +rwx ${dir}
+
+touch ${dir}/jetbrains-toolbox.sh
+echo "#!/bin/bash" >> ${dir}/jetbrains-toolbox.sh
+echo "${dir}/jetbrains-toolbox" >> ${dir}/jetbrains-toolbox.sh
+
+log_info "> Creating executable at ${usr_exe}"
+
+ln -nfs ${dir}/jetbrains-toolbox.sh ${usr_exe}
+chmod -R +rwx ${usr_exe}
+
+log_info "Done!"

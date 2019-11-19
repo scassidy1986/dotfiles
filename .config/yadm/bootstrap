@@ -2,6 +2,8 @@
 
 source ${HOME}/.logging
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 dry_run=false
 
 while getopts ":d" opt; do
@@ -10,7 +12,7 @@ while getopts ":d" opt; do
   esac
 done
 
-setup_scripts=$(ls ${HOME}/.yadm/setup/*.sh | sort -n -t _ -k 2)
+setup_scripts=$(ls ${DIR}/setup/*.sh | sort -n -t _ -k 2)
 log_info "Found ${#setup_scripts[*]} setup scripts"
 for file in ${setup_scripts}
 do

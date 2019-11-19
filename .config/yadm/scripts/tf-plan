@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+out_file=""
+
+if [ -z "${out_file}" ]; then
+    uuid=$(uuidgen)
+    timestamp=$(date +%Y%m%d-%H%M%S)
+
+    temp_file="tf-plan.${timestamp}"
+
+    if which mktemp > /dev/null 2>&1; then
+        out_file=$(mktemp -t ${temp_file})
+    else
+        out_file="${TMPDIR}/${temp_file}"
+    fi
+fi
+
+echo "Terraform Plan:"
+echo " plan file  [${out_file}]"
+echo " arguments  [${@}]"
+echo " terraform plan -out=${out_file} ${@}"
+
+terraform plan -out ${out_file} ${@}
+echo "Done!"

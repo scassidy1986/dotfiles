@@ -1,0 +1,75 @@
+#!/bin/bash
+
+source ${HOME}/.logging
+
+function temp_folder() {
+  case "$(uname -s)" in
+    "Darwin")
+      tmp_template="${1}"
+      ;;
+    "Linux")
+      tmp_template="${1}-XXXXXX"
+      ;;
+  esac
+  echo "${tmp_template}"
+}
+
+function read_file_to_array() {
+    local file=${1}
+    declare -a v
+    let i=0
+    while IFS=$'\n' read -r line; do
+      v[i]="${line}"
+      ((++i))
+    done < ${file}
+    echo "${v[@]}"
+}
+
+function install_versions() {
+  local exe=${1}
+  local file=${2}
+  local cmd=${3}
+
+  if ! command -v ${exe} >/dev/null 2>&1; then
+    log_info "=> ${exe} not installed; nothing to do"
+    return
+  fi
+
+  if [ ! -f ${file} ]; then
+    log_warn "=> No versions found at ${file}"
+    return
+  fi
+
+  log_info "=> Installing version(s)"
+  versions=($(read_file_to_array ${file}))
+  for version in ${versions[@]}; do
+    log_info "==> Installing ${version}"
+
+    echo y | $(eval "${cmd} ${version}")
+  done
+}
+
+function symlink_directory() {
+  source_folder="${1}"
+  target_folder="${2}"
+
+  log_info "Symlinking files from ${source_folder} to ${target_folder}"
+
+  for file in $(ls -1 ${source_folder}/);
+  do
+    filename=$(basename ${file})
+    source="${source_folder}/${filename}"
+    target="${target_folder}/${filename}"
+
+    log_info "=> ${source} -> ${target}"
+
+    if [ -L ${target} ]; then
+      log_warn "==> ${target} exists, removing..."
+      rm ${target}
+    fi
+    if [ ! -L ${target} ]; then
+      log_info "==> Linking file '${source}' to '${target}'"
+      ln -nfs ${source} ${target}
+    fi
+  done
+}

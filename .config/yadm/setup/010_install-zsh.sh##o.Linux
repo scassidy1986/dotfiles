@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+source .env
+source ${HOME}/.logging
+
+log_info "$0 $@"
+
+if command -v zsh >/dev/null 2>&1; then
+  log_info "Installing oh-my-zsh"
+  sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  if [ -d "${YADM_HOME}/.oh-my-zsh/" ]; then
+    ln -nfs "${YADM_HOME}/.oh-my-zsh/" "${HOME}/.oh-my-zsh"
+  fi
+
+  for f in ".zshrc" ".zshenv" ".zlogin"; do
+    file="${YADM_HOME}/${f}"
+    target="${HOME}/${f}"
+    log_info "Linking '${file}' to '${target}'"
+    ln -nfs ${file} ${target}
+  done
+else
+  log_info "zsh not found"
+fi
+
+source "${HOME}/.zshrc"
