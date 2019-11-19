@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/setup/001_install-homebrew.sh##o.Darwin
+/Users/scassidy/.config/yadm/setup/001_install-homebrew.sh##o.Darwin

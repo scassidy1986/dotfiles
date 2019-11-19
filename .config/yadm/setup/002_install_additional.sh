@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/setup/002_install_additional.sh##o.Darwin
+/Users/scassidy/.config/yadm/setup/002_install_additional.sh##o.Darwin

@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/setup/010_install-zsh.sh##o.Darwin
+/Users/scassidy/.config/yadm/setup/010_install-zsh.sh##o.Darwin

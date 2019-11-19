@@ -1,7 +1,0 @@
-#!/bin/bash
-
-source ${HOME}/.logging
-
-log_info "$0 $@"
-
-sudo echo ""

@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/setup/013_install-fonts.sh##o.Darwin
+/Users/scassidy/.config/yadm/setup/013_install-fonts.sh##o.Darwin
