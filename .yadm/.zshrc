@@ -26,6 +26,10 @@ function _source_folder () {
   fi
 }
 
+function echoerr () {
+  printf "%s\n" "$*" >&2;
+}
+
 # Source common utils etc
 _source ~/.env.sh
 _source ~/.shell-aliases.sh
@@ -52,15 +56,15 @@ HOMEBREW_PREFIX=$(brew --prefix)
 fpath=(
   ${HOMEBREW_PREFIX}/share/zsh/site-functions
   ${HOMEBREW_PREFIX}/etc/bash_completion.d
-  /usr/local/share/zsh-completions 
+  /usr/local/share/zsh-completions
   ${HOME}/.autoload
   ${fpath}
 )
 
 plugins=(
-  git 
-  brew 
-  osx 
+  git
+  brew
+  osx
   docker
   kubectl
   terraform
@@ -84,7 +88,7 @@ if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
       log_debug "Compiling ${zcompdump}"
       zcompile "${zcompdump}"
     fi
-  } &! 
+  } &!
 fi
 
 export JETBRAINS_BIN="${HOME}/.jetbrains"

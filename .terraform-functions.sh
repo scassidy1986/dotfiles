@@ -5,7 +5,7 @@ function _tf_plan_file () {
   mktemp -t "tf-plan_${workspace}"
 }
 
-function tf-workspace () {
+function _tf_workspace () {
   workspace="${1}"
   if [ -z "${workspace}" ]; then
     terraform workspace show
@@ -20,5 +20,6 @@ alias tf-plan='terraform plan -detailed-exitcode -out=$(eval _tf_plan_file)'
 alias tf-apply="terraform apply"
 alias tf-refresh="terraform refresh"
 alias tf-fmt="terraform fmt"
+alias tf-workspace="_tf_workspace"
 alias tf-ls-workspace="terraform workspace list"
-#alias tf-workspace="terraform workspace select"
+
