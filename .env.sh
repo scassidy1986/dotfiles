@@ -49,7 +49,6 @@ _check_for_kube_config () {
   if _file_readable "${TERRAFORM_ENV_FILE}"; then
     local workspace="$(terraform workspace show)"
     if _kubeconfig_exists ${workspace}; then
-      echo "===> In terraform workspace '${workspace}', loading kubeconfig"
       _export_kubeconfig "${workspace}"
     else
       echoerr "===> No kubeconfig for workspace '${workspace}'"
