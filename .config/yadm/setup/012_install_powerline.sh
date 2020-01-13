@@ -1,1 +1,1 @@
-/Users/scassidy/.config/yadm/setup/012_install_powerline.sh##o.Darwin
+012_install_powerline.sh##o.Darwin

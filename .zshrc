@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/.zshrc
+/Users/scassidy/.config/yadm/.zshrc

@@ -90,9 +90,9 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>-779 1370 918 514 -1064 1050 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1680 1027 0 0 1680 1027 </string>
+	<string>0 0 1920 1057 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 610 585 402 0 0 1680 1027 </string>
+	<string>3868 389 585 367 3600 -30 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -883,6 +883,8 @@
 		<string>3.2.9</string>
 		<string>3.3.1</string>
 		<string>3.3.4</string>
+		<string>3.3.7</string>
+		<string>3.3.6</string>
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
@@ -890,6 +892,13 @@
 	<true/>
 	<key>NoSyncConfirmShellIntegrationCommand_selection</key>
 	<integer>0</integer>
+	<key>NoSyncFrame_SessionsPreferences</key>
+	<dict>
+		<key>screenFrame</key>
+		<string>{{3600, -30}, {1920, 1080}}</string>
+		<key>topLeft</key>
+		<string>{4257, 892}</string>
+	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
@@ -910,7 +919,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>582455649.71593297</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>7</integer>
+	<integer>17</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1418,7 +1427,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession</string>
+				<string>tmuxWindow</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1440,9 +1449,25 @@
 			</dict>
 			<dict>
 				<key>isTerminal</key>
+				<false/>
+				<key>name</key>
+				<string>title</string>
+				<key>nonterminalContext</key>
+				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
 				<string>tmuxWindowTitle</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>title</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1600,19 +1625,19 @@
 			</dict>
 			<dict>
 				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>currentSession</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
 				<false/>
 				<key>name</key>
 				<string>currentSession</string>
 				<key>nonterminalContext</key>
 				<integer>1</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
-				<string>tmuxWindow</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
 			</dict>
 		</array>
 		<key>4</key>
@@ -1658,16 +1683,16 @@
 	</array>
 	<key>NoSyncSearchHistory2</key>
 	<array>
-		<string>configmap</string>
-		<string>ip-10-0-156-30.ec2.internal</string>
-		<string>komand-prod-1 propsd</string>
-		<string>komandorchestratorservicepropsd-useast1</string>
-		<string>komandorchestratorservicepropsd-useast1-v001-kgmzz</string>
-		<string>ip-10-0-183-242.ec2.internal</string>
-		<string>kong</string>
-		<string>ruby</string>
-		<string>master_node</string>
-		<string>attr</string>
+		<string>aws-java-sdk-sts</string>
+		<string>module.komand_api.module.propsd.spinnaker_application.app</string>
+		<string>mysql</string>
+		<string>68d0ca7d-6c8b-4faf-b13d-4ddae0fc718b</string>
+		<string>enabled</string>
+		<string>komandengine</string>
+		<string>1.4.0</string>
+		<string>1.40</string>
+		<string>module.eks_cluster.module.eks_master.aws_security_group.pd_worker</string>
+		<string>test-1</string>
 	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>563720394.10540497</real>
@@ -1732,11 +1757,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-10-11T16:38:09Z</date>
+	<date>2019-12-11T17:00:18Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
-	<true/>
+	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
@@ -1756,6 +1781,8 @@
 	<key>ToolbeltTools</key>
 	<array>
 		<string>Profiles</string>
+		<string>Actions</string>
+		<string>Captured Output</string>
 	</array>
 	<key>Use background pattern indicator</key>
 	<true/>
@@ -1768,7 +1795,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.4</string>
+	<string>3.3.7</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

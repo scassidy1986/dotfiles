@@ -50,8 +50,6 @@ _check_for_kube_config () {
     local workspace="$(terraform workspace show)"
     if _kubeconfig_exists ${workspace}; then
       _export_kubeconfig "${workspace}"
-    else
-      echoerr "===> No kubeconfig for workspace '${workspace}'"
     fi
   fi
 }
@@ -68,8 +66,8 @@ _load_pyenv () {
 
 _load_goenv () {
   eval "$(goenv init -)"
-  source "${ZSH_PLUGINS}/go/go.plugin.zsh"
   export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
+  add-zsh-hook -d precmd _check_for_goenv
 }
 
 _load_jabba () {

@@ -1,1 +1,1 @@
-/Users/scassidy/.config/yadm/setup/011_install-terminal.sh##o.Darwin
+011_install-terminal.sh##o.Darwin

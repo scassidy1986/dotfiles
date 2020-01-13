@@ -1,1 +1,1 @@
-/Users/scassidy/.yadm/.zshenv
+/Users/scassidy/.config/yadm/.zshenv

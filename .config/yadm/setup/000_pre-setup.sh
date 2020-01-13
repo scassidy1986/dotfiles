@@ -1,1 +1,1 @@
-/Users/scassidy/.config/yadm/setup/000_pre-setup.sh##o.Darwin
+000_pre-setup.sh##o.Darwin
