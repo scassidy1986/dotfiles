@@ -1,52 +1,51 @@
 k9s:
   body:
-    fgColor: dodgerblue
-    bgColor: white
-    logoColor: blue
+    fgColor: "#97979b"
+    bgColor: "#282a36"
+    logoColor: "#5af78e"
   info:
-    fgColor: lightskyblue
-    sectionColor: steelblue
+    fgColor: white
+    sectionColor: "#5af78e"
   frame:
     border:
-      fgColor: dodgerblue
-      bgColor: darkblue
-      focusColor: aliceblue
+      fgColor: "#5af78e"
+      focusColor: "#5af78e"
     menu:
-      fgColor: darkblue
-      keyColor: cornflowerblue
-      numKeyColor: cadetblue
-    crumbs:
       fgColor: white
-      bgColor: steelblue
-      activeColor: skyblue
+      keyColor: "#57c7ff"
+      numKeyColor: "#ff6ac1"
+    crumbs:
+      fgColor: "#282a36"
+      bgColor: white
+      activeColor: "#f3f99d"
     status:
-      newColor: blue
-      modifyColor: powderblue
-      addColor: lightskyblue
-      errorColor: indianred
-      highlightcolor: royalblue
-      killColor: slategray
+      newColor: "#eff0eb"
+      modifyColor: "#5af78e"
+      addColor: "#57c7ff"
+      errorColor: "#ff5c57"
+      highlightcolor: "#f3f99d"
+      killColor: mediumpurple
       completedColor: gray
     title:
-      fgColor: aqua
-      bgColor: darkblue
-      highlightColor: skyblue
-      counterColor: slateblue
-      filterColor: slategray
+      fgColor: "#5af78e"
+      bgColor: "#282a36"
+      highlightColor: white
+      counterColor: white
+      filterColor: "#57c7ff"
   table:
-    fgColor: blue
-    bgColor: darkblue
-    cursorColor: aqua
-    markColor: mediumslateblue
+    fgColor: "#57c7ff"
+    bgColor: "#282a36"
+    cursorColor: "#5af78e"
+    markColor: darkgoldenrod
     header:
       fgColor: white
-      bgColor: darkblue
+      bgColor: "#282a36"
       sorterColor: orange
   views:
     yaml:
-      keyColor: steelblue
-      colorColor: blue
-      valueColor: royalblue
+      keyColor: "#ff5c57"
+      colonColor: white
+      valueColor: "#f3f99d"
     logs:
       fgColor: white
-      bgColor: darkblue
+      bgColor: "#282a36"
