@@ -31,16 +31,18 @@ brew "cmake"
 brew "coreutils"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
+# Tools for browsing and manipulating docker registries
+brew "docker-ls"
 # GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
 # Distributed revision control system
 brew "git"
 # Command-line option parsing utility
 brew "gnu-getopt"
-# Go version management
-brew "goenv"
 # Gorgeous metric visualizations and dashboards for timeseries databases
-brew "grafana", restart_service: true
+brew "grafana"
+# The Kubernetes package manager
+brew "helm"
 # Improved top (interactive process viewer)
 brew "htop"
 # C/C++ and Java libraries for Unicode and globalization
@@ -59,8 +61,6 @@ brew "jsonnet"
 brew "kubernetes-cli"
 # Production Grade K8s Installation, Upgrades, and Management
 brew "kops"
-# The Kubernetes package manager
-brew "kubernetes-helm"
 # Asynchronous event library
 brew "libev"
 # Common error values for all GnuPG components
@@ -73,12 +73,14 @@ brew "libksba"
 brew "libtool"
 # YAML Parser
 brew "libyaml"
+# Mac App Store command-line interface
+brew "mas"
 # Scalable distributed version control system
 brew "mercurial"
+# Open source relational database management system
+brew "mysql@5.7"
 # Install NodeJS versions
 brew "node-build"
-# SSL/TLS cryptography library
-brew "openssl"
 # Manage multiple NodeJS versions
 brew "nodenv"
 # Tool for creating identical machine images for multiple platforms
@@ -113,6 +115,8 @@ brew "terraform-docs"
 brew "terraform_landscape"
 # Terraform version manager inspired by rbenv
 brew "tfenv"
+# Linter for Terraform files
+brew "tflint"
 # CLI tool that moves files or folder to the trash
 brew "trash"
 # Display directories as trees (with optional color/HTML output)
@@ -144,8 +148,9 @@ brew "reactiveops/tap/polaris"
 # A badass zsh theme with more power than a normal earthling
 brew "sambadevi/powerlevel9k/powerlevel9k"
 cask "atom"
+cask "awsaml"
 cask "caffeine"
-cask "cleanmymac"
+cask "font-hack-nerd-font"
 cask "iterm2"
 cask "java8"
 cask "minikube"
@@ -158,4 +163,4 @@ cask "vagrant"
 cask "virtualbox"
 cask "visual-studio-code"
 cask "wireshark"
-cask "caskroom/fonts/font-hack-nerd-font"
+
