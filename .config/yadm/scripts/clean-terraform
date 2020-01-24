@@ -19,6 +19,16 @@ function usage () {
   echo "Usage: ${SCRIPT_NAME} -d <directory> -t <test_run>"
 }
 
+function _is_terraform_folder () {
+  if [ ! -d "${1}" ]; then
+    return 1
+  fi
+  if [ -d "${1}/modules" ] || [ -d "${1}/plugins" ]; then
+    return 0
+  fi
+  return 1
+}
+
 SHORTOPTS="d:th"
 LONGOPTS="directory:,test-run,help"
 REQUIREDOPTS=("directory")
@@ -63,9 +73,8 @@ done
 
 for dir in $(find ${directory} -type d -iname ".terraform" -ls | awk '{print $12}');
 do
-  if [ -d "${dir}" ] ; then
+  if _is_terraform_folder "${dir}"; then
     log_info "Found directory: ${dir}"
-    environment=""
     if [ -e "${dir}/environment" ]; then
       environment=$(cat ${dir}/environment)
       log_info "> Found environment file: ${environment}"
