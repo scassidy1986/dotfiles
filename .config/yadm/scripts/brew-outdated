@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "==== Brew Updates ===="
+brew update > /dev/null 2>&1
+brew outdated  
+brew cask outdated
+echo "==== Done! ===="
