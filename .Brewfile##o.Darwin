@@ -1,8 +1,7 @@
-cask_args appdir: "/Applications"
-
 tap "caskroom/cask"
 tap "caskroom/fonts"
 tap "caskroom/versions"
+tap "datawire/blackbird"
 tap "derailed/k9s"
 tap "flowerinthenight/tap"
 tap "goreleaser/tap"
@@ -10,9 +9,11 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "jesseduffield/lazydocker"
 tap "johanhaleby/kubetail"
 tap "reactiveops/tap"
 tap "sambadevi/powerlevel9k"
+cask "osxfuse"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
 # Library for command-line editing
@@ -135,12 +136,16 @@ brew "zsh"
 brew "zsh-completions"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
+# Local dev environment attached to a remote Kubernetes cluster
+brew "datawire/blackbird/telepresence"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
 # A simple wrapper to kubectl port-forward for multiple pods.
 brew "flowerinthenight/tap/kubepfm"
 # Deliver Go binaries as fast and easily as possible
 brew "goreleaser/tap/goreleaser"
+# A simple terminal UI for docker, written in Go
+brew "jesseduffield/lazydocker/lazydocker"
 # Tail logs from multiple Kubernetes pods at the same time
 brew "johanhaleby/kubetail/kubetail"
 # Open Source Best Practices for Kubernetes
@@ -156,6 +161,7 @@ cask "iterm2"
 cask "java8"
 cask "minikube"
 cask "mockoon"
+cask "multipass"
 cask "pgadmin4"
 cask "spectacle"
 cask "sqlworkbenchj"
@@ -164,4 +170,3 @@ cask "vagrant"
 cask "virtualbox"
 cask "visual-studio-code"
 cask "wireshark"
-
