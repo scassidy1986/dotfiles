@@ -12,6 +12,6 @@ if [ -d "${HOME}/.customfonts" ]; then
   fonts_dir="${HOME}/.customfonts/*.ttf"
   for font_filename in ${fonts_dir}; do
     log_info "==> Installing ${font_filename}"
-    cp ${font_filename} ~/Library/Fonts/
+    cp "${font_filename}" ~/Library/Fonts/
   done
 fi
