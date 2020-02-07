@@ -47,7 +47,7 @@ _check_for_jabba () {
 
 _check_for_kube_config () {
   if _file_readable "${TERRAFORM_ENV_FILE}"; then
-    local workspace="$(terraform workspace show)"
+    local workspace="$(cat ${TERRAFORM_ENV_FILE})"
     if _kubeconfig_exists ${workspace}; then
       _export_kubeconfig "${workspace}"
     fi
