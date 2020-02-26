@@ -22,6 +22,7 @@ alias pip3="nocorrect pip3"
 alias helm="nocorrect helm"
 alias minikube="nocorrect minikube"
 alias kubectl="nocorrect kubectl"
+alias kubetail="nocorrect kubetail"
 
 # helpers
 alias uuid-v4="python -c 'import sys,uuid; sys.stdout.write(str(uuid.uuid4()))'"

@@ -6,6 +6,7 @@ declare -rx RBENV_VERSION_FILE=".ruby-version"
 declare -rx PYENV_VERSION_FILE=".python-version"
 declare -rx GOENV_VERSION_FILE=".go-version"
 declare -rx JABBA_VERSION_FILE=".jabbarc"
+declare -rx JAVA_VERSION_FILE=".java-version"
 declare -rx TERRAFORM_DIRECTORY=".terraform"
 declare -rx TERRAFORM_ENV_FILE=".terraform/environment"
 
@@ -39,8 +40,11 @@ _check_for_goenv () {
 }
 
 _check_for_jabba () {
-  if _file_readable ${JABBA_VERSION_FILE}; then
+  if _file_readable ${JABBA_VERSION_FILE} || _file_readable ${JAVA_VERSION_FILE}; then
+    echo "===> Found ${JABBA_VERSION_FILE}|${JAVA_VERSION_FILE}, loading ..."
     _load_jabba
+  fi
+  if _file_readable ${JABBA_VERSION_FILE}; then
     jabba use
   fi
 }
