@@ -1,0 +1,71 @@
+#!/usr/bin/env sh -e
+
+SCRIPT_NAME=${0##*/}
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+log_info() {
+  echo "[\033[0;34mINFO\033[0m] ${1}"
+}
+
+log_error() {
+  echo "[\033[0;31mERROR\033[0m] ${1}"
+}
+
+log_verbose() {
+  if [[ ${VERBOSE_LOGGING:-1} -eq 0 ]]; then
+    echo "[\033[0;32mDEBUG\033[0m] ${1}"
+  fi
+}
+
+usage() {
+  echo "Usage: ${SCRIPT_NAME} --account 1234567890 --region us-east-1"
+  echo ""
+  echo " -a --account  The account to login to. Defaults to the environment variables AWS_PROFILE or AWS_DEFAULT_PROFILE."
+  echo " -r --region   The region to login to. Defaults to us-east-1."
+}
+
+account="${AWS_PROFILE:-AWS_DEFAULT_PROFILE}"
+account="${account#awsaml-}"
+region="us-east-1"
+
+SHORTOPTS="a:r:h"
+LONGOPTS="account:,region:,help"
+REQUIREDOPTS=("account" "region")
+if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "$@"); then
+  log_error "Unable to set cli options"
+  exit 1
+fi
+
+eval set -- "${options}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -a|--account) shift; account="${1}" ;;
+    -r|--region) shift; region="${1}" ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    *) break ;;
+  esac
+  shift
+done
+
+# Validation...
+for required in "${REQUIREDOPTS[@]}"; do
+  log_verbose "Checking required parameter '${required}' is set..."
+  if [[ -z "${!required}" ]]; then
+    log_error "Required parameter missing [${required}]"
+    usage
+    exit 1
+  fi
+done
+
+log_info "Attempting to login to ECR in account ${account} - ${region}"
+
+# Workaround incase someone has installed 2.* of the aws-cli
+aws_cli_version="$(echo "$(aws --version)" | cut -d ' ' -f 1 | cut -d / -f 2 | cut -d . -f 1)"
+if [ "${aws_cli_version}" -lt "2" ]; then
+  eval "$(aws ecr get-login --registry-ids ${account} --region ${region} --no-include-email)"
+else
+  docker login -u AWS -p "$(aws ecr get-login-password --region ${region})" "https://${account}.dkr.ecr.${region}.amazonaws.com"
+fi
+
+exit 0

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-function _get_location () {
+_get_location () {
   location=$(curl -s http://ip-api.com/json)
 
   echo "IP:  $(echo ${location} | jq -r .query)"
