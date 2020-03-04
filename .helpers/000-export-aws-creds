@@ -7,6 +7,8 @@ _export_aws_creds () {
     echoerr "AWS accounts file '${FILE}' not found"
     return 1
   fi
+  
+  trap "{ unset COLUMNS; return 0; }" SIGINT SIGTERM SIGEXIT
 
   accounts=()
   while IFS='\n' read -r account || [[ -n "${account}" ]]; do
@@ -22,7 +24,6 @@ _export_aws_creds () {
   do
       case "${account}" in
         "Exit")
-          unset COLUMNS
           return 0
           ;;
         *)
@@ -33,7 +34,6 @@ _export_aws_creds () {
           export AWS_DEFAULT_PROFILE="${awsaml_account}"
           echo "> AWS_PROFILE ${AWS_PROFILE}"
           echo "> AWS_DEFAULT_PROFILE ${AWS_DEFAULT_PROFILE}"
-          unset COLUMNS
           return 0
           ;;
       esac
