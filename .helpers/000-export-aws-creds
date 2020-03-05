@@ -7,8 +7,6 @@ _export_aws_creds () {
     echoerr "AWS accounts file '${FILE}' not found"
     return 1
   fi
-  
-  trap "{ unset COLUMNS; return 0; }" SIGINT SIGTERM SIGEXIT
 
   accounts=()
   while IFS='\n' read -r account || [[ -n "${account}" ]]; do
@@ -19,6 +17,7 @@ _export_aws_creds () {
   IFS=$'\n' accounts=($(sort <<<"${accounts[*]}"))
   PS3="Select account: "
 
+  trap "{ unset COLUMNS; return 0; }" SIGINT SIGTERM SIGEXIT
   COLUMNS=10
   select account in "${accounts[@]}" "Exit";
   do
