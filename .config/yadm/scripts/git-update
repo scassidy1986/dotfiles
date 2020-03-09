@@ -6,10 +6,64 @@
 # the current working branch.
 #
 
-current_branch=${1}
-if [ -z "${current_branch}" ]; then
-    current_branch=$(git rev-parse --abbrev-ref HEAD)
-fi
-echo "Updating to branch [${current_branch}]"
-git fetch -p && git checkout ${current_branch} && git pull && git-clean-branches ${current_branch} && git up
+SCRIPT_NAME=${0##*/}
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+usage() {
+  echo "Usage: ${SCRIPT_NAME} <branch> --clean-branches" 
+}
+
+git rev-parse --is-inside-work-tree &>/dev/null
+if [[ ${?} -ne 0 ]]; then
+  echo "[${PWD}] is not a git repository!"
+  exit 1
+fi
+
+branch=${1}
+clean_branches=1
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+if [ -z "${branch}" ]; then
+  branch=${current_branch}
+fi
+
+SHORTOPTS="ch"
+LONGOPTS="clean-branches,help"
+REQUIREDOPTS=("branch")
+if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "${@:2}"); then
+  echo "Unable to set cli options"
+  exit 1
+fi
+
+eval set -- "${options}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -c|--clean-branches) clean_branches=0 ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    *) break ;;
+  esac
+  shift
+done
+
+# Validation...
+for required in "${REQUIREDOPTS[@]}"; do
+  if [[ -z "${!required}" ]]; then
+    echoerr "Required parameter missing [${required}]"
+    usage
+    exit 1
+  fi
+done
+
+git fetch -p
+if [[ "${branch}" == "${current_branch}" ]]; then
+  echo "Updating [${branch}]"
+else
+  echo "Updating to branch [${branch}]"
+  git checkout ${branch}
+fi
+git up
+if [[ "${clean_branches}" -eq 0 ]]; then
+  git-clean-branches "${branch}"
+fi
+
+exit 0

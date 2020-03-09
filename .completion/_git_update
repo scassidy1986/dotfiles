@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+__git_update_complete() {
+  branches=$(git branch --all --format='%(refname:short)')
+  COMPREPLY=($(compgen -W "$branches" -- "$2"))
+}
+
+complete -F __git_update_complete git-update
+

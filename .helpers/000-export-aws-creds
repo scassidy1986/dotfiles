@@ -31,6 +31,7 @@ _export_aws_creds () {
           awsaml_account="awsaml-${id}"
           export AWS_PROFILE="${awsaml_account}"
           export AWS_DEFAULT_PROFILE="${awsaml_account}"
+          echo "> ${name}"
           echo "> AWS_PROFILE ${AWS_PROFILE}"
           echo "> AWS_DEFAULT_PROFILE ${AWS_DEFAULT_PROFILE}"
           return 0

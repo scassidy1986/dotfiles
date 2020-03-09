@@ -12,7 +12,7 @@ MERGED_BRANCH_TO_CHECK=master
 if [[ -n "${1}" ]]; then
     MERGED_BRANCH_TO_CHECK=${1}
 fi
-echo "Branch to check = ${MERGED_BRANCH_TO_CHECK}"
+echo "Cleaning branches ${MERGED_BRANCH_TO_CHECK}"
 git rev-parse --is-inside-work-tree &>/dev/null
 if [[ $? -ne 0 ]]
 then
@@ -22,15 +22,15 @@ fi
 
 git fetch --prune
 
-branches_without_remote=$(git branch -avv | grep gone | sed 's/\*//g' | awk '{ print $1; }')
+branches_without_remote=$(git branch --merged | egrep -v "(^\*|master|${MERGED_BRANCH_TO_CHECK:-master})")
 
 for branch in ${branches_without_remote}
 do
   remote_branches_containing_branch=$(git branch -r --contains ${branch} | grep ${MERGED_BRANCH_TO_CHECK})
-  if [[ -n ${remote_branches_containing_branch} ]]
-  then
-    git branch -D ${branch}
+  if [[ -n ${remote_branches_containing_branch} ]]; then
+    git branch -d ${branch}
   else
     echo "Not deleting branch ${branch} as it has local changes that have not been merged into ${MERGED_BRANCH_TO_CHECK}"
   fi
 done
+git remote prune origin
