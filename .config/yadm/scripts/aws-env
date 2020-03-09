@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+SCRIPT_NAME=${0##*/}
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+find_aws_account_file() {
+  root="${1}"
+  while ! [[ "${root}" =~ ^//[^/]*$ ]]; do
+    file_to_test="${root}/.aws-account"
+    if [[ -f "${file_to_test}" ]] && [[ -r "${file_to_test}" ]]; then
+      echo "${file_to_test}"
+      return 0
+    fi
+    [ -n "${root}" ] || break
+    root="${root%/*}"
+  done
+  return 1
+}
+
+aws_account=$(find_aws_account_file "${PWD}")
+if [[ ! -f "${aws_account}" ]] && [[ ! -r "${aws_account}" ]]; then
+  exit 0
+fi
+  
+account=$(< "${aws_account}")
+if [[ -z "${account}" ]]; then
+  exit 0
+fi
+
+export AWS_PROFILE="${account}"
+export AWS_DEFAULT_PROFILE="${account}"
+echo "export AWS_PROFILE=${AWS_PROFILE}"
+echo "export AWS_DEFAULT_PROFILE=${AWS_DEFAULT_PROFILE}"
+
+exit 0

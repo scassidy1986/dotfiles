@@ -58,6 +58,12 @@ _check_for_kube_config () {
   fi
 }
 
+_load_aws_env() {
+  if [[ -d ".terraform" ]]; then
+    eval $(aws-env)
+  fi
+}
+
 _load_rbenv () {
   source "${ZSH_PLUGINS}/rbenv/rbenv.plugin.zsh"
   add-zsh-hook -d precmd _check_for_rbenv
@@ -84,3 +90,4 @@ add-zsh-hook precmd _check_for_pyenv
 add-zsh-hook precmd _check_for_goenv
 add-zsh-hook precmd _check_for_jabba
 add-zsh-hook precmd _check_for_kube_config
+add-zsh-hook precmd _load_aws_env
