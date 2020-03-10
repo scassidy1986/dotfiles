@@ -1,1 +1,0 @@
-/Users/scassidy/.config/yadm/.zshenv
