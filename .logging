@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 LEVEL_INFO="INFO"
 LEVEL_WARN="WARN"
@@ -48,25 +48,24 @@ function _log () {
 }
 
 function log_info () {
-  if [ "${LOGGING_INFO_ENABLED:-true}" = true ]; then
-    _log ${LEVEL_INFO} "${1}"
-  fi
+  log_msg "${LEVEL_INFO}" true "${1}"
 }
 
 function log_warn () {
-  if [ "${LOGGING_WARN_ENABLED:-true}" = true ]; then
-    _log ${LEVEL_WARN} "${1}"
-  fi
+  log_msg "${LEVEL_WARN}" true "${1}"
 }
 
 function log_error () {
-  if [ "${LOGGING_ERROR_ENABLED:-true}" = true ]; then
-    _log ${LEVEL_ERROR} "${1}"
-  fi
+  log_msg "${LEVEL_ERROR}" true "${1}"
 }
 
 function log_debug () {
-  if [ "${LOGGING_DEBUG_ENABLED:-false}" = true ]; then
-    _log ${LEVEL_DEBUG} "${1}"
+  log_msg "${LEVEL_DEBUG}" false "${1}"
+}
+
+function log_msg () {
+  enabled="$(eval echo \${LOGGING_${1}_ENABLED:-${2}})"
+  if [ "${enabled}" = true ]; then
+    _log "${1}" "${3}"
   fi
 }
