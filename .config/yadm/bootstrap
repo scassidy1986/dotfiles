@@ -16,11 +16,7 @@ setup_scripts=$(ls ${DIR}/setup/*.sh | sort -n -t _ -k 2)
 log_info "Found ${#setup_scripts[*]} setup scripts"
 for file in ${setup_scripts}
 do
-  if test -h "${file}"; then
-    original_file="(target: $(readlink ${file}))"
-  fi
-  
-  log_info "=> Executing ${file} ${original_file}"
+  log_info "=> Executing ${file}"
   if [ "${dry_run}" = false ]; then
     /bin/bash ${file}
   fi

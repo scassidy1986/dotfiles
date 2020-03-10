@@ -3,14 +3,6 @@
 FILE="${HOME}/.aws_accounts"
 
 _export_aws_creds () {
-  if [ ! -z ${1} ]; then
-    export AWS_PROFILE="${1}"
-    export AWS_DEFAULT_PROFILE="${1}"
-    echo "> AWS_PROFILE ${AWS_PROFILE}"
-    echo "> AWS_DEFAULT_PROFILE ${AWS_DEFAULT_PROFILE}"
-    return 0
-  fi
-
   if [ ! -e ${FILE} ]; then
     echoerr "AWS accounts file '${FILE}' not found"
     return 1
@@ -21,10 +13,28 @@ _export_aws_creds () {
     [[ "${account}" =~ ^#.*$ ]] && continue
     accounts+=("${account}")
   done < "${FILE}"
+  accounts=($(printf '%s\n' "${accounts[@]}" | sort))
 
-  IFS=$'\n' accounts=($(sort <<<"${accounts[*]}"))
+  if [[ "${1}" == "-l" ]] || [[ "${1}" == "--list" ]]; then
+    echo "Accounts:"
+    for account in "${accounts[@]}"; do
+      name=$(echo ${account} | cut -f1 -d:)
+      id="$(echo ${account} | cut -f2 -d:)"
+      echo "- ${name}: ${id}"
+    done
+    return 0
+  fi
+
+  if [ ! -z ${1} ]; then
+    export AWS_PROFILE="${1}"
+    export AWS_DEFAULT_PROFILE="${1}"
+    echo "> AWS_PROFILE ${AWS_PROFILE}"
+    echo "> AWS_DEFAULT_PROFILE ${AWS_DEFAULT_PROFILE}"
+    return 0
+  fi
+
   PS3="Select account: "
-
+  
   trap "{ unset COLUMNS; return 0; }" SIGINT SIGTERM SIGEXIT
   COLUMNS=10
   select account in "${accounts[@]}" "Exit";
