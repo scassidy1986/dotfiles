@@ -60,17 +60,17 @@ done
 
 log_info "Attempting to login to ECR in account ${account} - ${region}"
 
-include_email=""
+additional_args=""
 docker_version=$(docker version -f "{{.Server.Version}}" | cut -d . -f 1,2)
-if [ "$(printf '%s\n' "17.06" "${docker_version}" | sort -V | head -n1)" = "17.06" ]; then
-  include_email="--no-include-email"
+if [ ! "$(printf '%s\n' "17.06" "${docker_version}" | sort -V | head -n1)" = "17.06" ]; then
+  additional_args="--no-include-email"
 fi
 # Workaround incase someone has installed 2.* of the aws-cli
 aws_cli_version="$(echo "$(aws --version)" | cut -d ' ' -f 1 | cut -d / -f 2 | cut -d . -f 1)"
 if [ "${aws_cli_version}" -lt "2" ]; then
-  eval "$(aws ecr get-login --registry-ids ${account} --region ${region} ${include_email})"
+  eval "$(aws ecr get-login --registry-ids ${account} --region ${region} ${additional_args})"
 else
-  docker login -u AWS -p "$(aws ecr get-login-password --region ${region} ${include_email})" "https://${account}.dkr.ecr.${region}.amazonaws.com"
+  docker login -u AWS -p "$(aws ecr get-login-password --region ${region} ${additional_args})" "https://${account}.dkr.ecr.${region}.amazonaws.com"
 fi
 
 exit 0

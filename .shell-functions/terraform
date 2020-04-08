@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 
-function _tf_plan_file () {
+_tf_plan_file() {
   workspace=$(cat .terraform/environment 2>/dev/null || echo 'default')
   mktemp -t "tf-plan_${workspace}"
 }
 
-function _tf_workspace () {
+_tf_workspace() {
   workspace="${1}"
   if [ -z "${workspace}" ]; then
     terraform workspace show
@@ -14,11 +14,22 @@ function _tf_workspace () {
   fi
 }
 
+_tf_variables_file() {
+  variables_file="${PWD%%/}/$(_tf_workspace).tfvars"
+
+  if [ -r ${variables_file} ]; then
+    relative_path=$(realpath --relative-to="$(pwd)" "${variables_file}")
+    echo "-var-file=${relative_path}"
+  else
+    echo ""
+  fi
+}
+
 # aliases
 alias tf-init="terraform init"
-alias tf-plan='terraform plan -detailed-exitcode -out=$(eval _tf_plan_file)'
-alias tf-apply="terraform apply"
-alias tf-refresh="terraform refresh"
+alias tf-plan="terraform plan -detailed-exitcode $(_tf_variables_file) -out=$(eval _tf_plan_file)"
+alias tf-apply="terraform apply $(_tf_variables_file)"
+alias tf-refresh="terraform refresh $(_tf_variables_file)"
 alias tf-fmt="terraform fmt"
 alias tf-workspace="_tf_workspace"
 alias tf-ls-workspace="terraform workspace list"

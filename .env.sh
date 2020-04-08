@@ -2,6 +2,7 @@
 
 autoload -Uz add-zsh-hook
 
+declare -rx AWS_ACCOUNT_ENV_FILE=".aws-account"
 declare -rx RBENV_VERSION_FILE=".ruby-version"
 declare -rx PYENV_VERSION_FILE=".python-version"
 declare -rx GOENV_VERSION_FILE=".go-version"
@@ -59,7 +60,7 @@ _check_for_kube_config () {
 }
 
 _load_aws_env() {
-  if [[ -d ".terraform" ]]; then
+  if _directory_readable "${TERRAFORM_DIRECTORY}" || _file_readable "${AWS_ACCOUNT_ENV_FILE}"; then
     eval $(aws-env)
   fi
 }
@@ -90,4 +91,3 @@ add-zsh-hook precmd _check_for_pyenv
 add-zsh-hook precmd _check_for_goenv
 add-zsh-hook precmd _check_for_jabba
 add-zsh-hook precmd _check_for_kube_config
-add-zsh-hook precmd _load_aws_env

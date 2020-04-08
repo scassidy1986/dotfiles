@@ -8,29 +8,38 @@
 # the branch is deleted.
 #
 
-MERGED_BRANCH_TO_CHECK=master
-if [[ -n "${1}" ]]; then
-    MERGED_BRANCH_TO_CHECK=${1}
-fi
-echo "Cleaning branches ${MERGED_BRANCH_TO_CHECK}"
+SCRIPT_NAME=${0##*/}
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+usage() {
+  echo "Usage: ${SCRIPT_NAME} <branch>" 
+}
+
 git rev-parse --is-inside-work-tree &>/dev/null
-if [[ $? -ne 0 ]]
-then
-  echo "Not in a git repository!"
+if [[ ${?} -ne 0 ]]; then
+  echo "[${PWD}] is not a git repository!"
   exit 1
 fi
 
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+target_branch=${1}
+if [[ -z "${target_branch}" ]]; then
+  target_branch="${current_branch}"
+fi
+
+echo "Cleaning branches (current branch: ${current_branch}, target branch: ${target_branch})"
+
 git fetch --prune
 
-branches_without_remote=$(git branch --merged | egrep -v "(^\*|master|${MERGED_BRANCH_TO_CHECK:-master})")
+branches_without_remote=$(git branch --merged | egrep -v "(^\*|master|${target_branch})")
 
 for branch in ${branches_without_remote}
 do
-  remote_branches_containing_branch=$(git branch -r --contains ${branch} | grep ${MERGED_BRANCH_TO_CHECK})
+  remote_branches_containing_branch=$(git branch -r --contains ${branch} | grep ${branch})
   if [[ -n ${remote_branches_containing_branch} ]]; then
     git branch -d ${branch}
   else
-    echo "Not deleting branch ${branch} as it has local changes that have not been merged into ${MERGED_BRANCH_TO_CHECK}"
+    echo "Not deleting branch ${branch} as it has local changes that have not been merged into ${branch}"
   fi
 done
 git remote prune origin

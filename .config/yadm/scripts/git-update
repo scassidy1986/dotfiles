@@ -19,17 +19,12 @@ if [[ ${?} -ne 0 ]]; then
   exit 1
 fi
 
-branch=${1}
 clean_branches=1
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-if [ -z "${branch}" ]; then
-  branch=${current_branch}
-fi
 
 SHORTOPTS="ch"
 LONGOPTS="clean-branches,help"
 REQUIREDOPTS=("branch")
-if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "${@:2}"); then
+if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "${@}"); then
   echo "Unable to set cli options"
   exit 1
 fi
@@ -45,6 +40,12 @@ while [ $# -gt 0 ]; do
   shift
 done
 
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+branch=${1:-${current_branch}}
+if [[ -z "${branch}" ]]; then
+  branch="${current_branch}"
+fi
+
 # Validation...
 for required in "${REQUIREDOPTS[@]}"; do
   if [[ -z "${!required}" ]]; then
@@ -58,7 +59,7 @@ git fetch -p
 if [[ "${branch}" == "${current_branch}" ]]; then
   echo "Updating [${branch}]"
 else
-  echo "Updating to branch [${branch}]"
+  echo "Switching from [${current_branch}] to [${branch}]"
   git checkout ${branch}
 fi
 git up
