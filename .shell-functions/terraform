@@ -1,8 +1,28 @@
-#!/usr/bin/env sh
+#!/bin/bash
+
+_find_root_tf_folder() {
+  root="${1}"
+  while ! [[ "${root}" =~ ^//[^/]*$ ]]; do
+    if [[ -d "${root}/.git/" ]]; then
+      result="${root%/*}"
+      repo_name="$(basename $(git rev-parse --show-toplevel))"
+      result="${repo_name}/$(realpath --relative-to="${root}" "${PWD}")"
+      echo "${result}"
+      return 0
+    fi
+    [ -n "${root}" ] || break
+    root="${root%/*}"
+  done
+  echo "terraform-default"
+  return 0
+}
 
 _tf_plan_file() {
   workspace=$(cat .terraform/environment 2>/dev/null || echo 'default')
-  mktemp -t "tf-plan_${workspace}"
+  tf_root=$(_find_root_tf_folder "${PWD}")
+  tmp_path="terraform/${tf_root}/${workspace}"
+  mkdir -p "${TMPDIR}/${tmp_path}"
+  mktemp -t "${tmp_path}/tf-plan"
 }
 
 _tf_workspace() {
@@ -27,9 +47,9 @@ _tf_variables_file() {
 
 # aliases
 alias tf-init="terraform init"
-alias tf-plan="terraform plan -detailed-exitcode $(_tf_variables_file) -out=$(eval _tf_plan_file)"
-alias tf-apply="terraform apply $(_tf_variables_file)"
-alias tf-refresh="terraform refresh $(_tf_variables_file)"
+alias tf-plan='terraform plan -detailed-exitcode $(_tf_variables_file) -out=$(eval _tf_plan_file)'
+alias tf-apply='terraform apply $(_tf_variables_file)'
+alias tf-refresh='terraform refresh $(_tf_variables_file)'
 alias tf-fmt="terraform fmt"
 alias tf-workspace="_tf_workspace"
 alias tf-ls-workspace="terraform workspace list"
