@@ -7,21 +7,25 @@ VALID_COMMANDS=("encrypt" "decrypt")
 VALID_COMMANDS_STR=$(IFS=$'|'; echo "${VALID_COMMANDS[*]}")
 
 DEFAULT_REGION="us-east-1"
-TEMP_FILES=()
 
 usage() {
 cat << USAGE
 
   Usage: ${SCRIPT_NAME} <command> -r <region> -k <key_alias> -t <content>
   
-  command
-    The action to perform. Must be one of ${VALID_COMMANDS_STR}"    
+  ${VALID_COMMANDS_STR}
+    The action to perform.
   -k --key-alias        
     The KMS key to use when encrypting a value.
   -r --region           ${DEFAULT_REGION}
     Region where the KMS key lives.
   -t --text
     The value to encrypt or decrypt.
+
+  ${SCRIPT_NAME} encrypt -k terraform-secrets-product-prod-1 -t "secret_password"
+  ${SCRIPT_NAME} decrypt -t "AQICAHgAo5v8YsJZTNHqa6WtDuiMFzVkKYglrpVUghT0JiDwSgHH2u ..."
+  ${SCRIPT_NAME} encrypt --region eu-central-1 -k terraform-secrets-product-prod-0 -t "secret_password"
+  ${SCRIPT_NAME} decrypt --region eu-central-1 -t "AQICAHgAo5v8YsJZTNHqa6WtDuiMFzVkKYglrpVUghT0JiDwSgHH2u ..."
 USAGE
 }
 
