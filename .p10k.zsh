@@ -63,6 +63,8 @@
   typeset -ga POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
       time                    # current time
+      user                    # current user
+      host                    # current host
       dir                     # current directory
       vcs                     # git status
       # =========================[ Line #2 ]=========================
@@ -104,9 +106,9 @@
       kubecontext             # current kubernetes context (https://kubernetes.io/)
       # =========================[ Line #2 ]=========================
       newline
-      user                    # current user
-      host                    # current host
-      public_ip               # public IP address
+      # user                    # current user
+      # host                    # current host
+      # public_ip               # public IP address
       # proxy                 # system-wide http/https/ftp proxy
       # battery               # internal battery
       # example               # example user-defined segment (see prompt_example function below)

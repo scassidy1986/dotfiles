@@ -1,0 +1,101 @@
+#!/bin/bash
+
+SCRIPT_NAME=${0##*/}
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+VALID_COMMANDS=("encrypt" "decrypt")
+VALID_COMMANDS_STR=$(IFS=$'|'; echo "${VALID_COMMANDS[*]}")
+
+DEFAULT_REGION="us-east-1"
+TEMP_FILES=()
+
+usage() {
+cat << USAGE
+
+  Usage: ${SCRIPT_NAME} <command> -r <region> -k <key_alias> -t <content>
+  
+  command
+    The action to perform. Must be one of ${VALID_COMMANDS_STR}"    
+  -k --key-alias        
+    The KMS key to use when encrypting a value.
+  -r --region           ${DEFAULT_REGION}
+    Region where the KMS key lives.
+  -t --text
+    The value to encrypt or decrypt.
+USAGE
+}
+
+validate_required() {
+  for required in "${@}"; do
+    if [[ -z "${!required}" ]]; then
+      echo "Required parameter missing [${required}]"
+      usage
+      exit 1
+    fi
+  done
+}
+
+encrypt() {
+  aws_cli_version="$(echo "$(aws --version)" | cut -d ' ' -f 1 | cut -d / -f 2 | cut -d . -f 1)"
+  cmd=(
+    "--region" "${1}"
+    "--key-id" "${2}"
+    "--plaintext" "${3}"
+    "--output" "text"
+    "--query" "CiphertextBlob"
+  )
+  [[ "${aws_cli_version}" -gt 1 ]] && cmd+=("--cli-binary-format raw-in-base64-out")
+
+  echo "$(aws kms encrypt ${cmd[*]})"
+}
+
+decrypt() {
+  decrypted=$(aws kms decrypt --region ${1} --ciphertext-blob fileb://<(echo ${2} | base64 -D) --output text --query Plaintext)
+  echo "$(echo "${decrypted}" | base64 -D)"
+}
+
+SHORTOPTS="r:k:t:h"
+LONGOPTS="region:,key-alias:,text:,help"
+REQUIREDOPTS=("region" "key_alias" "text")
+ARGS=$(getopt -s bash --options "${SHORTOPTS}" --longoptions "${LONGOPTS}" --name "${SCRIPT_NAME}" -- "$@" )
+
+region="${DEFAULT_REGION}"
+key_alias=""
+text=""
+
+eval set -- "${ARGS}"
+while true; do
+  case $1 in
+    -k|--key-alias) shift; key_alias="${1}" ;;
+    -r|--region) shift; region="${1}" ;;
+    -t|--text) shift; text="${1}" ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    *) shift; break ;;
+  esac
+  shift
+done
+
+command="${1}"
+if ! [[ "${command}" =~ ^(${VALID_COMMANDS_STR})$ ]]; 
+then 
+  echo "Must be one of ${VALID_COMMANDS_STR}"
+  usage
+  exit 1
+fi
+
+case ${command} in
+  encrypt)
+    validate_required "region" "key_alias" "text"
+    encrypt "${region}" "${key_alias}" "${text}"
+    exit 0
+    ;;
+  decrypt)
+    validate_required "region" "text"
+    decrypt "${region}" "${text}"
+    exit 0
+    ;;
+  *)
+    usage
+    exit 1
+esac

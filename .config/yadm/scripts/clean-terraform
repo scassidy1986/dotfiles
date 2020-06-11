@@ -73,7 +73,7 @@ done
 
 log_info "Cleaning terraform folders in ${directory}"
 
-for dir in $(find ${directory} -type d -iname ".terraform" -ls | awk '{print $11}');
+for dir in $(find ${directory} -type d -iname ".terraform" -ls | awk '{print $12}');
 do
   log_info "Found directory: ${dir}"
   if _is_terraform_folder "${dir}"; then

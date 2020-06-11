@@ -6,7 +6,6 @@ declare -rx AWS_ACCOUNT_ENV_FILE=".aws-account"
 declare -rx RBENV_VERSION_FILE=".ruby-version"
 declare -rx PYENV_VERSION_FILE=".python-version"
 declare -rx GOENV_VERSION_FILE=".go-version"
-declare -rx JABBA_VERSION_FILE=".jabbarc"
 declare -rx JAVA_VERSION_FILE=".java-version"
 declare -rx TERRAFORM_DIRECTORY=".terraform"
 declare -rx TERRAFORM_ENV_FILE=".terraform/environment"
@@ -40,13 +39,10 @@ _check_for_goenv () {
   fi
 }
 
-_check_for_jabba () {
-  if _file_readable ${JABBA_VERSION_FILE} || _file_readable ${JAVA_VERSION_FILE}; then
-    echo "===> Found ${JABBA_VERSION_FILE}|${JAVA_VERSION_FILE}, loading ..."
-    _load_jabba
-  fi
-  if _file_readable ${JABBA_VERSION_FILE}; then
-    jabba use
+_check_for_jenv () {
+  if _file_readable ${JAVA_VERSION_FILE}; then
+    echo "===> Found ${JAVA_VERSION_FILE}, loading ..."
+    _load_jenv
   fi
 }
 
@@ -56,12 +52,6 @@ _check_for_kube_config () {
     if _kubeconfig_exists ${workspace}; then
       _export_kubeconfig "${workspace}"
     fi
-  fi
-}
-
-_load_aws_env() {
-  if _directory_readable "${TERRAFORM_DIRECTORY}" || _file_readable "${AWS_ACCOUNT_ENV_FILE}"; then
-    eval $(aws-env)
   fi
 }
 
@@ -75,19 +65,19 @@ _load_pyenv () {
   add-zsh-hook -d precmd _check_for_pyenv
 }
 
+_load_jenv () {
+  source "${ZSH_PLUGINS}/jenv/jenv.plugin.zsh"
+  add-zsh-hook -d precmd _check_for_jenv
+}
+
 _load_goenv () {
   eval "$(goenv init -)"
   export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
   add-zsh-hook -d precmd _check_for_goenv
 }
 
-_load_jabba () {
-  [ -s "/Users/scassidy/.jabba/jabba.sh" ] && source "/Users/scassidy/.jabba/jabba.sh"
-  add-zsh-hook -d precmd _check_for_jabba
-}
-
 add-zsh-hook precmd _check_for_rbenv
 add-zsh-hook precmd _check_for_pyenv
+add-zsh-hook precmd _check_for_jenv
 add-zsh-hook precmd _check_for_goenv
-add-zsh-hook precmd _check_for_jabba
 add-zsh-hook precmd _check_for_kube_config

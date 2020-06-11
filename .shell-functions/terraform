@@ -22,7 +22,8 @@ _tf_plan_file() {
   tf_root=$(_find_root_tf_folder "${PWD}")
   tmp_path="terraform/${tf_root}/${workspace}"
   mkdir -p "${TMPDIR}/${tmp_path}"
-  mktemp -t "${tmp_path}/tf-plan"
+  timestamp=$(date +%d%m%Y-%H%M)
+  mktemp -t "${tmp_path}/tf-plan.${timestamp}"
 }
 
 _tf_workspace() {
