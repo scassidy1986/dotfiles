@@ -46,7 +46,21 @@ _tf_variables_file() {
   fi
 }
 
+__tf_plan() {
+  local var_file="$(_tf_variables_file)"
+  local plan_file="$(_tf_plan_file)"
+  cmd=(
+    "plan"
+    "-detailed-exitcode"
+    "${var_file}"
+    "-out=${plan_file}"
+  )
+
+  echo "terraform ${cmd[@]}"
+}
+
 # aliases
+alias tf="terraform"
 alias tf-init="terraform init"
 alias tf-plan='terraform plan -detailed-exitcode $(_tf_variables_file) -out=$(eval _tf_plan_file)'
 alias tf-apply='terraform apply $(_tf_variables_file)'
@@ -54,4 +68,3 @@ alias tf-refresh='terraform refresh $(_tf_variables_file)'
 alias tf-fmt="terraform fmt"
 alias tf-workspace="_tf_workspace"
 alias tf-ls-workspace="terraform workspace list"
-

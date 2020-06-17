@@ -30,18 +30,6 @@ function echoerr () {
   printf "%s\n" "$*" >&2;
 }
 
-# Source common utils etc
-_source ~/.env.sh
-_source ~/.shell-aliases.sh
-_source_folder ~/.shell-functions
-_source_folder ~/.work-helpers
-
-_source ~/.iterm2_shell_integration.zsh
-
-for file in $(ls -1 ${HOME}/.autoload/); do
-  autoload ${file}
-done
-
 # User configuration
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
@@ -70,11 +58,6 @@ plugins=(
 
 _source ${ZSH}/oh-my-zsh.sh
 
-if is_linux; then
-  test -d ~/.linuxbrew && export PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
-  test -d /home/linuxbrew/.linuxbrew && export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
-fi
-
 if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
   # Execute code in the background to not affect the current session
   autoload -Uz compinit
@@ -89,6 +72,24 @@ if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
   } &!
 fi
 
+# Source common utils etc
+_source ~/.env.sh
+_source ~/.shell-aliases.sh
+_source_folder ~/.shell-functions
+_source_folder ~/.work-helpers
+
+_source ~/.iterm2_shell_integration.zsh
+
+for file in $(ls -1 ${HOME}/.autoload/); do
+  autoload ${file}
+done
+
+if is_linux; then
+  test -d ~/.linuxbrew && export PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
+  test -d /home/linuxbrew/.linuxbrew && export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+fi
+autoload -U +X bashcompinit && bashcompinit
+
 export JETBRAINS_BIN="${HOME}/.jetbrains"
 # Golang
 export GOHOME="${HOME}/go"
@@ -98,14 +99,20 @@ export PATH="/usr/local/opt/gnu-getopt/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}
 
 clean_path
 
-autoload -U +X bashcompinit && bashcompinit
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 _source_folder ~/.completion
 
+if command -v runcached >/dev/null 2>&1; then
+  export RUNCACHED_MAX_AGE=10
+  export RUNCACHED_CACHE_DIR="${HOME}/.cache/.runcached/"
+  export RUNCACHED_PRUNE=1
+
+fi
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 eval "$(direnv hook zsh)"
+

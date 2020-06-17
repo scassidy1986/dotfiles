@@ -31,23 +31,37 @@
   # restarting zsh. Edit ~/.p10k.zsh and type `source ~/.p10k.zsh`.
   unset -m 'POWERLEVEL9K_*'
 
+  function find_file() {
+    root="${1}"
+    file="${2}"
+    while ! [[ "${root}" =~ ^//[^/]*$ ]]; do
+      file_to_test="${root}/${file}"
+      if [[ -f "${file_to_test}" ]] && [[ -r "${file_to_test}" ]]; then
+        echo "${file_to_test}"
+        return 0
+      fi
+      [ -n "${root}" ] || break
+      root="${root%/*}"
+    done
+    return 1
+  }
+
   # Custom prompts
   function prompt_terraform_version () {
-    local version=""
-    if [[ -n "${TERRAFORM_VERSION}" ]]; then
-      version="${TERRAFORM_VERSION}"
-    elif [ ${commands[tfenv]} ]; then
-      local tfenv_version_name="$(tfenv version-name 2>/dev/null)"
-      local tfenv_global="system"
-      local tfenv_root="/usr/local/opt/tfenv"
+    if command -v tfenv >/dev/null 2>&1; then
+      #tfenv_version_name="$(tfenv version-name 2>/dev/null)"
+      version_file="$(find_file "$(pwd)" ".terraform-version")" || return
+      tfenv_version_name="$(cat "${version_file}" || "")"
+      tfenv_global="system"
+      tfenv_root="/usr/local/opt/tfenv"
       if [[ -e "${tfenv_root}/version" ]]; then
         tfenv_global="$(cat ${tfenv_root}/version)"
       fi
       if [[ "${tfenv_version_name}" != "" && "${tfenv_version_name}" != "${tfenv_global}" || "${POWERLEVEL9K_TERRAFORM_VERSION_ALWAYS_SHOW:-false}" == "true" ]]; then
         version="${tfenv_version_name}"
       fi
+      p10k segment -t "${version}" -r -i 'TERRAFORM_ICON' -f 'white'
     fi
-    p10k segment -t "${version}" -r -i 'TERRAFORM_ICON' -f 'white'
   }
 
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_BACKGROUND="purple3"
