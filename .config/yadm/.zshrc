@@ -4,6 +4,7 @@ ZSH_DISABLE_COMPFIX="true"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_CUSTOM="${ZSH}/custom/"
 export ZSH_PLUGINS="${ZSH}/plugins"
+export ZSH_CUSTOM_HOOKS="${HOME}/.custom_hooks/"
 
 test -f ~/.logging && source ~/.logging
 
@@ -73,10 +74,13 @@ if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
 fi
 
 # Source common utils etc
-_source ~/.env.sh
 _source ~/.shell-aliases.sh
 _source_folder ~/.shell-functions
 _source_folder ~/.work-helpers
+
+# Load custom zsh hooks
+autoload -Uz add-zsh-hook
+_source_folder "${ZSH_CUSTOM_HOOKS}"
 
 _source ~/.iterm2_shell_integration.zsh
 
