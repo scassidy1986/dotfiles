@@ -1,22 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
-
-if [ -e ~/.logging ]; then
-  source ~/.logging
-else
-  function log_info () {
-    echo -e "[INFO] \033[0;32m${1}\033[0m"
-  }
-  function log_error () {
-    echo -e "[ERROR] \033[0;31m${1}\033[0m"
-  }
-fi
 
 SCRIPT_NAME=${0##*/}
 
 function usage () {
-  echo "Usage: ${SCRIPT_NAME} -d <directory> -t <test_run>"
+cat << USAGE
+  Usage: ${SCRIPT_NAME} -d <directory> -t <test_run>
+USAGE
 }
 
 function _is_terraform_folder () {

@@ -1,0 +1,114 @@
+#!/usr/bin/env sh
+
+set -e
+
+if [ -f "${HOME}/.logging" ]; then
+  source "${HOME}/.logging"
+fi
+
+SCRIPT_NAME=${0##*/}
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+DEFAULT_REGION="us-east-1"
+
+usage() {
+cat << USAGE
+  Usage: ${SCRIPT_NAME} [-a <source_account>] 
+              [-r <source_region>] 
+              [-A <destination_account>] 
+              [-R <destination_region>] 
+              [-i <image>]
+  
+  Options
+  Required:
+   -a   The source account to download the image(s) from.
+   -r   The source region to download the image(s) from. Defaults to us-east-1.
+   -A   The destination account to copy the image(s) to.
+   -R   The destination region to copy the image(s) to. Defaults to us-east-1.
+   -i   An image to copy, in the format <image_name:tag>. Can be repeated multiple times.
+
+  ${SCRIPT_NAME} -a 1234567890 -r us-east-1 -A 0987654321 -R us-east-1 -i image_1:1.0.0
+  ${SCRIPT_NAME} -a 1234567890 -r us-east-1 -A 0987654321 -R us-east-1 -i image_1:1.0.0 -i image_2:1.0.0 -i image_3:1.0.0
+USAGE
+}
+
+ecr_login() {
+  account="${1}"
+  region="${2}"
+  
+  ecr-docker-login -a "${account}" -r "${region}"
+}
+
+source_account=""
+source_region="${DEFAULT_REGION}"
+destination_account=""
+destination_region="${DEFAULT_REGION}"
+images=()
+
+OPTS="a:r:A:R:i:h"
+REQUIREDOPTS=("source_account" "source_region" "destination_account" "destination_region")
+
+while getopts "${OPTS}" opt; do
+  case "${opt}" in
+    a) source_account="${OPTARG}" ;;
+    r) source_region="${OPTARG}" ;;
+    A) destination_account="${OPTARG}" ;;
+    R) destination_region="${OPTARG}" ;;
+    i) images+=("${OPTARG}") ;;
+    h) usage
+       exit 0
+       ;;
+    *)
+     log_error "Invalid Option: -${opt} ${OPTARG}"
+     usage
+     exit 1
+     ;;
+  esac
+done
+shift $((OPTIND -1))
+
+# Validation...
+for required in "${REQUIREDOPTS[@]}"; do
+  if [[ -z "${!required}" ]]; then
+    log_error "Required parameter missing"
+    usage
+    exit 1
+  fi
+done
+
+if [[ "${#images[@]}" -eq 0 ]]; then
+  log_error "At least one image to copy must be provided"
+  usage
+  exit 1
+fi
+
+log_info "Copying the following docker images from ${source_account} - ${source_region}:"
+for image in "${images[@]}"; do
+  log_info " - ${image}"
+done
+log_info "To ${destination_account} - ${destination_region}"
+
+log_info "Pulling images..."
+ecr_login "${source_account}" "${source_region}"
+for image in "${images[@]}"; do
+  name=$(echo ${image} | cut -f1 -d:)
+  tag=$(echo ${image} | cut -f2 -d:)
+
+  log_info "> Pulling service [${name}:${tag}]"
+
+  docker pull ${source_account}.dkr.ecr.${source_region}.amazonaws.com/${name}:${tag}
+  docker tag ${source_account}.dkr.ecr.${source_region}.amazonaws.com/${name}:${tag} \
+    ${destination_account}.dkr.ecr.${destination_region}.amazonaws.com/${name}:${tag}
+done
+
+ecr_login "${destination_account}" "${destination_region}"
+for image in "${images[@]}"; do
+  name=$(echo ${image} | cut -f1 -d:)
+  tag=$(echo ${image} | cut -f2 -d:)
+
+  log_info "> Uploading service [${name}:${tag}]"
+
+  docker push ${destination_account}.dkr.ecr.${destination_region}.amazonaws.com/${name}:${tag}
+done
+
+log_info "Done!"

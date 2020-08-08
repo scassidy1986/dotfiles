@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 
 _find_root_tf_folder() {
   root="${1}"
@@ -27,7 +28,7 @@ _tf_plan_file() {
 }
 
 _tf_workspace() {
-  workspace="${1}"
+  local workspace="${1}"
   if [ -z "${workspace}" ]; then
     terraform workspace show
   else
@@ -46,29 +47,15 @@ _tf_variables_file() {
   fi
 }
 
-__tf_plan() {
-  local var_file="$(_tf_variables_file)"
-  local plan_file="$(_tf_plan_file)"
-  cmd=(
-    "plan"
-    "-detailed-exitcode"
-    "${var_file}"
-    "-out=${plan_file}"
-  )
+var_file="$(_tf_variables_file)"
+plan_file="$(_tf_plan_file)"
+cmd=(
+  "plan"
+  "-detailed-exitcode"
+  "${var_file}"
+  "-out=${plan_file}"
+)
 
-  terraform "${cmd[@]}"
-}
-
-# aliases
-alias tf="terraform"
-alias tf-init="terraform init"
-#alias tf-plan='terraform plan -detailed-exitcode $(_tf_variables_file) -out=$(eval _tf_plan_file)'
-#alias tf-apply='terraform apply $(_tf_variables_file)'
-#alias tf-refresh='terraform refresh $(_tf_variables_file)'
-alias tf-plan="terraform-plan -detailed-exitcode"
-alias tf-apply="terraform apply"
-alias tf-refresh="terraform refresh"
-alias tf-fmt="terraform fmt"
-alias tf-workspace="_tf_workspace"
-alias tf-ls-workspace="terraform workspace list"
+echo "terraform ${cmd[@]}"
+terraform "${cmd[@]}"
 

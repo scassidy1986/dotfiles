@@ -1,55 +1,49 @@
-tap "caskroom/cask"
-tap "caskroom/fonts"
-tap "caskroom/versions"
 tap "datawire/blackbird"
-tap "derailed/k9s"
-tap "flowerinthenight/tap"
 tap "goreleaser/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "jesseduffield/lazydocker"
-tap "johanhaleby/kubetail"
 tap "reactiveops/tap"
-tap "sambadevi/powerlevel9k"
-cask "osxfuse"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
 # Library for command-line editing
 brew "readline"
 # Command-line interface for SQLite
 brew "sqlite"
 # Official Amazon AWS command-line interface
 brew "awscli"
+# Official Amazon AWS command-line interface
+brew "awscli@1"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # Programmable completion for Bash 3.2
 brew "bash-completion"
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
 # Cross-platform make
 brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
+# Load/unload environment variables based on $PWD
+brew "direnv"
+# Tool for exploring each layer in a docker image
+brew "dive"
 # Tools for browsing and manipulating docker registries
 brew "docker-ls"
-# GNU internationalization (i18n) and localization (l10n) library
-brew "gettext"
 # Distributed revision control system
 brew "git"
 # Command-line option parsing utility
 brew "gnu-getopt"
-# Gorgeous metric visualizations and dashboards for timeseries databases
-brew "grafana"
-# The Kubernetes package manager
-brew "helm"
-# Improved top (interactive process viewer)
-brew "htop"
 # C/C++ and Java libraries for Unicode and globalization
 brew "icu4c"
-# Cross-platform Java Version Manager
-brew "jabba"
+# Improved top (interactive process viewer)
+brew "htop"
 # Manage your Java environment
 brew "jenv"
 # Regular expressions library
@@ -58,10 +52,6 @@ brew "oniguruma"
 brew "jq"
 # Domain specific configuration language for defining JSON data
 brew "jsonnet"
-# Kubernetes command-line interface
-brew "kubernetes-cli"
-# Production Grade K8s Installation, Upgrades, and Management
-brew "kops"
 # Asynchronous event library
 brew "libev"
 # Common error values for all GnuPG components
@@ -78,24 +68,24 @@ brew "libyaml"
 brew "mas"
 # Scalable distributed version control system
 brew "mercurial"
-# Open source relational database management system
-brew "mysql@5.7"
 # Install NodeJS versions
 brew "node-build"
 # Manage multiple NodeJS versions
 brew "nodenv"
+# Manage multiple Node.js versions
+brew "nvm"
 # Tool for creating identical machine images for multiple platforms
 brew "packer"
-# Shell command parallelization utility
-brew "parallel"
+# Object-relational database system
+brew "postgresql", restart_service: true
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
-# Service monitoring system and time series database
-brew "prometheus"
 # Password generator
 brew "pwgen"
 # Python version management
 brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
 # Install various Ruby versions and implementations
 brew "ruby-build"
 # Ruby version manager
@@ -103,17 +93,15 @@ brew "rbenv"
 # Sampling profiler for Ruby
 brew "rbspy"
 # Persistent key-value database, with built-in net interface
-brew "redis"
+brew "redis", restart_service: true
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
 # HTTP regression testing and benchmarking utility
 brew "siege"
-# User interface to the TELNET protocol (built from macOS Sierra sources)
+# User interface to the TELNET protocol
 brew "telnet"
 # Tool to generate documentation from Terraform modules
 brew "terraform-docs"
-# Improve Terraform's plan output
-brew "terraform_landscape"
 # Terraform version manager inspired by rbenv
 brew "tfenv"
 # Linter for Terraform files
@@ -128,45 +116,24 @@ brew "watch"
 brew "wget"
 # Yet Another Dotfiles Manager
 brew "yadm"
-# The next-generation plugin manager for zsh
-brew "zplug"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Additional completion definitions for zsh
 brew "zsh-completions"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
-# Local dev environment attached to a remote Kubernetes cluster
-brew "datawire/blackbird/telepresence"
-# Kubernetes CLI To Manage Your Clusters In Style!
-brew "derailed/k9s/k9s"
-# A simple wrapper to kubectl port-forward for multiple pods.
-brew "flowerinthenight/tap/kubepfm"
-# Deliver Go binaries as fast and easily as possible
-brew "goreleaser/tap/goreleaser"
 # A simple terminal UI for docker, written in Go
 brew "jesseduffield/lazydocker/lazydocker"
-# Tail logs from multiple Kubernetes pods at the same time
-brew "johanhaleby/kubetail/kubetail"
-# Open Source Best Practices for Kubernetes
-brew "reactiveops/tap/polaris"
-# A badass zsh theme with more power than a normal earthling
-brew "sambadevi/powerlevel9k/powerlevel9k"
 cask "atom"
 cask "awsaml"
 cask "caffeine"
 cask "cleanmymac"
 cask "font-hack-nerd-font"
+cask "gimp"
+cask "github"
 cask "iterm2"
 cask "java8"
-cask "minikube"
-cask "mockoon"
-cask "multipass"
-cask "pgadmin4"
 cask "spectacle"
-cask "sqlworkbenchj"
-cask "sublime-text"
-cask "vagrant"
-cask "virtualbox"
+cask "spotify"
 cask "visual-studio-code"
-cask "wireshark"
+cask "whatsapp"

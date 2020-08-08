@@ -14,6 +14,10 @@ alias netstat-listen="netstat -atunlp"
 
 # k8s
 
+# maven
+alias mci="mvn clean install -U"
+alias mcp="mvn clean package -U"
+
 # auto-correct...
 alias brew="nocorrect brew"
 alias kapitan="nocorrect kapitan"
@@ -23,6 +27,7 @@ alias helm="nocorrect helm"
 alias minikube="nocorrect minikube"
 alias kubectl="nocorrect kubectl"
 alias kubetail="nocorrect kubetail"
+alias mvn="nocorrect mvn"
 
 # helpers
 alias uuid-v4="python -c 'import sys,uuid; sys.stdout.write(str(uuid.uuid4()))'"

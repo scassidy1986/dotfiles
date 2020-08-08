@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -f "${HOME}/.logging" ]; then
+  source "${HOME}/.logging"
+fi
+
 SCRIPT_NAME=${0##*/}
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -15,17 +19,17 @@ cat << USAGE
   
   ${VALID_COMMANDS_STR}
     The action to perform.
-  -k --key-alias        
+  -k         
     The KMS key to use when encrypting a value.
-  -r --region           ${DEFAULT_REGION}
+  -r  ${DEFAULT_REGION}
     Region where the KMS key lives.
-  -t --text
+  -t 
     The value to encrypt or decrypt.
 
   ${SCRIPT_NAME} encrypt -k terraform-secrets-product-prod-1 -t "secret_password"
   ${SCRIPT_NAME} decrypt -t "AQICAHgAo5v8YsJZTNHqa6WtDuiMFzVkKYglrpVUghT0JiDwSgHH2u ..."
-  ${SCRIPT_NAME} encrypt --region eu-central-1 -k terraform-secrets-product-prod-0 -t "secret_password"
-  ${SCRIPT_NAME} decrypt --region eu-central-1 -t "AQICAHgAo5v8YsJZTNHqa6WtDuiMFzVkKYglrpVUghT0JiDwSgHH2u ..."
+  ${SCRIPT_NAME} encrypt -r eu-central-1 -k terraform-secrets-product-prod-0 -t "secret_password"
+  ${SCRIPT_NAME} decrypt -r eu-central-1 -t "AQICAHgAo5v8YsJZTNHqa6WtDuiMFzVkKYglrpVUghT0JiDwSgHH2u ..."
 USAGE
 }
 
@@ -58,35 +62,37 @@ decrypt() {
   echo "$(echo "${decrypted}" | base64 -D)"
 }
 
-SHORTOPTS="r:k:t:h"
-LONGOPTS="region:,key-alias:,text:,help"
-REQUIREDOPTS=("region" "key_alias" "text")
-ARGS=$(getopt -s bash --options "${SHORTOPTS}" --longoptions "${LONGOPTS}" --name "${SCRIPT_NAME}" -- "$@" )
-
 region="${DEFAULT_REGION}"
 key_alias=""
 text=""
 
-eval set -- "${ARGS}"
-while true; do
-  case $1 in
-    -k|--key-alias) shift; key_alias="${1}" ;;
-    -r|--region) shift; region="${1}" ;;
-    -t|--text) shift; text="${1}" ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
-    *) shift; break ;;
-  esac
-  shift
-done
+OPTS="r:k:t:h"
+REQUIREDOPTS=("region" "key_alias" "text")
 
-command="${1}"
+command="${1}"; shift
 if ! [[ "${command}" =~ ^(${VALID_COMMANDS_STR})$ ]]; 
 then 
-  echo "Must be one of ${VALID_COMMANDS_STR}"
+  echo "Command [${command}] must be one of ${VALID_COMMANDS_STR}"
   usage
   exit 1
 fi
+
+while getopts "${OPTS}" opt; do
+  case "${opt}" in
+    k) key_alias="${OPTARG}" ;;
+    r) region="${OPTARG}" ;;
+    t) text="${OPTARG}" ;;
+    h) usage
+       exit 0
+       ;;
+    *)
+     log_error "Invalid Option: -${opt} ${OPTARG}"
+     usage
+     exit 1
+     ;;
+  esac
+done
+shift $((OPTIND -1))
 
 case ${command} in
   encrypt)

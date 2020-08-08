@@ -1,37 +1,34 @@
 #!/usr/bin/env sh
 
+set -e
+
 SCRIPT_NAME=${0##*/}
 
-if [ -e ${HOME}/.logging ]; then
-  source ${HOME}/.logging
-else
-  function log_info () {
-    echo "[INFO] \033[0;32m${1}\033[0m"
-  }
-  function log_error () {
-    echo "[ERROR] \033[0;31m${1}\033[0m"
-  }
+if [ -f "${HOME}/.logging" ]; then
+  source "${HOME}/.logging"
 fi
 
-function usage () {
-  echo "Usage: ${SCRIPT_NAME} -q <query> -p <port> -n <namespace> [-k <kube_config>] [-r]"
-  echo "   -q --query       The pattern to match pods with."
-  echo "   -p --port        The port to forward."
-  echo "   -n --namespace   The namespace to search for pods."
-  echo "                    Defaults to 'default'."
-  echo " Optional:"
-  echo "   -k --kube-config The kubeconfig to use, if different than the current one."
-  echo "                    Defaults to the value of 'KUBECONFIG'."
-  echo "   -r --random-port Whether to use random ports. If false, will attempt to use"
-  echo "                    the port to forward + 1 e.g."
-  echo "                    pod-1 -> 8080:8080"
-  echo "                    pod-2 -> 8080:8081"
-  echo "                    pod-3 -> 8080:8082"
-  echo ""
-  echo " Examples:"
-  echo "  ${SCRIPT_NAME} -q apiservice -p 8080"
-  echo "  ${SCRIPT_NAME} -q fluentd -n logging -p 24231 -k ~/.kube/pd-test-1.kubeconfig -r"
-  echo "  KUBECONFIG=\"~/.kube/pd-test-1.kubeconfig\" ${SCRIPT_NAME} -q fluentd -n logging -p 24231"
+usage () {
+cat << USAGE  
+  Usage: ${SCRIPT_NAME} [-q <query>] [-p <port>] [-n <namespace>] [-k <kube_config>] [-r]
+
+  Options
+  Required:
+    -q  The pattern to match pods with.
+    -p  The port to forward.
+    -n  The namespace to search for pods. Defaults to 'default'.
+   Optional:
+    -k  The kubeconfig to use, if different than the current one. Defaults to the value of 'KUBECONFIG'.
+    -r  Whether to use random ports. If false, will attempt to use the port to forward + 1 e.g.
+        pod-1 -> 8080:8080
+        pod-2 -> 8081:8080
+        pod-3 -> 8082:8080
+  
+   Examples:
+    ${SCRIPT_NAME} -q apiservice -p 8080
+    ${SCRIPT_NAME} -q fluentd -n logging -p 24231 -k ~/.kube/pd-test-1.kubeconfig -r
+    KUBECONFIG=\"~/.kube/pd-test-1.kubeconfig\" ${SCRIPT_NAME} -q fluentd -n logging -p 24231
+USAGE  
 }
 
 query=""
@@ -40,32 +37,31 @@ kube_config=${KUBECONFIG}
 namespace="default"
 use_random_port=false
 
-SHORTOPTS="q:p:n:k:rh"
-LONGOPTS="query:,port:,namespace:,kube-config:,random-port,help"
-REQUIREDOPTS=("query port kube_config")
-if ! options=$(getopt -n "${SCRIPT_NAME}" -o "${SHORTOPTS}" -l "${LONGOPTS}" -- "$@"); then
-  log_error "Unable to set cli options"
-  exit 1
-fi
+OPTS="q:p:n:k:rh"
+REQUIREDOPTS=("query" "port" "kube_config" "namespace")
 
-eval set -- "${options}"
-while [ $# -gt 0 ]; do
-  case "$1" in
-    -q|--query) shift; query="${1}" ;;
-    -p|--port) shift; port="${1}" ;;
-    -n|--namespace) shift; namespace="${1}" ;;
-    -k|--kube-config) shift; kube_config="${1}" ;;
-    -r|--random-port) use_random_port=true ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
-    *) break ;;
+while getopts "${OPTS}" opt; do
+  case "${opt}" in
+    q) query="${OPTARG}" ;;
+    p) port="${OPTARG}" ;;
+    n) namespace="${OPTARG}" ;;
+    k) kube_config="${OPTARG}" ;;
+    r) use_random_port=true ;;
+    h) usage
+       exit 0
+       ;;
+    *)
+     log_error "Invalid Option: -${opt} ${OPTARG}"
+     usage
+     exit 1
+     ;;
   esac
-  shift
 done
+shift $((OPTIND -1))
 
 for required in ${REQUIREDOPTS}; do
   if [[ -z "${!required}" ]]; then
-    log_error "Required parameter missing [${required}]"
+    log_error "Required parameter missing"
     usage
     exit 1
   fi

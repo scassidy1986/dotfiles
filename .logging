@@ -4,6 +4,7 @@ LEVEL_INFO="INFO"
 LEVEL_WARN="WARN"
 LEVEL_ERROR="ERROR"
 LEVEL_DEBUG="DEBUG"
+LEVEL_VERBOSE="VERBOSE"
 
 BLACK="\e[30m"
 RED="\e[31m"
@@ -23,49 +24,57 @@ LIGHTCYAN="\e[96m"
 PADDING="      "
 
 function _log () {
-  time=$(date +"%d-%m-%Y %H:%M:%S")
-  timestamp="${time}"
+  timestamp=$(date +"%d-%m-%Y %H:%M:%S")
   case "${1}" in 
     INFO)
-      level="${BLUE}${PADDING:${#1}}${1}${NONE}"
-      message="${2}"
+      level="${BLUE}"
+      message=""
       ;;
     WARN)
-      level="${YELLOW}${PADDING:${#1}}${1}${NONE}"
-      message="${2}"
+      level="${YELLOW}"
+      message=""
       ;;
     ERROR)
-      level="${RED}${PADDING:${#1}}${1}${NONE}"
-      message="${LIGHTRED}${2}${NONE}"
+      level="${RED}"
+      message="${LIGHTRED}"
       ;;
     DEBUG)
-      level="${GREEN}${PADDING:${#1}}${1}${NONE}"
-      message="${LIGHTGREEN}${2}${NONE}"
+      level="${GREEN}"
+      message="${LIGHTGREEN}"
+      ;;
+    VERBOSE)
+      level="${CYAN}"
+      message="${LIGHTCYAN}"
       ;;
   esac
 
-  printf "${timestamp} [${level}] ${message}\n"
+  printf "${timestamp} [${level}${PADDING:${#1}}${1}${NONE}] ${message}${2}${NONE}\n"
 }
 
 function log_info () {
-  log_msg "${LEVEL_INFO}" true "${1}"
+  log_msg "${LEVEL_INFO}" true "${@}"
 }
 
 function log_warn () {
-  log_msg "${LEVEL_WARN}" true "${1}"
+  log_msg "${LEVEL_WARN}" true "${@}"
 }
 
 function log_error () {
-  log_msg "${LEVEL_ERROR}" true "${1}"
+  log_msg "${LEVEL_ERROR}" true "${@}"
 }
 
 function log_debug () {
-  log_msg "${LEVEL_DEBUG}" false "${1}"
+  log_msg "${LEVEL_DEBUG}" false "${@}"
+}
+
+function log_verbose () {
+  log_msg "${LEVEL_VERBOSE}" false "${@}"
 }
 
 function log_msg () {
   enabled="$(eval echo \${LOGGING_${1}_ENABLED:-${2}})"
   if [ "${enabled}" = true ]; then
-    _log "${1}" "${3}"
+    message="${@:3}"
+    _log "${1}" "${message}"
   fi
 }
