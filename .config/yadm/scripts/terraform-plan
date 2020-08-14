@@ -49,13 +49,13 @@ _tf_variables_file() {
 
 var_file="$(_tf_variables_file)"
 plan_file="$(_tf_plan_file)"
-cmd=(
-  "plan"
-  "-detailed-exitcode"
-  "${var_file}"
-  "-out=${plan_file}"
-)
+cmd=("plan" "-detailed-exitcode")
+if [[ ! -z "${var_file}" ]]; then
+  cmd+=("${var_file}")
+fi
+cmd+=("-out=${plan_file}" "${@}")
 
 echo "terraform ${cmd[@]}"
+
 terraform "${cmd[@]}"
 
