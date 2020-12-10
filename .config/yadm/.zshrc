@@ -51,6 +51,8 @@ fpath=(
 plugins=(
   git
   brew
+  jenv
+  rbenv
   osx
   docker
   kubectl
