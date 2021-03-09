@@ -68,6 +68,7 @@
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_ALWAYS_SHOW="true"
   
   # Overrides
+  typeset -g POWERLEVEL9K_JENV_PROMPT_ALWAYS_SHOW="true"
   ## Terraform
   typeset -g POWERLEVEL9K_TERRAFORM_BACKGROUND="purple3"
   ## Kubernetes
@@ -104,7 +105,8 @@
       # nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
       # node_version          # node.js version
       go_version              # go version (https://golang.org)
-      java_version            # java version from jabba
+      jenv
+      # java_version            # java version from jabba
       # rust_version          # rustc version (https://www.rust-lang.org)
       # dotnet_version        # .NET version (https://dotnet.microsoft.com)
       rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)

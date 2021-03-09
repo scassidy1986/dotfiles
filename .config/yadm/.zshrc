@@ -55,7 +55,6 @@ plugins=(
   rbenv
   osx
   docker
-  kubectl
   terraform
 )
 
@@ -101,7 +100,7 @@ export JETBRAINS_BIN="${HOME}/.jetbrains"
 export GOHOME="${HOME}/go"
 export GOPATH="${GOHOME}"
 export GOENV_ROOT="${HOME}/.goenv"
-export PATH="/usr/local/opt/gnu-getopt/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}/bin:${JETBRAINS_BIN}:${PATH}"
+export PATH="/usr/local/opt/gnu-getopt/bin:/usr/local/opt/mysql@5.7/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}/bin:${JETBRAINS_BIN}:${PATH}"
 
 clean_path
 
