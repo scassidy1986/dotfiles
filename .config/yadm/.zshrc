@@ -55,7 +55,7 @@ plugins=(
   rbenv
   osx
   docker
-  terraform
+  docker-compose
 )
 
 _source ${ZSH}/oh-my-zsh.sh

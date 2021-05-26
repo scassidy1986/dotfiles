@@ -71,8 +71,6 @@ set writebackup
 " }}}
 " Vim Plug {{{
 call plug#begin('~/.vim/plugged')
-Plug 'google/vim-jsonnet'
-Plug 'hashivim/vim-terraform'
 Plug 'scrooloose/syntastic'
 Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'

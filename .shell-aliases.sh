@@ -12,6 +12,8 @@ alias brew-bundle-list="brew-bundle list"
 # helpers
 alias netstat-listen="netstat -atunlp"
 
+# docker
+alias docker-compose="docker compose"
 # k8s
 
 # maven
