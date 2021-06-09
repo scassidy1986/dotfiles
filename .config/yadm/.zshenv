@@ -36,3 +36,8 @@ export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugins_cache"
 
 # goenv
 export GOENV_ROOT="${HOME}/.goenv"
+
+# jq
+# https://stedolan.github.io/jq/manual/#Colors
+export JQ_COLORS="1;31:0;39:0;39:0;39:0;32:1;39:1;39"
+

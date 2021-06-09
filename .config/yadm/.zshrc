@@ -56,6 +56,7 @@ plugins=(
   osx
   docker
   docker-compose
+  gcloud
 )
 
 _source ${ZSH}/oh-my-zsh.sh

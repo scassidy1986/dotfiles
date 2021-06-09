@@ -1,113 +1,28 @@
-tap "datawire/blackbird"
-tap "goreleaser/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
-tap "homebrew/services"
-tap "jesseduffield/lazydocker"
-tap "reactiveops/tap"
-# Tool for generating GNU Standards-compliant Makefiles
-brew "automake"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
-# Library for command-line editing
-brew "readline"
-# Command-line interface for SQLite
-brew "sqlite"
-# Official Amazon AWS command-line interface
-brew "awscli"
-# Official Amazon AWS command-line interface
-brew "awscli@1"
-# Bourne-Again SHell, a UNIX command interpreter
-brew "bash"
-# Programmable completion for Bash 3.2
-brew "bash-completion"
-# GNU internationalization (i18n) and localization (l10n) library
-brew "gettext"
-# Cross-platform make
-brew "cmake"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Tool for exploring each layer in a docker image
 brew "dive"
-# Tools for browsing and manipulating docker registries
-brew "docker-ls"
-# Distributed revision control system
-brew "git"
-# Command-line option parsing utility
-brew "gnu-getopt"
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
 # Improved top (interactive process viewer)
 brew "htop"
 # Manage your Java environment
 brew "jenv"
-# Regular expressions library
-brew "oniguruma"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# Domain specific configuration language for defining JSON data
-brew "jsonnet"
-# Asynchronous event library
-brew "libev"
-# Common error values for all GnuPG components
-brew "libgpg-error"
-# International domain name library (IDNA2008, Punycode and TR46)
-brew "libidn2"
-# X.509 and CMS library
-brew "libksba"
-# Generic library support script
-brew "libtool"
-# YAML Parser
-brew "libyaml"
 # Mac App Store command-line interface
 brew "mas"
-# Scalable distributed version control system
-brew "mercurial"
-# Install NodeJS versions
-brew "node-build"
-# Manage multiple NodeJS versions
-brew "nodenv"
-# Manage multiple Node.js versions
-brew "nvm"
-# Tool for creating identical machine images for multiple platforms
-brew "packer"
-# Object-relational database system
-brew "postgresql", restart_service: true
-# Framework for managing multi-language pre-commit hooks
-brew "pre-commit"
-# Password generator
-brew "pwgen"
+# Development kit for the Java programming language
+brew "openjdk@11"
 # Python version management
 brew "pyenv"
-# Pyenv plugin to manage virtualenv
-brew "pyenv-virtualenv"
-# Install various Ruby versions and implementations
-brew "ruby-build"
 # Ruby version manager
 brew "rbenv"
-# Sampling profiler for Ruby
-brew "rbspy"
-# Persistent key-value database, with built-in net interface
-brew "redis", restart_service: true
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
-# HTTP regression testing and benchmarking utility
-brew "siege"
-# User interface to the TELNET protocol
-brew "telnet"
-# Tool to generate documentation from Terraform modules
-brew "terraform-docs"
-# Terraform version manager inspired by rbenv
-brew "tfenv"
-# Linter for Terraform files
-brew "tflint"
-# CLI tool that moves files or folder to the trash
-brew "trash"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Executes a program periodically, showing output fullscreen
@@ -116,24 +31,17 @@ brew "watch"
 brew "wget"
 # Yet Another Dotfiles Manager
 brew "yadm"
-# UNIX shell (command interpreter)
-brew "zsh"
-# Additional completion definitions for zsh
-brew "zsh-completions"
-# Fish shell like syntax highlighting for zsh
-brew "zsh-syntax-highlighting"
-# A simple terminal UI for docker, written in Go
-brew "jesseduffield/lazydocker/lazydocker"
-cask "atom"
-cask "awsaml"
-cask "caffeine"
+# Application launcher and productivity software
+cask "alfred"
+# Tool to remove unnecessary files and folders from disk
 cask "cleanmymac"
-cask "font-hack-nerd-font"
-cask "gimp"
-cask "github"
-cask "iterm2"
-cask "java8"
-cask "spectacle"
+# Collaboration platform for API development
+cask "postman"
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
+# Music streaming service
 cask "spotify"
+# Open-source code editor
 cask "visual-studio-code"
-cask "whatsapp"
+mas "1Password 7", id: 1333542190
+
