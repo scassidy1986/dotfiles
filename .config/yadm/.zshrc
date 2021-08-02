@@ -51,29 +51,29 @@ fpath=(
 plugins=(
   git
   brew
-  jenv
+  pyenv
   rbenv
   osx
   docker
   docker-compose
-  gcloud
+  python
 )
 
 _source ${ZSH}/oh-my-zsh.sh
 
-if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
-  # Execute code in the background to not affect the current session
-  autoload -Uz compinit
-  compinit
-  {
-    # Compile zcompdump, if modified, to increase startup speed.
-    zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-    if [[ -s "${zcompdump}" && (! -s "${zcompdump}.zwc" || "${zcompdump}" -nt "${zcompdump}.zwc") ]]; then
-      log_debug "Compiling ${zcompdump}"
-      zcompile "${zcompdump}"
-    fi
-  } &!
-fi
+#if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
+#  # Execute code in the background to not affect the current session
+#  autoload -Uz compinit
+#  compinit
+#  {
+#    # Compile zcompdump, if modified, to increase startup speed.
+#    zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+#    if [[ -s "${zcompdump}" && (! -s "${zcompdump}.zwc" || "${zcompdump}" -nt "${zcompdump}.zwc") ]]; then
+#      log_debug "Compiling ${zcompdump}"
+#      zcompile "${zcompdump}"
+#    fi
+#  } &!
+#fi
 
 # Source common utils etc
 _source ~/.shell-aliases.sh
@@ -94,7 +94,6 @@ if is_linux; then
   test -d ~/.linuxbrew && export PATH="${HOME}/.linuxbrew/bin:${HOME}/.linuxbrew/sbin:${PATH}"
   test -d /home/linuxbrew/.linuxbrew && export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 fi
-autoload -U +X bashcompinit && bashcompinit
 
 export JETBRAINS_BIN="${HOME}/.jetbrains"
 # Golang
@@ -102,6 +101,7 @@ export GOHOME="${HOME}/go"
 export GOPATH="${GOHOME}"
 export GOENV_ROOT="${HOME}/.goenv"
 export PATH="/usr/local/opt/gnu-getopt/bin:/usr/local/opt/mysql@5.7/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}/bin:${JETBRAINS_BIN}:${PATH}"
+export PATH="/usr/local/opt/ruby@2.6/bin:${PATH}"
 
 clean_path
 
@@ -122,3 +122,5 @@ fi
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 eval "$(direnv hook zsh)"
 
+# GPG
+export GPG_TTY=$(tty)

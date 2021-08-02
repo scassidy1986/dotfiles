@@ -14,6 +14,7 @@ alias netstat-listen="netstat -atunlp"
 
 # docker
 alias docker-compose="docker compose"
+alias dc="docker compose"
 # k8s
 
 # maven
