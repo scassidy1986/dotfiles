@@ -5,7 +5,6 @@ export DEBUG_LOGGING_ENABLED=false
 # +----------------------------------------+
 setopt autocd
 setopt appendhistory
-setopt correct_all
 setopt extendedglob
 setopt hist_expire_dups_first
 setopt hist_find_no_dups
@@ -14,6 +13,8 @@ setopt hist_save_no_dups
 setopt interactive_comments
 setopt pushd_ignore_dups
 setopt promptsubst
+
+unsetopt correct
 
 export DISABLE_UPDATE_PROMPT="true"
 

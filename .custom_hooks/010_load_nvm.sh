@@ -5,7 +5,7 @@ declare -rx NVM_VERSION_FILE=".nvmrc"
 export NVM_DIR="${HOME}/.nvm"
 
 _check_for_nvm () {
-  if [[ -f "${NVM_VERSION_FILE}" ]]; then
+  if [[ $+commands[nvm] -ne 0 ]] && [[ -f "${NVM_VERSION_FILE}" ]]; then
     zsh_hook_debug "===> Found ${NVM_VERSION_FILE}, loading ..."    
     
     export NVM_DIR="${HOME}/.nvm"

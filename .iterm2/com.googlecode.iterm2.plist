@@ -868,7 +868,7 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TimeBetweenTips</key>
-	<real>86400</real>
+	<real>604800</real>
 	<key>ToolbeltTools</key>
 	<array>
 		<string>Profiles</string>

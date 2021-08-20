@@ -13,8 +13,6 @@ alias brew-bundle-list="brew-bundle list"
 alias netstat-listen="netstat -atunlp"
 
 # docker
-alias docker-compose="docker compose"
-alias dc="docker compose"
 # k8s
 
 # maven
@@ -31,6 +29,7 @@ alias minikube="nocorrect minikube"
 alias kubectl="nocorrect kubectl"
 alias kubetail="nocorrect kubetail"
 alias mvn="nocorrect mvn"
+alias cloudsmith="nocorrect cloudsmith"
 
 # helpers
 alias uuid-v4="python -c 'import sys,uuid; sys.stdout.write(str(uuid.uuid4()))'"

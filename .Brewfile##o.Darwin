@@ -1,8 +1,22 @@
+tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+tap "homebrew/services"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
+# Command-line interface for SQLite
+brew "sqlite"
+# General-purpose data compression with high compression ratio
+brew "xz"
 # Official Amazon AWS command-line interface
-brew "awscli"
+brew "awscli", link: false
+# Freely available high-quality data compressor
+brew "bzip2"
+# Enables you to reproduce the CircleCI environment locally
+brew "circleci"
+# Cross-platform make
+brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Get a file from an HTTP, HTTPS or FTP server
@@ -17,49 +31,92 @@ brew "git-crypt"
 brew "git-lfs"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
+# Go programming environment (1.15)
+brew "go@1.15"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
 # Improved top (interactive process viewer)
 brew "htop"
 # Manage your Java environment
 brew "jenv"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Conversion library
+brew "libiconv"
+# Implementation of the file(1) command
+brew "libmagic"
+# C library for reading, creating, and modifying zip archives
+brew "libzip"
+# Utility for directing compilation
+brew "make"
 # Mac App Store command-line interface
 brew "mas"
+# Platform built on V8 to build network applications
+brew "node"
 # Development kit for the Java programming language
 brew "openjdk@11"
+# Pinentry for GPG on Mac
+brew "pinentry-mac"
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
 # Python version management
 brew "pyenv"
-# Pyenv plugin to manage virtualenv
-brew "pyenv-virtualenv"
+# Install various Ruby versions and implementations
+brew "ruby-build"
 # Ruby version manager
 brew "rbenv"
+# Powerful, clean, object-oriented scripting language
+brew "ruby@2.6"
+# Tool Command Language
+brew "tcl-tk"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Full stack for building hosting services
+brew "uwsgi"
+# Tool for creating isolated virtual python environments
+brew "virtualenv"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
 brew "wget"
 # Yet Another Dotfiles Manager
 brew "yadm"
+# General-purpose lossless data-compression library
+brew "zlib"
+# Terraform Language Server
+brew "hashicorp/tap/terraform-ls"
 # Application launcher and productivity software
 cask "alfred"
+# Securely stores and accesses AWS credentials in a development environment
+cask "aws-vault"
+# All-in-one installer for the tools you need to manage your Chef infrastructure
+cask "chef-workstation"
 # Tool to remove unnecessary files and folders from disk
 cask "cleanmymac"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# End-to-end encryption software
+cask "keybase"
+# Reverse proxy, secure introspectable tunnels to localhost
+cask "ngrok"
 # Collaboration platform for API development
 cask "postman"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Music streaming service
 cask "spotify"
+# Development environment
+cask "vagrant"
 # Open-source code editor
 cask "visual-studio-code"
+# X Certificate and Key management
+cask "xca"
 mas "1Password 7", id: 1333542190
+mas "Amphetamine", id: 937984704
 mas "NordVPN IKE", id: 1116599239
 mas "Slack", id: 803453959
 mas "Twitter", id: 1482454543

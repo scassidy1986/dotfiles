@@ -39,6 +39,16 @@ ENABLE_CORRECTION="false"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
+# The following lines were added by compinstall
+zstyle :compinstall filename '/Users/stephencassidy/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+# Git
+GIT_AUTO_FETCH_INTERVAL=1200
+
 HOMEBREW_PREFIX=$(brew --prefix)
 fpath=(
   ${HOMEBREW_PREFIX}/share/zsh/site-functions
@@ -50,35 +60,26 @@ fpath=(
 
 plugins=(
   git
+  git-auto-fetch
   brew
-  pyenv
-  rbenv
   osx
   docker
   docker-compose
   python
+  pyenv
+  pip
+  ruby
+  virtualenvwrapper
+  ssh-agent
 )
 
 _source ${ZSH}/oh-my-zsh.sh
-
-#if [[ "${COMPINIT_ON_STARTUP:-1}" -eq 0 ]]; then
-#  # Execute code in the background to not affect the current session
-#  autoload -Uz compinit
-#  compinit
-#  {
-#    # Compile zcompdump, if modified, to increase startup speed.
-#    zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-#    if [[ -s "${zcompdump}" && (! -s "${zcompdump}.zwc" || "${zcompdump}" -nt "${zcompdump}.zwc") ]]; then
-#      log_debug "Compiling ${zcompdump}"
-#      zcompile "${zcompdump}"
-#    fi
-#  } &!
-#fi
 
 # Source common utils etc
 _source ~/.shell-aliases.sh
 _source_folder ~/.shell-functions
 _source_folder ~/.work-helpers
+
 
 # Load custom zsh hooks
 autoload -Uz add-zsh-hook
@@ -95,6 +96,7 @@ if is_linux; then
   test -d /home/linuxbrew/.linuxbrew && export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 fi
 
+export EDITOR="vim"
 export JETBRAINS_BIN="${HOME}/.jetbrains"
 # Golang
 export GOHOME="${HOME}/go"
@@ -102,6 +104,14 @@ export GOPATH="${GOHOME}"
 export GOENV_ROOT="${HOME}/.goenv"
 export PATH="/usr/local/opt/gnu-getopt/bin:/usr/local/opt/mysql@5.7/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}/bin:${JETBRAINS_BIN}:${PATH}"
 export PATH="/usr/local/opt/ruby@2.6/bin:${PATH}"
+export PATH="/usr/local/opt/go@1.15/bin:${PATH}"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+export PATH="/usr/local/opt/bzip2/bin:${PATH}"
+export PATH="/usr/local/opt/libiconv/bin:${PATH}"
+if which ruby >/dev/null && which gem >/dev/null; then
+  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:${PATH}"
+fi
 
 clean_path
 
@@ -115,7 +125,6 @@ if command -v runcached >/dev/null 2>&1; then
   export RUNCACHED_MAX_AGE=10
   export RUNCACHED_CACHE_DIR="${HOME}/.cache/.runcached/"
   export RUNCACHED_PRUNE=1
-
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -124,3 +133,7 @@ eval "$(direnv hook zsh)"
 
 # GPG
 export GPG_TTY=$(tty)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
