@@ -67,9 +67,9 @@ plugins=(
   docker-compose
   python
   pyenv
+  rbenv
   pip
   ruby
-  virtualenvwrapper
   ssh-agent
 )
 
@@ -103,7 +103,8 @@ export GOHOME="${HOME}/go"
 export GOPATH="${GOHOME}"
 export GOENV_ROOT="${HOME}/.goenv"
 export PATH="/usr/local/opt/gnu-getopt/bin:/usr/local/opt/mysql@5.7/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}/bin:${JETBRAINS_BIN}:${PATH}"
-export PATH="/usr/local/opt/ruby@2.6/bin:${PATH}"
+export PATH="/usr/local/opt/grep/libexec/gnubin:${PATH}"
+export APTH="$(brew --prefix openssl)/bin:${PATH}"
 export PATH="/usr/local/opt/go@1.15/bin:${PATH}"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
@@ -126,6 +127,10 @@ if command -v runcached >/dev/null 2>&1; then
   export RUNCACHED_CACHE_DIR="${HOME}/.cache/.runcached/"
   export RUNCACHED_PRUNE=1
 fi
+
+#if command -v chef >/dev/null 2>&1; then
+#  eval "$(chef shell-init zsh)"
+#fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

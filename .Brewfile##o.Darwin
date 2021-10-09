@@ -1,3 +1,4 @@
+tap "eugenmayer/dockersync"
 tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -11,36 +12,64 @@ brew "sqlite"
 brew "xz"
 # Official Amazon AWS command-line interface
 brew "awscli", link: false
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # Freely available high-quality data compressor
 brew "bzip2"
+# Core application library for C
+brew "glib"
 # Enables you to reproduce the CircleCI environment locally
 brew "circleci"
 # Cross-platform make
 brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# C library implementing the SSH2 protocol
+brew "libssh2"
+# Open source suite of directory software
+brew "openldap"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Tool for exploring each layer in a docker image
 brew "dive"
+# Collection of reusable C++ library artifacts developed at Facebook
+brew "folly"
+# Monitor a directory for changes and run a shell command
+brew "fswatch"
 # Enable transparent encryption/decryption of files in a git repo
 brew "git-crypt"
 # Git extension for versioning large files
 brew "git-lfs"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU Ubiquitous Intelligent Language for Extensions
+brew "guile"
+# HTTP/2 C Library
+brew "nghttp2"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
 # Go programming environment (1.15)
 brew "go@1.15"
+# Generate introspection data for GObject libraries
+brew "gobject-introspection"
 # Open-source build automation tool based on the Groovy and Kotlin DSL
 brew "gradle"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Framework for layout and rendering of i18n text
+brew "pango"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
+# GNU grep, egrep and fgrep
+brew "grep"
 # Improved top (interactive process viewer)
 brew "htop"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
 # Manage your Java environment
 brew "jenv"
 # Lightweight and flexible command-line JSON processor
@@ -49,14 +78,24 @@ brew "jq"
 brew "libiconv"
 # Implementation of the file(1) command
 brew "libmagic"
+# NaCl networking and cryptography library
+brew "libsodium"
 # C library for reading, creating, and modifying zip archives
 brew "libzip"
 # Utility for directing compilation
 brew "make"
 # Mac App Store command-line interface
 brew "mas"
+# Java-based project management
+brew "maven"
+# Intercept, modify, replay, save HTTP/S traffic
+brew "mitmproxy"
+# Open source relational database management system
+brew "mysql"
 # Platform built on V8 to build network applications
 brew "node"
+# Package manager for Microsoft development platform including .NET
+brew "nuget"
 # Development kit for the Java programming language
 brew "openjdk@11"
 # Pinentry for GPG on Mac
@@ -65,20 +104,28 @@ brew "pinentry-mac"
 brew "pre-commit"
 # Python version management
 brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
 # Install various Ruby versions and implementations
 brew "ruby-build"
 # Ruby version manager
 brew "rbenv"
+# Utility that provides fast incremental file transfer
+brew "rsync"
 # Powerful, clean, object-oriented scripting language
 brew "ruby@2.6"
+# Tool to create intelligent and beautiful documentation
+brew "sphinx-doc"
 # Tool Command Language
 brew "tcl-tk"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# File synchronization tool for OSX
+brew "unison"
 # Full stack for building hosting services
 brew "uwsgi"
 # Tool for creating isolated virtual python environments
-brew "virtualenv"
+brew "virtualenv", link: false
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
@@ -87,8 +134,12 @@ brew "wget"
 brew "yadm"
 # General-purpose lossless data-compression library
 brew "zlib"
+# A layer for unison-fsmonitor arround either macfsevents or watchdog for usage with unison
+brew "eugenmayer/dockersync/unox"
 # Terraform Language Server
 brew "hashicorp/tap/terraform-ls"
+# Password manager that keeps all passwords secure behind one password
+cask "1password"
 # Application launcher and productivity software
 cask "alfred"
 # Securely stores and accesses AWS credentials in a development environment
@@ -107,16 +158,15 @@ cask "ngrok"
 cask "postman"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
+# Team communication and collaboration software
+cask "slack"
 # Music streaming service
 cask "spotify"
 # Development environment
 cask "vagrant"
 # Open-source code editor
 cask "visual-studio-code"
+# Network protocol analyzer
+cask "wireshark"
 # X Certificate and Key management
 cask "xca"
-mas "1Password 7", id: 1333542190
-mas "Amphetamine", id: 937984704
-mas "NordVPN IKE", id: 1116599239
-mas "Slack", id: 803453959
-mas "Twitter", id: 1482454543

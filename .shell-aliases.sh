@@ -22,7 +22,6 @@ alias mcp="mvn clean package -U"
 # auto-correct...
 alias brew="nocorrect brew"
 alias kapitan="nocorrect kapitan"
-alias pip="nocorrect pip"
 alias pip3="nocorrect pip3"
 alias helm="nocorrect helm"
 alias minikube="nocorrect minikube"
