@@ -62,7 +62,7 @@ plugins=(
   git
   git-auto-fetch
   brew
-  osx
+  macos
   docker
   docker-compose
   python
