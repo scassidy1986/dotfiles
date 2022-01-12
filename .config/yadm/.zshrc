@@ -70,7 +70,9 @@ plugins=(
   rbenv
   pip
   ruby
+  jenv
   ssh-agent
+  nvm
 )
 
 _source ${ZSH}/oh-my-zsh.sh
@@ -110,6 +112,7 @@ export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 export PATH="/usr/local/opt/bzip2/bin:${PATH}"
 export PATH="/usr/local/opt/libiconv/bin:${PATH}"
+export PATH="/usr/local/sbin:${PATH}"
 if which ruby >/dev/null && which gem >/dev/null; then
   export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:${PATH}"
 fi
