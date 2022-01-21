@@ -116,8 +116,6 @@ export PATH="/usr/local/opt/bzip2/bin:${PATH}"
 export PATH="/usr/local/opt/libiconv/bin:${PATH}"
 export PATH="/usr/local/sbin:${PATH}"
 
-clean_path
-
 _source_folder ~/.work-helpers
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -131,4 +129,7 @@ _source_folder ~/.completion
 
 # GPG
 export GPG_TTY=$(tty)
+
+# Tidy up
+clean_path
 
