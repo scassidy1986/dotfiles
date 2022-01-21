@@ -18,6 +18,7 @@ alias netstat-listen="netstat -atunlp"
 # maven
 alias mci="mvn clean install -U"
 alias mcp="mvn clean package -U"
+alias mvf="mvn com.coveo:fmt-maven-plugin:format"
 
 # auto-correct...
 alias brew="nocorrect brew"

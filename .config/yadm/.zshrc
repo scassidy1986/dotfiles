@@ -40,7 +40,7 @@ ENABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/stephencassidy/.zshrc'
+zstyle :compinstall filename "${HOME}/.zshrc"
 
 autoload -Uz compinit
 compinit
@@ -59,20 +59,28 @@ fpath=(
 )
 
 plugins=(
-  git
-  git-auto-fetch
+  aws
   brew
-  macos
+  colorize
+  direnv
   docker
   docker-compose
+  git
+  git-auto-fetch
+  gnu-utils
+  history
+  jenv
+  kubectl
+  macos
+  mvn
+  nvm
+  pip
   python
   pyenv
   rbenv
-  pip
   ruby
-  jenv
+  spring
   ssh-agent
-  nvm
 )
 
 _source ${ZSH}/oh-my-zsh.sh
@@ -80,8 +88,6 @@ _source ${ZSH}/oh-my-zsh.sh
 # Source common utils etc
 _source ~/.shell-aliases.sh
 _source_folder ~/.shell-functions
-_source_folder ~/.work-helpers
-
 
 # Load custom zsh hooks
 autoload -Uz add-zsh-hook
@@ -101,23 +107,18 @@ fi
 export EDITOR="vim"
 export JETBRAINS_BIN="${HOME}/.jetbrains"
 # Golang
-export GOHOME="${HOME}/go"
-export GOPATH="${GOHOME}"
-export GOENV_ROOT="${HOME}/.goenv"
-export PATH="/usr/local/opt/gnu-getopt/bin:/usr/local/opt/mysql@5.7/bin:${GOENV_ROOT}/bin:${GOPATH}:${GOPATH}/bin:${JETBRAINS_BIN}:${PATH}"
+export PATH="${JETBRAINS_BIN}:${PATH}"
 export PATH="/usr/local/opt/grep/libexec/gnubin:${PATH}"
-export APTH="$(brew --prefix openssl)/bin:${PATH}"
-export PATH="/usr/local/opt/go@1.15/bin:${PATH}"
+export PATH="$(brew --prefix openssl)/bin:${PATH}"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 export PATH="/usr/local/opt/bzip2/bin:${PATH}"
 export PATH="/usr/local/opt/libiconv/bin:${PATH}"
 export PATH="/usr/local/sbin:${PATH}"
-if which ruby >/dev/null && which gem >/dev/null; then
-  export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:${PATH}"
-fi
 
 clean_path
+
+_source_folder ~/.work-helpers
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
@@ -125,23 +126,9 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 
 _source_folder ~/.completion
 
-if command -v runcached >/dev/null 2>&1; then
-  export RUNCACHED_MAX_AGE=10
-  export RUNCACHED_CACHE_DIR="${HOME}/.cache/.runcached/"
-  export RUNCACHED_PRUNE=1
-fi
-
-#if command -v chef >/dev/null 2>&1; then
-#  eval "$(chef shell-init zsh)"
-#fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-eval "$(direnv hook zsh)"
 
 # GPG
 export GPG_TTY=$(tty)
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
