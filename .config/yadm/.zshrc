@@ -58,6 +58,11 @@ fpath=(
   ${fpath}
 )
 
+# Plugins
+## ssh-agent
+zstyle :omz:plugins:ssh-agent quiet no
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+
 plugins=(
   aws
   brew

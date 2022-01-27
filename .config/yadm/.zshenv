@@ -10,6 +10,8 @@ if [ "$(uname -m)" = "arm64" ]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
   export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
   export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+  # NVM
+  export NVM_HOMEBREW="$(brew --prefix)/opt/nvm"
 fi
 
 # +----------------------------------------+
