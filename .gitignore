@@ -1,2 +1,5 @@
 ~/.work-helpers/*
 ~/.aws_accounts
+
+# env managers
+.sdkmanrc

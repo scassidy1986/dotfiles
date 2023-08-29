@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ZSH_DISABLE_COMPFIX="true"
 
 # Path to your oh-my-zsh installation.
@@ -30,6 +37,8 @@ function _source_folder () {
 function echoerr () {
   printf "%s\n" "$*" >&2;
 }
+
+_source_folder ~/.work-helpers
 
 # User configuration
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -80,12 +89,14 @@ plugins=(
   mvn
   nvm
   pip
+  pre-commit
   python
   pyenv
   rbenv
   ruby
   spring
   ssh-agent
+  zsh-syntax-highlighting
 )
 
 _source ${ZSH}/oh-my-zsh.sh
@@ -120,8 +131,8 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 export PATH="/usr/local/opt/bzip2/bin:${PATH}"
 export PATH="/usr/local/opt/libiconv/bin:${PATH}"
 export PATH="/usr/local/sbin:${PATH}"
+export PATH="${HOME}/bin:${PATH}"
 
-_source_folder ~/.work-helpers
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
@@ -134,6 +145,8 @@ _source_folder ~/.completion
 
 # GPG
 export GPG_TTY=$(tty)
+
+source /Users/Stephen.Cassidy/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 # Tidy up
 clean_path
